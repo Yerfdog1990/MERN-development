@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas Drawing Shapes and Graphics - Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        canvas {
+            margin-bottom: 20px;
+        }
+        h2 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML Canvas Drawing Shapes and Graphics - Examples</h1>
+
+    <section>
+        <h2>Example 1 — Empty Canvas</h2>
+        <p>Displays a blank rectangular canvas with a black border.</p>
+        <canvas id="myCanvas"
+                width="400"
+                height="200"
+                style="border:2px solid #000000;">
+        </canvas>
+    </section>
+
+    <section>
+        <h2>Example 2 — Drawing a Circle</h2>
+        <canvas id="GFG_Circle" width="400" height="200" style="border:2px solid #d3d3d3;"></canvas>
+        <script>
+            let g_circle = document.getElementById("GFG_Circle");
+            let geeks_circle = g_circle.getContext("2d");
+
+            geeks_circle.beginPath();
+            geeks_circle.arc(200, 100, 50, 0, 2 * Math.PI);
+            geeks_circle.stroke();
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 3 — Writing Text</h2>
+        <canvas id="GFG_Text" width="600" height="200" style="border:1px solid #d3d3d3;"></canvas>
+        <script>
+            let g_text = document.getElementById("GFG_Text");
+            let geeks_text = g_text.getContext("2d");
+
+            geeks_text.font = "30px Arial";
+            geeks_text.fillText("GeeksForGeeks", 170, 50);
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 4 — Linear Gradient</h2>
+        <canvas id="GFG_Gradient" width="400" height="200" style="border:2px solid #d3d3d3;"></canvas>
+        <script>
+            let G_gradient = document.getElementById("GFG_Gradient");
+            let geeks_gradient = G_gradient.getContext("2d");
+
+            let grd = geeks_gradient.createLinearGradient(0, 0, 200, 0);
+            grd.addColorStop(0, "yellow");
+            grd.addColorStop(1, "grey");
+
+            geeks_gradient.fillStyle = grd;
+            geeks_gradient.fillRect(50, 50, 300, 80);
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 5 — Drawing an Image</h2>
+        <!-- Using a relative path to an existing image in the project -->
+        <img id="image" src="../assets/rosego.jpeg" alt="Logo" width="250" height="200" style="display:none;">
+        <p>Click the button to draw the image onto the canvas below.</p>
+        <canvas id="gfg_image" width="300" height="300" style="border:1px solid #d3d3d3;"></canvas>
+        <br>
+        <button onclick="gfg_image_draw()">Click to Try</button>
+
+        <script>
+            function gfg_image_draw() {
+                let g = document.getElementById("gfg_image");
+                let geeks = g.getContext("2d");
+                let img = document.getElementById("image");
+                geeks.drawImage(img, 0, 0);
+            }
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 6 — Shadow Blur</h2>
+        <canvas id="GFG_Shadow" width="500" height="250"></canvas>
+        <script>
+            let g_shadow = document.getElementById("GFG_Shadow");
+            let geeks_shadow = g_shadow.getContext("2d");
+
+            geeks_shadow.shadowBlur = 20;
+            geeks_shadow.shadowColor = "yellow";
+            geeks_shadow.fillStyle = "red";
+            geeks_shadow.fillRect(30, 20, 100, 80);
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 7 — Rotate with <code>rotate()</code></h2>
+        <canvas id="GFG_Rotate" width="300" height="150"></canvas>
+        <script>
+            let g_rotate = document.getElementById("GFG_Rotate");
+            let geeks_rotate = g_rotate.getContext("2d");
+
+            geeks_rotate.rotate(20 * Math.PI / 180);
+            geeks_rotate.fillRect(100, 20, 100, 50);
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 8 — Translate with <code>translate()</code></h2>
+        <canvas id="GFG_Translate" width="300" height="150"></canvas>
+        <script>
+            let g_translate = document.getElementById("GFG_Translate");
+            let geeks_translate = g_translate.getContext("2d");
+
+            geeks_translate.fillRect(10, 10, 100, 50);     // original position
+            geeks_translate.translate(80, 90);              // move origin
+            geeks_translate.fillRect(10, 10, 100, 50);     // new position
+        </script>
+    </section>
+
+    <section>
+        <h2>Example 9 — Transform with <code>transform()</code></h2>
+        <canvas id="GFG_Transform" width="300" height="150"></canvas>
+        <script>
+            let g_transform = document.getElementById("GFG_Transform");
+            let geeks_transform = g_transform.getContext("2d");
+
+            geeks_transform.fillStyle = "yellow";
+            geeks_transform.fillRect(0, 0, 250, 100);
+
+            geeks_transform.transform(1, 0.5, -0.5, 1, 30, 10);
+            geeks_transform.fillStyle = "grey";
+            geeks_transform.fillRect(0, 0, 250, 100);
+
+            geeks_transform.transform(1, 0.5, -0.5, 1, 30, 10);
+            geeks_transform.fillStyle = "black";
+            geeks_transform.fillRect(0, 0, 250, 100);
+        </script>
+    </section>
+
+    <section>
+        <h2>Basic Animation Pattern</h2>
+        <canvas id="myCanvas_Animation" width="400" height="150" style="border:1px solid #000;"></canvas>
+        <script>
+            let canvas_anim = document.getElementById("myCanvas_Animation");
+            let ctx_anim = canvas_anim.getContext("2d");
+            let x_anim = 0;
+
+            setInterval(function() {
+                ctx_anim.clearRect(0, 0, canvas_anim.width, canvas_anim.height); // clear previous frame
+                ctx_anim.fillRect(x_anim, 50, 50, 50);                      // draw updated shape
+                x_anim += 2;                                            // update position
+                if (x_anim > canvas_anim.width) x_anim = -50;           // Reset to left
+            }, 16); // ~60 frames per second
+        </script>
+    </section>
+
+</body>
+</html>

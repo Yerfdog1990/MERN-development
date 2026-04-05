@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML APIs Demonstration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            color: #444;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"], input[type="file"] {
+            padding: 10px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #myCanvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 10px 0;
+        }
+        .result-box {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 20px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>HTML5 APIs Demonstration</h1>
+
+    <!-- 1. Geolocation API -->
+    <section>
+        <h2>1. Geolocation API</h2>
+        <p>Retrieves your current geographic coordinates.</p>
+        <button onclick="getLocation()">Get My Location</button>
+        <div id="location" class="result-box">Location details will appear here...</div>
+    </section>
+
+    <!-- 2. Local Storage API -->
+    <section>
+        <h2>2. Local Storage API</h2>
+        <p>Stores data persistently in the browser.</p>
+        <label for="username"></label>
+        <input type="text" id="username" placeholder="Enter your username">
+        <button onclick="saveData()">Save Username</button>
+        <button onclick="loadData()">Load Username</button>
+        <div id="storage-result" class="result-box">Storage result will appear here...</div>
+    </section>
+
+    <!-- 3. Canvas API -->
+    <section>
+        <h2>3. Canvas API</h2>
+        <p>Draws 2D graphics directly in the browser.</p>
+        <canvas id="myCanvas" width="200" height="200"></canvas>
+        <button onclick="drawOnCanvas()">Draw Rectangle</button>
+    </section>
+
+    <!-- 4. Web Audio API -->
+    <section>
+        <h2>4. Web Audio API</h2>
+        <p>Generates and controls sound effects.</p>
+        <button onclick="playSound()">Play 1s Sine Wave Tone</button>
+    </section>
+
+    <!-- 5. File API -->
+    <section>
+        <h2>5. File API</h2>
+        <p>Reads and manipulates local files (Select a .txt file for text or an image to see it).</p>
+        <input type="file" id="fileInput">
+        <button onclick="readFile()">Read File Content</button>
+        <div id="file-info" class="result-box" style="margin-bottom: 10px; display: none;"></div>
+        <div id="fileContent" class="result-box">File content will appear here...</div>
+        <div id="imagePreview" style="margin-top: 10px; text-align: center;"></div>
+    </section>
+
+    <!-- 6. IndexedDB API -->
+    <section>
+        <h2>6. IndexedDB API</h2>
+        <p>Stores large amounts of structured data in the browser.</p>
+        <button onclick="createDatabase()">Create/Open Database</button>
+        <button onclick="addData()">Add Data (ID: 1, Name: John Doe)</button>
+        <button onclick="getData()">Get Data (ID: 1)</button>
+        <div id="db-result" class="result-box">Database result will appear here...</div>
+    </section>
+</div>
+
+<script>
+    // --- Geolocation API ---
+    function getLocation() {
+        const locBox = document.getElementById("location");
+        if (navigator.geolocation) {
+            locBox.innerHTML = "Fetching location...";
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            locBox.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        document.getElementById("location").innerHTML =
+            `Latitude: ${latitude}<br>Longitude: ${longitude}`;
+    }
+
+    function showError(error) {
+        let msg = "";
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                msg = "User denied the request for Geolocation.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                msg = "Location information is unavailable.";
+                break;
+            case error.TIMEOUT:
+                msg = "The request to get user location timed out.";
+                break;
+            case error.UNKNOWN_ERROR:
+                msg = "An unknown error occurred.";
+                break;
+        }
+        document.getElementById("location").innerHTML = msg;
+    }
+
+    // --- Local Storage API ---
+    function saveData() {
+        const username = document.getElementById("username").value;
+        if (username) {
+            localStorage.setItem("username", username);
+            alert("Username saved to Local Storage!");
+        } else {
+            alert("Please enter a username.");
+        }
+    }
+
+    function loadData() {
+        const username = localStorage.getItem("username");
+        const resBox = document.getElementById("storage-result");
+        if (username) {
+            resBox.innerHTML = `Saved Username: ${username}`;
+        } else {
+            resBox.innerHTML = "No username saved in Local Storage.";
+        }
+    }
+
+    // --- Canvas API ---
+    function drawOnCanvas() {
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear before drawing
+        ctx.fillStyle = "blue";
+        ctx.fillRect(50, 50, 100, 100);
+    }
+
+    // --- Web Audio API ---
+    function playSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+            oscillator.connect(audioContext.destination);
+
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1);
+        } catch (e) {
+            alert("Web Audio API is not supported or needs a user gesture to start in this browser context.");
+        }
+    }
+
+    // --- File API ---
+    function readFile() {
+        const fileInput = document.getElementById("fileInput");
+        const fileContent = document.getElementById("fileContent");
+        const fileInfo = document.getElementById("file-info");
+        const imagePreview = document.getElementById("imagePreview");
+        const file = fileInput.files[0];
+
+        // Reset display
+        fileContent.innerText = "";
+        fileInfo.style.display = "none";
+        imagePreview.innerHTML = "";
+
+        if (file) {
+            // Show file metadata
+            fileInfo.style.display = "block";
+            fileInfo.innerHTML = `<strong>File:</strong> ${file.name}<br><strong>Type:</strong> ${file.type || 'unknown'}<br><strong>Size:</strong> ${(file.size / 1024).toFixed(2)} KB`;
+
+            const reader = new FileReader();
+
+            // Handle images as DataURL to preview them
+            if (file.type.startsWith("image/")) {
+                reader.onload = function(event) {
+                    const img = document.createElement("img");
+                    img.src = event.target.result;
+                    img.style.maxWidth = "100%";
+                    img.style.maxHeight = "300px";
+                    img.style.borderRadius = "4px";
+                    imagePreview.appendChild(img);
+                    fileContent.innerText = "[Image Preview Loaded]";
+                };
+                reader.readAsDataURL(file);
+            }
+            // Handle PDF and other binary files with a warning
+            else if (file.type === "application/pdf") {
+                fileContent.innerText = "Selected a PDF. PDF is a binary format and doesn't read as plain text nicely. See what it looks like below:";
+                reader.onload = function(event) {
+                    fileContent.innerText += "\n\n" + event.target.result.substring(0, 1000) + "...";
+                };
+                reader.readAsText(file);
+            }
+            // Default to reading as text (for .txt, .html, .js, etc.)
+            else {
+                reader.onload = function (event) {
+                    fileContent.innerText = event.target.result;
+                };
+                reader.onerror = function() {
+                    fileContent.innerText = "Error reading file.";
+                };
+                reader.readAsText(file);
+            }
+        } else {
+            alert("Please select a file.");
+        }
+    }
+
+    // --- IndexedDB API ---
+    let db;
+    const dbRes = document.getElementById("db-result");
+
+    function createDatabase() {
+        const request = indexedDB.open("MyDemoDatabase", 1);
+        request.onupgradeneeded = function (event) {
+            db = event.target.result;
+            if (!db.objectStoreNames.contains("users")) {
+                const objectStore = db.createObjectStore("users", { keyPath: "id" });
+                objectStore.createIndex("name", "name", { unique: false });
+                dbRes.innerText = "Database and 'users' store created.";
+            }
+        };
+        request.onsuccess = function (event) {
+            db = event.target.result;
+            dbRes.innerText = "Database opened successfully!";
+        };
+        request.onerror = function () {
+            dbRes.innerText = "Error opening database.";
+        };
+    }
+
+    function addData() {
+        if (!db) {
+            alert("Please create/open the database first.");
+            return;
+        }
+        const transaction = db.transaction(["users"], "readwrite");
+        const objectStore = transaction.objectStore("users");
+        const user = { id: 1, name: "John Doe" };
+        const request = objectStore.put(user); // Use put instead of add to allow overwriting/updating
+        request.onsuccess = function () {
+            dbRes.innerText = "Data added/updated successfully!";
+        };
+        request.onerror = function() {
+            dbRes.innerText = "Error adding data.";
+        };
+    }
+
+    function getData() {
+        if (!db) {
+            alert("Please create/open the database first.");
+            return;
+        }
+        const transaction = db.transaction(["users"]);
+        const objectStore = transaction.objectStore("users");
+        const request = objectStore.get(1);
+        request.onsuccess = function (event) {
+            const user = event.target.result;
+            if (user) {
+                dbRes.innerText = `Retrieved from DB - ID: ${user.id}, Name: ${user.name}`;
+            } else {
+                dbRes.innerText = "No data found for ID: 1.";
+            }
+        };
+        request.onerror = function() {
+            dbRes.innerText = "Error retrieving data.";
+        };
+    }
+</script>
+
+</body>
+</html>

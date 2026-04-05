@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Tag Demo</title>
+
+    <!-- Base URL for all relative links -->
+    <base href="https://example.com/">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        a {
+            display: block;
+            margin: 12px 0;
+            color: darkblue;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Using the &lt;base&gt; Tag</h1>
+    <p>These are relative links, but they will open from the base URL:</p>
+
+    <a href="about.html">About Page</a>
+    <a href="contact.html">Contact Page</a>
+    <a href="products/shoes.html">Shoes Page</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>template-tag</title>
+</head>
+<body>
+<template id="my_template">
+  <div>
+    <h2>This is a product</h2>
+    <p>It can contain any information</p>
+  </div>
+</template>
+
+<script>
+  const template = document.getElementById('my_template');
+  const product1 = document.importNode(template.content, true);
+  product1.querySelector('h2').textContent = 'Product 1';
+  const product2 = document.importNode(template.content, true);
+  product2.querySelector('h2').textContent = 'Product 2';
+  document.body.appendChild(product1);
+  document.body.appendChild(product2);
+</script>
+</body>
+</html>
