@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    /* Base link */
+    a {
+        color: royalblue;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+    /* Visited */
+    a:visited {
+        color: purple;
+    }
+
+    /* Hover */
+    a:hover {
+        color: crimson;
+        text-decoration: underline;
+    }
+
+    /* Active (being clicked) */
+    a:active {
+        color: seagreen;
+    }
+
+    /* Button-style link */
+    a.button {
+        background-color: royalblue;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    /* Animated underline */
+    a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: crimson;
+        transition: width 0.3s;
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+    }
+    a:hover::after { width: 100%; }
+</style>
+<body>
+<h3><u>Base link</u></h3>
+<a class="a1" href="#">This is a styled link</a>
+<br><br>
+<h3><u>Visited</u></h3>
+<a class="a2" href="#">This is a styled link</a>
+<br><br>
+<h3><u>Hover</u></h3>
+<a class="a3" href="#">This is a styled link</a>
+<br><br>
+<h3><u>Active (being clicked)</u></h3>
+<a class="a4" href="#">This is a styled link</a>
+<br><br>
+<h3><u>Button-style link</u></h3>
+<a class="button" href="#">This is a button-style link</a>
+<br><br>
+<h3><u>Animated underline</u></h3>
+<a class="a5" href="#">This is a link with animated underline</a>
+</body>
+</html>
