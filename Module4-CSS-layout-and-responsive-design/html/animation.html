@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            animation: changeColor 3s infinite;
+        }
+
+        @keyframes changeColor {
+            from {
+                background-color: blue;
+            }
+
+            to {
+                background-color: green;
+            }
+        }
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation-name: moveRight;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes moveRight {
+            from { transform: translateX(0); }
+            to { transform: translateX(200px); }
+        }
+    </style>
+</head>
+<body>
+<div class="box1">Box 1</div>
+<hr>
+<br><br>
+<div class="box2">Box 2</div>
+</body>
+</html>
