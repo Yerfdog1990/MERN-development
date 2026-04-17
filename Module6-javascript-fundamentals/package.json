@@ -1,0 +1,17 @@
+{
+  "name": "module6-javascript-fundamentals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "challenges/challenge1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yerfdog1990/web-programming.git"
+  },
+  "private": true,
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
