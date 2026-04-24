@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Z-index: Stacking & Layers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #a78bfa; /* Violet for Z-index theme */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000; /* Higher than Bootstrap's scale */
+            border: 1px solid #4c1d95;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 3rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        /* Visual Stacking Display */
+        .stack-container {
+            position: relative;
+            height: 300px;
+            perspective: 1000px;
+            margin-top: 50px;
+        }
+
+        .stack-layer {
+            position: absolute;
+            width: 80%;
+            height: 60px;
+            left: 10%;
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        /* Simulating the 3D stack */
+        .layer-dropdown { background: #6366f1; z-index: 1000; transform: translateZ(-100px) translateY(0px); }
+        .layer-sticky   { background: #8b5cf6; z-index: 1020; transform: translateZ(-80px) translateY(30px); }
+        .layer-fixed    { background: #ec4899; z-index: 1030; transform: translateZ(-60px) translateY(60px); }
+        .layer-modal    { background: #f43f5e; z-index: 1055; transform: translateZ(-40px) translateY(90px); }
+        .layer-tooltip  { background: #10b981; z-index: 1080; transform: translateZ(-20px) translateY(120px); }
+
+        .stack-layer:hover { transform: scale(1.05) translateZ(0px); z-index: 1100; }
+
+        /* Variable colors */
+        .code-var { color: #f07178; }
+        .code-val { color: #ffcb6b; }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold">Bootstrap Z-index Scale</h1>
+        <p class="text-muted">Understanding the stacking order and component layering.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-3">1. Visual Stacking Order (3D Concept)</h3>
+        <div class="preview-panel">
+            <div class="stack-container">
+                <div class="stack-layer layer-dropdown">Dropdown (1000)</div>
+                <div class="stack-layer layer-sticky">Sticky (1020)</div>
+                <div class="stack-layer layer-fixed">Fixed (1030)</div>
+                <div class="stack-layer layer-modal">Modal (1055)</div>
+                <div class="stack-layer layer-tooltip">Tooltip (1080)</div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-var">$zindex-dropdown</span>: <span class="code-val">1000</span>;<br>
+            <span class="code-var">$zindex-sticky</span>:   <span class="code-val">1020</span>;<br>
+            <span class="code-var">$zindex-fixed</span>:    <span class="code-val">1030</span>;<br>
+            <span class="code-var">$zindex-modal</span>:    <span class="code-val">1055</span>;<br>
+            <span class="code-var">$zindex-tooltip</span>:  <span class="code-val">1080</span>;
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">2. Low-Value Z-index (Component Borders)</h3>
+        <p class="small text-muted">Focus on the input to see its border rise above the button (Z-index: 3).</p>
+        <div class="preview-panel">
+            <div class="input-group mb-3" style="max-width: 400px; margin: 0 auto;">
+                <button class="btn btn-outline-primary" type="button">Button (Z: 2)</button>
+                <input type="text" class="form-control" placeholder="Focus me (Z: 3 on focus)">
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">// Internal Bootstrap logic</span><br>
+            <span class="code-var">.form-control:focus</span> {<br>
+            &nbsp;&nbsp;<span class="code-var">z-index</span>: <span class="code-val">3</span>; <span class="code-comment">// Renders border on top</span><br>
+            }
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">Stacking Reference</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered bg-white shadow-sm">
+                <thead class="table-dark">
+                <tr>
+                    <th>Component</th>
+                    <th>Value</th>
+                    <th>Purpose</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td>Dropdown</td><td>1000</td><td>Contextual overlays</td></tr>
+                <tr><td>Fixed</td><td>1030</td><td>Navbars locked to top/bottom</td></tr>
+                <tr><td>Modal</td><td>1055</td><td>Dialogs (above Backdrop 1050)</td></tr>
+                <tr><td>Toast</td><td>1090</td><td>Highest priority notifications</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

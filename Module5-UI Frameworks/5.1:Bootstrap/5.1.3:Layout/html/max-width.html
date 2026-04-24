@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Max-Width: Code & Preview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fbbf24;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+            border: 1px solid #444;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-comment { color: #676e95; font-style: italic; }
+        .code-selector { color: #c792ea; }
+        .code-prop { color: #addb67; }
+
+        /* Max-Width Demo Classes */
+        .max-card {
+            background: #6366f1;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            font-weight: bold;
+        }
+
+        /* Desktop-First: Styles change as screen gets SMALLER */
+        @media (max-width: 991.98px) {
+            .max-card {
+                background: #f43f5e;
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .max-card {
+                background: #10b981;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold">Max-Width (Desktop-First) Demo</h1>
+        <p class="text-muted">In this approach, base styles are for Desktop, and Media Queries "downgrade" for Mobile.</p>
+    </header>
+
+    <section class="demo-section">
+        <h4 class="mb-3">1. Visual Style Downgrade</h4>
+        <div class="preview-panel">
+            <div class="max-card">
+                Watch my color and size change!
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">/* Base styles (Default = Desktop) */</span><br>
+            <span class="code-selector">.max-card</span> { <span class="code-prop">background</span>: #6366f1; }<br><br>
+
+            <span class="code-comment">/* Medium screens and below */</span><br>
+            <span class="code-selector">@media</span> (<span class="code-prop">max-width</span>: 991.98px) {<br>
+            &nbsp;&nbsp;<span class="code-selector">.max-card</span> { <span class="code-prop">background</span>: #f43f5e; }<br>
+            }<br><br>
+
+            <span class="code-comment">/* Mobile only */</span><br>
+            <span class="code-selector">@media</span> (<span class="code-prop">max-width</span>: 575.98px) {<br>
+            &nbsp;&nbsp;<span class="code-selector">.max-card</span> { <span class="code-prop">background</span>: #10b981; }<br>
+            }
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h4 class="mb-3">Min-Width vs Max-Width Logic</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered bg-white">
+                <thead class="table-light">
+                <tr>
+                    <th>Type</th>
+                    <th>Direction</th>
+                    <th>Philosophy</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Min-Width</strong></td>
+                    <td>Small &rarr; Large</td>
+                    <td>Progressive Enhancement (Mobile-First)</td>
+                </tr>
+                <tr>
+                    <td><strong>Max-Width</strong></td>
+                    <td>Large &rarr; Small</td>
+                    <td>Graceful Degradation (Desktop-First)</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

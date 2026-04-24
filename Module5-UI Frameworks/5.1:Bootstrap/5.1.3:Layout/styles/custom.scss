@@ -1,0 +1,8 @@
+// Disable the default flexbox grid
+$enable-grid-classes: false;
+
+// Enable the CSS Grid system
+$enable-cssgrid: true;
+
+// Then import Bootstrap
+@import "../../../../node_modules/bootstrap/scss/bootstrap";

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Columns: Alignment, Ordering & Offsets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #38bdf8;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+            border: 1px solid #334155;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+            min-height: 150px;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+
+        /* Column Visuals */
+        .col-visual {
+            background: #6366f1;
+            color: white;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            font-weight: 500;
+        }
+        .col-alt { background: #ec4899; }
+
+        /* Height for vertical alignment demo */
+        .row-tall { min-height: 150px; background: #f1f5f9; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold">Bootstrap Columns Deep Dive</h1>
+        <p class="text-muted">Demonstrating Alignment, Reordering, and Offsets.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-3">1. Vertical Alignment (align-items-center)</h3>
+        <div class="preview-panel">
+            <div class="row align-items-center row-tall">
+                <div class="col"><div class="col-visual">Centered</div></div>
+                <div class="col"><div class="col-visual col-alt">Centered</div></div>
+                <div class="col"><div class="col-visual">Centered</div></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"row align-items-center"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col"</span><span class="code-tag">&gt;</span>One of three<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">2. Individual Column Alignment (align-self)</h3>
+        <div class="preview-panel">
+            <div class="row row-tall">
+                <div class="col align-self-start"><div class="col-visual">Start</div></div>
+                <div class="col align-self-center"><div class="col-visual col-alt">Center</div></div>
+                <div class="col align-self-end"><div class="col-visual">End</div></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col align-self-start"</span><span class="code-tag">&gt;</span>Start<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col align-self-center"</span><span class="code-tag">&gt;</span>Center<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">3. Horizontal Alignment (justify-content-between)</h3>
+        <div class="preview-panel">
+            <div class="row justify-content-between">
+                <div class="col-4"><div class="col-visual">Left Side</div></div>
+                <div class="col-4"><div class="col-visual col-alt">Right Side</div></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"row justify-content-between"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;...<br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">4. Visual Reordering (.order-*)</h3>
+        <div class="preview-panel">
+            <div class="row">
+                <div class="col order-last"><div class="col-visual">1. I'm Last</div></div>
+                <div class="col"><div class="col-visual col-alt">2. Unordered</div></div>
+                <div class="col order-first"><div class="col-visual">3. I'm First</div></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col order-last"</span><span class="code-tag">&gt;</span>Ordered Last<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col order-first"</span><span class="code-tag">&gt;</span>Ordered First<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">5. Offsetting Columns</h3>
+        <div class="preview-panel">
+            <div class="row">
+                <div class="col-md-4"><div class="col-visual">col-md-4</div></div>
+                <div class="col-md-4 offset-md-4"><div class="col-visual col-alt">offset-md-4</div></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col-md-4 offset-md-4"</span><span class="code-tag">&gt;</span>Offset by 4<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>
