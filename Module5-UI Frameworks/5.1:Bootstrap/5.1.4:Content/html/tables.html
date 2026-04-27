@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Layout: Tables Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #3b82f6; /* Blue for Tables theme */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #2563eb;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+            overflow-x: auto; /* Prevent table overflow in preview */
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .table-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold">Bootstrap Tables</h1>
+        <p class="text-muted">Styling tabular data with variants, accents, and responsive wrappers.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-1">1. Basic Table & Accents</h3>
+        <p class="small text-muted mb-3">Bootstrap tables are opt-in via <code>.table</code>. Hover and striping use a layered box-shadow approach.</p>
+        <div class="preview-panel">
+            <span class="table-badge">Striped + Hover</span>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Database Migrations</td>
+                    <td><span class="text-success">Active</span></td>
+                </tr>
+                <tr class="table-active">
+                    <th scope="row">2</th>
+                    <td>UI Refactor (Active Row)</td>
+                    <td><span class="text-warning">Pending</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>API Integration</td>
+                    <td><span class="text-danger">Failed</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;table</span> <span class="code-attr">class=</span><span class="code-val">"table table-striped table-hover"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;tr</span> <span class="code-attr">class=</span><span class="code-val">"table-active"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/tr&gt;</span><br>
+            <span class="code-tag">&lt;/table&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">2. Color Variants & Custom Borders</h3>
+        <div class="preview-panel">
+            <span class="table-badge">Dark + Bordered + Info Borders</span>
+            <table class="table table-dark table-bordered border-info">
+                <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Responsive Design</td>
+                    <td class="table-info text-dark">Enabled</td>
+                </tr>
+                <tr>
+                    <td>Sass Variables</td>
+                    <td>Included</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;table</span> <span class="code-attr">class=</span><span class="code-val">"table table-dark table-bordered border-info"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;td</span> <span class="code-attr">class=</span><span class="code-val">"table-info text-dark"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/td&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">3. Alignment & Dividers</h3>
+        <p class="small text-muted mb-3">Using <code>.align-middle</code> and <code>.table-group-divider</code>.</p>
+        <div class="preview-panel">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>Term</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr>
+                    <td><strong>Vertical Center</strong></td>
+                    <td>This cell content is tall. <br> Bootstrap centers the <br> opposite cell vertically.</td>
+                </tr>
+                <tr>
+                    <td class="align-top text-primary">Top Aligned</td>
+                    <td>Override at cell level.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;table</span> <span class="code-attr">class=</span><span class="code-val">"table align-middle"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;tbody</span> <span class="code-attr">class=</span><span class="code-val">"table-group-divider"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/tbody&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">4. Responsive Tables</h3>
+        <p class="small text-muted mb-3">Wrap tables in <code>.table-responsive</code> to enable horizontal scrolling on small screens.</p>
+        <div class="preview-panel">
+            <div class="table-responsive">
+                <table class="table table-sm table-nowrap" style="min-width: 800px;">
+                    <caption class="caption-top">Forced scrollable wide table</caption>
+                    <thead>
+                    <tr class="table-light">
+                        <th>Column A</th>
+                        <th>Column B</th>
+                        <th>Column C</th>
+                        <th>Column D</th>
+                        <th>Column E</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Long content 1</td>
+                        <td>Long content 2</td>
+                        <td>Long content 3</td>
+                        <td>Long content 4</td>
+                        <td>Long content 5</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"table-responsive"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;table</span> <span class="code-attr">class=</span><span class="code-val">"table caption-top"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/table&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

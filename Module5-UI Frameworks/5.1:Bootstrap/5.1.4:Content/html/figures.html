@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Layout: Figures Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #f59e0b; /* Amber for Figures theme */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #d97706;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .fig-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold">Bootstrap Figures</h1>
+        <p class="text-muted">Combining images and captions into a single semantic component.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-1">1. Basic Figure Anatomy</h3>
+        <p class="small text-muted mb-3">Uses <code>.figure</code>, <code>.figure-img</code>, and <code>.figure-caption</code>.</p>
+        <div class="preview-panel">
+            <span class="fig-badge">Standard Layout</span><br>
+            <figure class="figure">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" class="figure-img img-fluid rounded" alt="Misty Forest">
+                <figcaption class="figure-caption">A misty morning forest landscape in the Pacific Northwest.</figcaption>
+            </figure>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;figure</span> <span class="code-attr">class=</span><span class="code-val">"figure"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;img</span> <span class="code-attr">class=</span><span class="code-val">"figure-img img-fluid rounded"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;figcaption</span> <span class="code-attr">class=</span><span class="code-val">"figure-caption"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/figcaption&gt;</span><br>
+            <span class="code-tag">&lt;/figure&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">2. Caption Alignment</h3>
+        <p class="small text-muted mb-3">Alignment is controlled via standard text utilities on the <code>figcaption</code>.</p>
+        <div class="preview-panel">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="fig-badge">Centered Caption</span>
+                    <figure class="figure">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80" class="figure-img img-fluid rounded" alt="Mountain Lake">
+                        <figcaption class="figure-caption text-center">Centered alignment utility.</figcaption>
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <span class="fig-badge">End (Right) Alignment</span>
+                    <figure class="figure">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=400&q=80" class="figure-img img-fluid rounded" alt="Sunlit Trees">
+                        <figcaption class="figure-caption text-end">Right-aligned photo credit.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;figcaption</span> <span class="code-attr">class=</span><span class="code-val">"figure-caption text-center"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/figcaption&gt;</span><br>
+            <span class="code-tag">&lt;figcaption</span> <span class="code-attr">class=</span><span class="code-val">"figure-caption text-end"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/figcaption&gt;</span>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">3. Figure with Picture Tag</h3>
+        <p class="small text-muted mb-3">Ensure <code>.figure-img</code> and <code>.img-fluid</code> are on the <code>img</code> tag inside.</p>
+        <div class="preview-panel">
+            <figure class="figure">
+                <picture>
+                    <source srcset="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80" type="image/webp">
+                    <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80" class="figure-img img-fluid rounded" alt="Forest Path">
+                </picture>
+                <figcaption class="figure-caption">Providing multiple formats using the picture element wrapper.</figcaption>
+            </figure>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;figure</span> <span class="code-attr">class=</span><span class="code-val">"figure"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;picture&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;img</span> <span class="code-attr">class=</span><span class="code-val">"figure-img img-fluid"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;/picture&gt;</span><br>
+            <span class="code-tag">&lt;/figure&gt;</span>
+        </div>
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>
