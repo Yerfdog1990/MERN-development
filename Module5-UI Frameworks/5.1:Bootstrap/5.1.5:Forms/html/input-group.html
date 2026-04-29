@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Input Groups: Addons, Buttons & Sizing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #f59e0b; /* Amber for Input Groups */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+            border: 1px solid #d97706;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .group-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #d97706;">Bootstrap Input Groups</h1>
+        <p class="text-muted">Extending form controls with prefixes, suffixes, and integrated actions.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Text Addons</h3>
+        <div class="preview-panel">
+            <span class="group-badge">Prefix, Suffix, and Both</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username">
+                <span class="input-group-text" id="basic-addon2">@example.com</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" class="form-control" aria-label="Amount">
+                <span class="input-group-text">.00</span>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"input-group"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"input-group-text"</span><span class="code-tag">&gt;</span>@<span class="code-tag">&lt;/span&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">class=</span><span class="code-val">"form-control"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">2. Sizing (.input-group-sm/lg)</h3>
+        <div class="preview-panel">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text">Small</span>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Default</span>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-text">Large</span>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"input-group input-group-lg"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">3. Checkboxes & Radios</h3>
+        <div class="preview-panel">
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="">
+                </div>
+                <input type="text" class="form-control" placeholder="Check to enable">
+            </div>
+            <div class="input-group">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="radio" value="">
+                </div>
+                <input type="text" class="form-control" placeholder="Select option">
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"input-group-text"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">class=</span><span class="code-val">"form-check-input mt-0"</span> <span class="code-attr">type=</span><span class="code-val">"checkbox"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">4. Multiple Inputs & Addons</h3>
+        <div class="preview-panel">
+            <span class="group-badge">Two Inputs</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text">First & Last Name</span>
+                <input type="text" class="form-control">
+                <input type="text" class="form-control">
+            </div>
+            <span class="group-badge">Multiple Text Spans</span>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <span class="input-group-text">0.00</span>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Multiple spans side-by-side --&gt;</span>
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"input-group-text"</span><span class="code-tag">&gt;</span>$<span class="code-tag">&lt;/span&gt;</span>
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"input-group-text"</span><span class="code-tag">&gt;</span>0.00<span class="code-tag">&lt;/span&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">5. Button Addons & Dropdowns</h3>
+        <div class="preview-panel">
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+                <input type="text" class="form-control" placeholder="Search query...">
+            </div>
+            <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Options</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                </ul>
+                <input type="text" class="form-control">
+            </div>
+            <span class="group-badge">Segmented Button</span>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <button type="button" class="btn btn-outline-secondary">Action</button>
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                    <span class="visually-hidden">Toggle</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;button</span> <span class="code-attr">class=</span><span class="code-val">"btn dropdown-toggle"</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"dropdown"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span>
+            <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"dropdown-menu"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ul&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">6. Custom Selects & Files</h3>
+        <div class="preview-panel">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="select01">Options</label>
+                <select class="form-select" id="select01">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="file" class="form-control" id="file01">
+                <label class="input-group-text" for="file01">Upload</label>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;select</span> <span class="code-attr">class=</span><span class="code-val">"form-select"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/select&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-val">"file"</span> <span class="code-attr">class=</span><span class="code-val">"form-control"</span><span class="code-tag">&gt;</span></div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

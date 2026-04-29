@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap: Range Deep Dive</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <style>
+    body { background-color: #f8fafc; padding: 40px 0; }
+
+    /* Floating Breakpoint Indicator */
+    .breakpoint-indicator {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #3b82f6; /* Blue for Range theme */
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      z-index: 2000;
+      border: 1px solid #2563eb;
+    }
+
+    .demo-section { margin-bottom: 4rem; }
+
+    /* Preview Panel */
+    .preview-panel {
+      background: white;
+      padding: 2rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px 8px 0 0;
+    }
+
+    /* Code Panel */
+    .code-panel {
+      background: #1e1e2e;
+      color: #89ddff;
+      padding: 1.5rem;
+      border-radius: 0 0 8px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-tag { color: #f07178; }
+    .code-attr { color: #c3e88d; }
+    .code-val { color: #ffcb6b; }
+    .code-comment { color: #676e95; font-style: italic; }
+
+    .form-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    code { color: #d63384; }
+
+    .live-value {
+      font-weight: bold;
+      color: #2563eb;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+  Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+  <header class="text-center mb-5">
+    <h1 class="fw-bold text-primary">Bootstrap Range</h1>
+    <p class="text-muted">Consistent cross-browser range inputs for custom track and thumb styling.</p>
+  </header>
+
+  <section class="demo-section">
+    <h3 class="mb-1">1. Default & Disabled Range</h3>
+    <p class="small text-muted mb-3">Apply <code>.form-range</code> to an <code>&lt;input type="range"&gt;</code> for custom Bootstrap styling.</p>
+    <div class="preview-panel">
+      <div class="mb-4">
+        <span class="form-badge">Standard Range</span>
+        <label for="rangeStandard" class="form-label">Example range</label>
+        <input type="range" class="form-range" id="rangeStandard">
+      </div>
+      <div>
+        <span class="form-badge">Disabled State</span>
+        <label for="rangeDisabled" class="form-label">Disabled range</label>
+        <input type="range" class="form-range" id="rangeDisabled" disabled>
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-val">"range"</span> <span class="code-attr">class=</span><span class="code-val">"form-range"</span><span class="code-tag">&gt;</span>
+      <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-val">"range"</span> <span class="code-attr">class=</span><span class="code-val">"form-range"</span> <span class="code-attr">disabled</span><span class="code-tag">&gt;</span></div>
+  </section>
+
+  <section class="demo-section">
+    <h3 class="mb-1">2. Min, Max, and Steps</h3>
+    <p class="small text-muted mb-3">Control the selection interval and boundaries using standard HTML attributes.</p>
+    <div class="preview-panel">
+      <div class="mb-4">
+        <span class="form-badge">Custom Range (0 - 5)</span>
+        <input type="range" class="form-range" min="0" max="5" id="rangeMinMax">
+      </div>
+      <div>
+        <span class="form-badge">Step Increments (0.5)</span>
+        <input type="range" class="form-range" min="0" max="5" step="0.5" id="rangeStep">
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-tag">&lt;input</span> <span class="code-attr">min=</span><span class="code-val">"0"</span> <span class="code-attr">max=</span><span class="code-val">"5"</span> <span class="code-attr">step=</span><span class="code-val">"0.5"</span> <span class="code-attr">class=</span><span class="code-val">"form-range"</span><span class="code-tag">&gt;</span></div>
+  </section>
+
+  <section class="demo-section">
+    <h3 class="mb-1">3. Live Output Value</h3>
+    <p class="small text-muted mb-3">Using the <code>&lt;output&gt;</code> element and JavaScript's <code>input</code> event for real-time updates.</p>
+    <div class="preview-panel">
+      <span class="form-badge">Live Interaction</span>
+      <div class="d-flex align-items-center gap-3">
+        <input type="range" class="form-range" min="0" max="100" value="50" id="rangeLive">
+        <output for="rangeLive" id="rangeOutput" class="live-value" aria-hidden="true">50</output>
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-tag">&lt;output</span> <span class="code-attr">for=</span><span class="code-val">"rangeLive"</span> <span class="code-attr">id=</span><span class="code-val">"rangeOutput"</span><span class="code-tag">&gt;</span><span class="code-tag">&lt;/output&gt;</span>
+
+      <span class="code-tag">&lt;script&gt;</span>
+      <span class="code-comment">// Update on 'input' event for smooth dragging feedback</span>
+      input.addEventListener('input', () => output.textContent = input.value);
+      <span class="code-tag">&lt;/script&gt;</span></div>
+  </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Range Live Value Logic
+  const rangeInput = document.getElementById('rangeLive');
+  const rangeOutput = document.getElementById('rangeOutput');
+
+  rangeInput.addEventListener('input', function() {
+    rangeOutput.textContent = this.value;
+  });
+
+  // Breakpoint Indicator Logic
+  function updateBreakpoint() {
+    const width = window.innerWidth;
+    let bp = 'XS';
+    if (width >= 1400) bp = 'XXL';
+    else if (width >= 1200) bp = 'XL';
+    else if (width >= 992) bp = 'LG';
+    else if (width >= 768) bp = 'MD';
+    else if (width >= 576) bp = 'SM';
+    document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+  }
+  updateBreakpoint();
+  window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

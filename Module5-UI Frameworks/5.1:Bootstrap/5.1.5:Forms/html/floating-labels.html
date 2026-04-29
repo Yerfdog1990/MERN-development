@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Floating Labels Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #8b5cf6; /* Violet for Floating Labels */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 1000;
+            border: 1px solid #7c3aed;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .float-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #7c3aed;">Floating Labels</h1>
+        <p class="text-muted">Beautifully simple labels that animate over input fields.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Implementation</h3>
+        <div class="preview-panel">
+            <span class="float-badge">Input + Label Pair</span>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"form-floating"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">placeholder=</span><span class="code-val">"Required"</span> <span class="code-attr">id=</span><span class="code-val">"f1"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;label</span> <span class="code-attr">for=</span><span class="code-val">"f1"</span><span class="code-tag">&gt;</span>Label text<span class="code-tag">&lt;/label&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">2. Textareas (Custom Height)</h3>
+        <div class="preview-panel">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Comments</label>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use inline style for height, not rows attribute --&gt;</span>
+            <span class="code-tag">&lt;textarea</span> <span class="code-attr">style=</span><span class="code-val">"height: 100px"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/textarea&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">3. Select Menus & Disabled State</h3>
+        <div class="preview-panel">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                </select>
+                <label for="floatingSelect">Works with selects</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingDisabled" placeholder="Disabled" disabled>
+                <label for="floatingDisabled">Disabled input</label>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Labels for selects are always in the floated position --&gt;</span>
+            <span class="code-tag">&lt;select</span> <span class="code-attr">class=</span><span class="code-val">"form-select"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/select&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">4. Nesting in Input Groups</h3>
+        <div class="preview-panel">
+            <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingGroup1" placeholder="Username">
+                    <label for="floatingGroup1">Username</label>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"input-group"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"input-group-text"</span><span class="code-tag">&gt;</span>@<span class="code-tag">&lt;/span&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"form-floating"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-3">5. Floating Labels in Grid</h3>
+        <div class="preview-panel">
+            <div class="row g-2">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="gridEmail" placeholder="name@example.com" value="test@example.com">
+                        <label for="gridEmail">Email address</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" id="gridSelect">
+                            <option selected>Open menu</option>
+                            <option value="1">One</option>
+                        </select>
+                        <label for="gridSelect">Preference</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"row g-2"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col-md"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"form-floating"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

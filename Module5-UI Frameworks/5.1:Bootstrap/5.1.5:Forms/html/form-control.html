@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Form Controls Deep Dive</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body { background-color: #f8fafc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #8b5cf6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #7c3aed;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            padding: 2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Code Panel */
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .form-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #ede9fe;
+            color: #5b21b6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        code { color: #d63384; }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold text-primary">Bootstrap Form Controls</h1>
+        <p class="text-muted">Detailed notes on styling <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> with custom styles, sizing, and states.</p>
+    </header>
+
+    <section class="demo-section">
+        <h3 class="mb-1">1. Sizing Variants</h3>
+        <p class="small text-muted mb-3">Control heights using <code>.form-control-lg</code> and <code>.form-control-sm</code>.</p>
+        <div class="preview-panel">
+            <span class="form-badge">Control Sizes</span>
+            <input class="form-control form-control-lg mb-2" type="text" placeholder=".form-control-lg">
+            <input class="form-control mb-2" type="text" placeholder="Default input">
+            <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;input</span> <span class="code-attr">class=</span><span class="code-val">"form-control form-control-lg"</span> <span class="code-attr">type=</span><span class="code-val">"text"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">class=</span><span class="code-val">"form-control form-control-sm"</span> <span class="code-attr">type=</span><span class="code-val">"text"</span><span class="code-tag">&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">2. Form Text (Helper Text)</h3>
+        <p class="small text-muted mb-3">Create block or inline hint text using <code>.form-text</code>.</p>
+        <div class="preview-panel">
+            <span class="form-badge">Block-level Accessibility</span>
+            <label for="inputPass" class="form-label">Password</label>
+            <input type="password" id="inputPass" class="form-control" aria-describedby="passHelp">
+            <div id="passHelp" class="form-text">Must be 8-20 characters long.</div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;input</span> <span class="code-attr">aria-describedby=</span><span class="code-val">"passHelp"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">id=</span><span class="code-val">"passHelp"</span> <span class="code-attr">class=</span><span class="code-val">"form-text"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">3. Readonly & Plain Text</h3>
+        <p class="small text-muted mb-3">Use <code>.form-control-plaintext</code> to remove the border while keeping spacing.</p>
+        <div class="preview-panel">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <span class="form-badge">Standard Readonly</span>
+                    <input type="text" class="form-control" value="Readonly value" readonly>
+                </div>
+                <div class="col-md-6">
+                    <span class="form-badge">Plaintext Readonly</span>
+                    <input type="text" class="form-control-plaintext" value="email@example.com" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;input</span> <span class="code-attr">readonly</span> <span class="code-attr">class=</span><span class="code-val">"form-control-plaintext"</span><span class="code-tag">&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">4. Specialized Inputs</h3>
+        <p class="small text-muted mb-3">Styling for <code>type="file"</code> and <code>type="color"</code>.</p>
+        <div class="preview-panel">
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <span class="form-badge">File Input</span>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <span class="form-badge">Color Picker</span>
+                    <input type="color" class="form-control form-control-color w-100" id="colorPicker" value="#563d7c">
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-val">"file"</span> <span class="code-attr">class=</span><span class="code-val">"form-control"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-val">"color"</span> <span class="code-attr">class=</span><span class="code-val">"form-control form-control-color"</span><span class="code-tag">&gt;</span></div>
+    </section>
+
+    <section class="demo-section">
+        <h3 class="mb-1">5. Datalists</h3>
+        <p class="small text-muted mb-3">Combining input fields with pre-defined options.</p>
+        <div class="preview-panel">
+            <span class="form-badge">Datalist (Autocomplete)</span>
+            <input class="form-control" list="datalistOptions" placeholder="Type to search cities...">
+            <datalist id="datalistOptions">
+                <option value="San Francisco">
+                <option value="New York">
+                <option value="Seattle">
+                <option value="Chicago">
+            </datalist>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;input</span> <span class="code-attr">list=</span><span class="code-val">"datalistOptions"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;datalist</span> <span class="code-attr">id=</span><span class="code-val">"datalistOptions"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/datalist&gt;</span></div>
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>
