@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Text Truncation Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #f43f5e; /* Rose for Truncation */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #f43f5e;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .tt-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #fff1f2;
+            color: #e11d48;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        .truncate-container {
+            background: #f8fafc;
+            border: 1px dashed #fda4af;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #e11d48;">Text Truncation</h1>
+        <p class="text-muted">Shorten long strings of text with an ellipsis (...) to prevent layout breaking.</p>
+        <div class="alert alert-danger d-inline-block py-2 px-3 small border-danger-subtle" style="background: #fff1f2; color: #e11d48;">
+            <strong>Requirement:</strong> Element must be <code>display: block</code> or <code>display: inline-block</code>.
+        </div>
+    </header>
+
+    <!-- 1. Block Level Truncation -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Block-Level Truncation</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">Automatic Width (via Grid)</span>
+            <div class="row">
+                <div class="col-4 truncate-container">
+                    <div class="text-truncate">
+                        This is a very long sentence that will be cut off by the edge of its column.
+                    </div>
+                </div>
+            </div>
+            <p class="mt-2 small text-muted">The text truncates based on the <code>col-4</code> width.</p>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- works on div, p, and other block elements --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"col-4 text-truncate"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;Long text content...<br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Inline-Block Truncation -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Inline-Block (Fixed Width)</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">Manual Max-Width</span>
+            <div class="truncate-container d-inline-block">
+        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+          Shortened inline text that was originally much longer.
+        </span>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use d-inline-block and a width to truncate spans --&gt;</span><br>
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"d-inline-block text-truncate"</span> <span class="code-attr">style=</span><span class="code-val">"max-width: 150px;"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;Long text...<br>
+            <span class="code-tag">&lt;/span&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. Technical Implementation -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. How it Works (CSS)</h3>
+        <div class="preview-panel text-start">
+            <span class="tt-badge">The Logic</span>
+            <p>The <code>.text-truncate</code> class applies these three critical properties:</p>
+            <div class="p-3 bg-light border rounded">
+                <code>overflow: hidden;</code><br>
+                <code>text-overflow: ellipsis;</code><br>
+                <code>white-space: nowrap;</code>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

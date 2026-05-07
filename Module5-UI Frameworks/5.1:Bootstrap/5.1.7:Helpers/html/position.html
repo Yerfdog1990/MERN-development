@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Position Helpers Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; min-height: 200vh; /* Necessary for scrolling demo */ }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #94a3b8; /* Slate for Position */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #94a3b8;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .pos-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        /* Demo-specific positioning */
+        .demo-scroll-box {
+            height: 200px;
+            overflow-y: scroll;
+            background: #f8fafc;
+            border: 1px inset #e2e8f0;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #334155;">Position Helpers</h1>
+        <p class="text-muted">Quickly toggle between fixed and sticky positioning for layout components.</p>
+        <div class="alert alert-secondary d-inline-block py-2 px-3 small border">
+            <strong>Note:</strong> Fixed elements are removed from the normal document flow and may overlap other content.
+        </div>
+    </header>
+
+    <!-- 1. Fixed Positions -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Fixed Positioning</h3>
+        <div class="preview-panel">
+            <span class="pos-badge">Viewport Relative</span>
+            <div class="p-3 border rounded bg-light">
+                <code>.fixed-top</code> stays at the very top of the screen.<br>
+                <code>.fixed-bottom</code> stays at the very bottom of the screen.
+            </div>
+            <p class="mt-3 small text-muted">Scroll the main page to see the "Viewport Tracker" in the corner—that's a <strong>Fixed</strong> element.</p>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Edge to edge viewport positioning --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"fixed-top"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"fixed-bottom"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Sticky Positions -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Sticky Positioning</h3>
+        <div class="preview-panel">
+            <span class="pos-badge">Flow Relative</span>
+            <div class="demo-scroll-box p-0">
+                <div class="p-2 bg-warning-subtle border-bottom sticky-top">
+                    I am <strong>sticky-top</strong>. Scroll me!
+                </div>
+                <div style="height: 400px; padding: 20px;">
+                    Scroll down to see the header stay at the top of this box. Sticky elements stay within their parent container until they "hit" the edge of the viewport.
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Sticks only when it reaches the viewport edge --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"sticky-top"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. Responsive Sticky -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Responsive Sticky</h3>
+        <div class="preview-panel text-start">
+            <span class="pos-badge">Breakpoint Aware</span>
+            <p>Only trigger sticky behavior at specific screen widths.</p>
+            <div class="d-flex flex-column gap-2">
+                <div class="p-2 border rounded sticky-md-top bg-white">Sticky on <strong>MD</strong> and wider</div>
+                <div class="p-2 border rounded sticky-lg-top bg-white">Sticky on <strong>LG</strong> and wider</div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Responsive variants --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"sticky-sm-top"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"sticky-xl-bottom"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

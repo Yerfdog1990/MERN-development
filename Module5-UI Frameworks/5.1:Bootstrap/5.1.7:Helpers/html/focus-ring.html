@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Focus Ring Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #10b981; /* Emerald for Focus Rings */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #10b981;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .fr-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #ecfdf5;
+            color: #047857;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #047857;">Focus Ring</h1>
+        <p class="text-muted">Replace default browser focus outlines with customizable, high-utility <code>box-shadow</code> rings.</p>
+        <div class="alert alert-success d-inline-block py-2 px-3 small border-success-subtle">
+            <strong>Accessibility Tip:</strong> Focus rings are vital for keyboard users. Never remove focus styles without providing a clear alternative.
+        </div>
+    </header>
+
+    <!-- 1. Basic Usage -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Focus Ring</h3>
+        <div class="preview-panel">
+            <span class="fr-badge">Interactive Demo</span>
+            <p>Click the link below or use <code>Tab</code> to see the ring.</p>
+            <a href="#" class="d-inline-flex focus-ring py-1 px-3 text-decoration-none border rounded-2">
+                Default Focus Ring
+            </a>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- .focus-ring replaces the default browser outline --&gt;</span><br>
+            <span class="code-tag">&lt;a</span> <span class="code-attr">href=</span><span class="code-val">"#"</span> <span class="code-attr">class=</span><span class="code-val">"focus-ring border rounded-2"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/a&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Utility Colors -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Theme Colors</h3>
+        <div class="preview-panel">
+            <span class="fr-badge">Sass-mapped Colors</span>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#" class="focus-ring focus-ring-primary py-1 px-2 border rounded text-decoration-none">Primary</a>
+                <a href="#" class="focus-ring focus-ring-success py-1 px-2 border rounded text-decoration-none">Success</a>
+                <a href="#" class="focus-ring focus-ring-danger py-1 px-2 border rounded text-decoration-none">Danger</a>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use focus-ring-{color} to override the default --&gt;</span><br>
+            <span class="code-tag">&lt;a</span> <span class="code-attr">class=</span><span class="code-val">"focus-ring focus-ring-success"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/a&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. CSS Variable Customization -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Deep Customization (CSS Variables)</h3>
+        <div class="preview-panel">
+            <span class="fr-badge">Advanced Styling</span>
+            <div class="d-flex flex-column gap-3 align-items-center">
+                <a href="#" class="focus-ring py-1 px-2 border rounded text-decoration-none"
+                   style="--bs-focus-ring-color: rgba(168, 85, 247, .5)">
+                    Purple Focus Ring
+                </a>
+                <a href="#" class="focus-ring py-1 px-2 border rounded text-decoration-none"
+                   style="--bs-focus-ring-x: 5px; --bs-focus-ring-y: 5px; --bs-focus-ring-blur: 10px">
+                    Blurry Offset Ring
+                </a>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use inline styles or custom CSS to override specific variables --&gt;</span><br>
+            <span class="code-tag">&lt;a</span> <span class="code-attr">style=</span><span class="code-val">"--bs-focus-ring-blur: 10px;"</span> <span class="code-attr">class=</span><span class="code-val">"focus-ring"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/a&gt;</span>
+        </div>
+    </section>
+
+    <!-- 4. Implementation Details -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. SCSS Variable Reference</h3>
+        <div class="preview-panel text-start">
+            <span class="fr-badge">Global Defaults</span>
+            <table class="table table-sm small text-muted">
+                <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td><code>$focus-ring-width</code></td><td><code>.25rem</code></td></tr>
+                <tr><td><code>$focus-ring-opacity</code></td><td><code>.25</code></td></tr>
+                <tr><td><code>$focus-ring-blur</code></td><td><code>0</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

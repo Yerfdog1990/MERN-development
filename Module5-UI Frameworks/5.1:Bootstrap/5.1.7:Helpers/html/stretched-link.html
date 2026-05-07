@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Stretched Link Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #f59e0b; /* Amber for Stretched Links */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #f59e0b;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .sl-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #fffbeb;
+            color: #b45309;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        /* Visualizing the "Hit Area" for demo purposes */
+        .stretched-link-demo:hover {
+            outline: 2px solid #f59e0b;
+            background-color: #fffaf0;
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #b45309;">Stretched Link</h1>
+        <p class="text-muted">Turn entire components into clickable targets by expanding a nested link's click area via pseudo-elements.</p>
+        <div class="alert alert-warning d-inline-block py-2 px-3 small border-warning-subtle" style="background: #fffbeb; color: #b45309;">
+            <strong>Critical:</strong> The parent <em>must</em> have <code>position: relative</code> (or a transform) to contain the stretch.
+        </div>
+    </header>
+
+    <!-- 1. Card Example -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Cards (Default Behavior)</h3>
+        <div class="preview-panel">
+            <span class="sl-badge">Built-in Relative Position</span>
+            <div class="card mx-auto stretched-link-demo" style="width: 18rem;">
+                <div class="bg-secondary-subtle text-center py-5">Image Placeholder</div>
+                <div class="card-body">
+                    <h5 class="card-title">Click Anywhere</h5>
+                    <p class="card-text">Bootstrap cards are <code>position: relative</code> by default, so the link covers the whole card.</p>
+                    <a href="#" class="btn btn-primary stretched-link">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"card"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"card-body"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;a</span> <span class="code-attr">href=</span><span class="code-val">"#"</span> <span class="code-attr">class=</span><span class="code-val">"stretched-link"</span><span class="code-tag">&gt;</span>Link<span class="code-tag">&lt;/a&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Custom Component -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Custom Components</h3>
+        <div class="preview-panel">
+            <span class="sl-badge">Manual Container Setup</span>
+            <div class="d-flex position-relative p-3 border rounded stretched-link-demo">
+                <div class="flex-shrink-0 bg-warning-subtle p-3 rounded me-3">Icon</div>
+                <div>
+                    <h5 class="mt-0">Container clicker</h5>
+                    <p>This div uses <code>.position-relative</code> to keep the link from stretching to the whole page.</p>
+                    <a href="#" class="stretched-link">Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- .position-relative is mandatory for non-card elements --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"d-flex position-relative"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;...<br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;a</span> <span class="code-attr">href=</span><span class="code-val">"#"</span> <span class="code-attr">class=</span><span class="code-val">"stretched-link"</span><span class="code-tag">&gt;</span>Link<span class="code-tag">&lt;/a&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. Troubleshooting -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Identifying the Containing Block</h3>
+        <div class="preview-panel text-start">
+            <span class="sl-badge">Common Issues</span>
+            <p>A stretched link stops at the first parent that has:</p>
+            <ul class="small text-muted">
+                <li><code>position</code> other than <code>static</code></li>
+                <li>A <code>transform</code> or <code>perspective</code> value</li>
+                <li>A <code>filter</code> value</li>
+            </ul>
+            <div class="p-3 bg-light border border-danger-subtle rounded">
+                <p class="mb-0" style="transform: rotate(0); background: #fee2e2;">
+                    This <code>&lt;p&gt;</code> has a transform. If you put a
+                    <a href="#" class="stretched-link text-danger">stretched link</a>
+                    here, it <strong>won't</strong> cover the whole section—only this paragraph.
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>
