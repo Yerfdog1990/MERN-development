@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap: Navbar Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background-color: #fcfcfc; padding: 40px 0; }
+
+    /* Floating Breakpoint Indicator */
+    .breakpoint-indicator {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #ef4444; /* Red for Navbars (Responsive Core) */
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      z-index: 2000;
+      border: 1px solid #dc2626;
+    }
+
+    .demo-section { margin-bottom: 4rem; }
+
+    .preview-panel {
+      background: #ffffff;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+    }
+
+    .code-panel {
+      background: #1e1e2e;
+      color: #89ddff;
+      padding: 1.5rem;
+      border-radius: 0 0 8px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .code-tag { color: #f07178; }
+    .code-attr { color: #c3e88d; }
+    .code-val { color: #ffcb6b; }
+    .code-comment { color: #676e95; font-style: italic; }
+
+    .nb-badge {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      background: #fef2f2;
+      color: #991b1b;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    /* Highlight the structural containers in the demo */
+    .structure-overlay .navbar { border: 1px dashed #ef4444; }
+    .structure-overlay .container-fluid { background: rgba(239, 68, 68, 0.05); border: 1px dashed #f87171; }
+  </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+  Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+  <header class="text-center mb-5">
+    <h1 class="fw-bold" style="color: #dc2626;">Navbar</h1>
+    <p class="text-muted">Powerful, responsive navigation headers with support for branding, links, forms, and collapse behaviors.</p>
+  </header>
+
+  <!-- 1. The Core Structure -->
+  <section class="demo-section">
+    <h3 class="mb-3">1. Core Structure & Responsive Toggling</h3>
+    <div class="preview-panel structure-overlay">
+      <span class="nb-badge">Structural Blueprint</span>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Brand</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navExample">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navExample">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <p class="mt-2 small text-muted"><em>Red dashed lines represent the .navbar and inner .container-fluid boundaries.</em></p>
+    </div>
+    <div class="code-panel">
+      <span class="code-tag">&lt;nav</span> <span class="code-attr">class=</span><span class="code-val">"navbar navbar-expand-lg bg-light"</span><span class="code-tag">&gt;</span>
+      <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"container-fluid"</span><span class="code-tag">&gt;</span>
+      <span class="code-tag">&lt;a</span> <span class="code-attr">class=</span><span class="code-val">"navbar-brand"</span><span class="code-tag">&gt;</span>Logo<span class="code-tag">&lt;/a&gt;</span>
+      <span class="code-comment">&lt;!-- Toggler only shows on screens smaller than LG --&gt;</span>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">class=</span><span class="code-val">"navbar-toggler"</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"collapse"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span>
+      <span class="code-tag">&lt;/div&gt;</span>
+      <span class="code-tag">&lt;/nav&gt;</span></div>
+  </section>
+
+  <!-- 2. Color Schemes -->
+  <section class="demo-section">
+    <h3 class="mb-3">2. Color Schemes (Modern Data Attributes)</h3>
+    <div class="preview-panel">
+      <span class="nb-badge">Theming</span>
+      <nav class="navbar navbar-expand-lg bg-dark mb-2" data-bs-theme="dark">
+        <div class="container-fluid"><a class="navbar-brand" href="#">Dark Theme</a></div>
+      </nav>
+      <nav class="navbar navbar-expand-lg bg-primary mb-2" data-bs-theme="dark">
+        <div class="container-fluid"><a class="navbar-brand" href="#">Primary Theme</a></div>
+      </nav>
+      <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
+        <div class="container-fluid"><a class="navbar-brand" href="#">Custom Light</a></div>
+      </nav>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Deprecated .navbar-dark in favor of data-bs-theme="dark" --&gt;</span>
+      <span class="code-tag">&lt;nav</span> <span class="code-attr">class=</span><span class="code-val">"navbar bg-dark"</span> <span class="code-attr">data-bs-theme=</span><span class="code-val">"dark"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/nav&gt;</span></div>
+  </section>
+
+  <!-- 3. Placement & Containers -->
+  <section class="demo-section">
+    <h3 class="mb-3">3. Placement & Width Control</h3>
+    <div class="preview-panel">
+      <span class="nb-badge">Utility Control</span>
+      <div class="alert alert-info py-2">
+        Use <code>.fixed-top</code>, <code>.fixed-bottom</code>, or <code>.sticky-top</code> to position the bar.
+      </div>
+      <div class="border p-3">
+        <nav class="navbar bg-body-secondary">
+          <div class="container-md">
+            <span class="navbar-brand">Centered Content (.container-md)</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Fixed top requires padding-top on your &lt;body&gt; --&gt;</span>
+      <span class="code-tag">&lt;nav</span> <span class="code-attr">class=</span><span class="code-val">"navbar fixed-top bg-light"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/nav&gt;</span>
+
+      <span class="code-comment">&lt;!-- Use standard containers inside the navbar to limit content width --&gt;</span>
+      <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"container-md"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span></div>
+  </section>
+
+  <!-- 4. Offcanvas Integration -->
+  <section class="demo-section">
+    <h3 class="mb-3">4. Offcanvas Mobile Menu</h3>
+    <div class="preview-panel">
+      <span class="nb-badge">Advanced Responsive</span>
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Offcanvas Nav</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Swap .collapse for .offcanvas to create a drawer menu --&gt;</span>
+      <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-end"</span> <span class="code-attr">id=</span><span class="code-val">"offcanvasNavbar"</span><span class="code-tag">&gt;</span>
+      <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas-body"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+      <span class="code-tag">&lt;/div&gt;</span></div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Breakpoint Tracker
+  function updateBreakpoint() {
+    const width = window.innerWidth;
+    let bp = 'XS';
+    if (width >= 1400) bp = 'XXL';
+    else if (width >= 1200) bp = 'XL';
+    else if (width >= 992) bp = 'LG';
+    else if (width >= 768) bp = 'MD';
+    else if (width >= 576) bp = 'SM';
+    document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+  }
+  updateBreakpoint();
+  window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

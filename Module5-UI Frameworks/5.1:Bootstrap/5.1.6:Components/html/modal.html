@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Modal Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #8b5cf6; /* Purple for Modals */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #7c3aed;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        /* Mock Modal for Inline Preview */
+        .modal-mockup {
+            position: relative;
+            display: block;
+            z-index: 1;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            max-width: 500px;
+            border: 1px solid #dee2e6;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .md-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #f5f3ff;
+            color: #5b21b6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #7c3aed;">Modals</h1>
+        <p class="text-muted">Interactive dialogs for notifications, lightboxes, and custom content flows.</p>
+    </header>
+
+    <!-- 1. Anatomical Breakdown -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Modal Anatomy (Static Markup)</h3>
+        <div class="preview-panel">
+            <span class="md-badge">Structure Blueprint</span>
+            <div class="modal-mockup">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal Title</h5>
+                        <button type="button" class="btn-close" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This is the main body area where content resides.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm">Close</button>
+                        <button type="button" class="btn btn-primary btn-sm">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-dialog"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-content"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-header"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-body"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <!-- 2. Live Trigger -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Live Demo & Static Backdrop</h3>
+        <div class="preview-panel">
+            <span class="md-badge">Interactive Triggers</span>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#liveModal">
+                    Launch Standard Modal
+                </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticModal">
+                    Launch Static Backdrop
+                </button>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Target via ID; data-bs-backdrop="static" prevents closing on outside click --&gt;</span>
+            <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"modal"</span> <span class="code-attr">data-bs-target=</span><span class="code-val">"#myModal"</span><span class="code-tag">&gt;</span>Launch<span class="code-tag">&lt;/button&gt;</span>
+
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal fade"</span> <span class="code-attr">id=</span><span class="code-val">"myModal"</span> <span class="code-attr">data-bs-backdrop=</span><span class="code-val">"static"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <!-- 3. Sizes -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Sizing & Fullscreen Options</h3>
+        <div class="preview-panel">
+            <span class="lg-badge" style="background:#f5f3ff; color:#5b21b6;">Modifiers</span>
+            <div class="table-responsive">
+                <table class="table table-sm mt-2">
+                    <thead>
+                    <tr><th>Size</th><th>Class</th><th>Width</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>Small</td><td><code>.modal-sm</code></td><td>300px</td></tr>
+                    <tr><td>Large</td><td><code>.modal-lg</code></td><td>800px</td></tr>
+                    <tr><td>Extra Large</td><td><code>.modal-xl</code></td><td>1140px</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Classes applied to the modal-dialog div --&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-dialog modal-xl"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"modal-dialog modal-fullscreen-md-down"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span></div>
+    </section>
+
+    <!-- 4. Dynamic Content (JS) -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. Dynamic Content with JavaScript</h3>
+        <div class="preview-panel">
+            <span class="md-badge">Data Passing</span>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#dataModal" data-bs-user="Alice">Message Alice</button>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#dataModal" data-bs-user="Bob">Message Bob</button>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">// Use show.bs.modal event to capture the triggering button</span>
+            <span class="code-attr">const</span> modal = document.getElementById(<span class="code-val">'dataModal'</span>);
+            modal.addEventListener(<span class="code-val">'show.bs.modal'</span>, event => {
+            <span class="code-attr">const</span> button = event.relatedTarget;
+            <span class="code-attr">const</span> user = button.getAttribute(<span class="code-val">'data-bs-user'</span>);
+            modal.querySelector(<span class="code-val">'.modal-title'</span>).textContent = <span class="code-val">`Chat with ${user}`</span>;
+            });</div>
+    </section>
+</div>
+
+<!-- Actual Modals for Demo -->
+<div class="modal fade" id="liveModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Live Demo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">Standard modal behavior with fade animation.</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Static Backdrop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">I will not close if you click outside of me. You must use the buttons.</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dataModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="Type your message...">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Breakpoint Tracker
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+
+    // Dynamic Modal Logic
+    const dataModal = document.getElementById('dataModal');
+    if (dataModal) {
+        dataModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const recipient = button.getAttribute('data-bs-user');
+            const modalTitle = dataModal.querySelector('.modal-title');
+            modalTitle.textContent = `New message to ${recipient}`;
+        });
+    }
+</script>
+</body>
+</html>

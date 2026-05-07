@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Tooltips Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #818cf8; /* Indigo for Tooltips */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #818cf8;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 3rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .tt-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Custom Tooltip Style Example */
+        .custom-tooltip {
+            --bs-tooltip-bg: #4338ca;
+            --bs-tooltip-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #4338ca;">Tooltips</h1>
+        <p class="text-muted">Small overlays of content for providing contextual information when hovering or focusing.</p>
+        <div class="alert alert-indigo d-inline-block py-2 px-3 small border" style="background: #eef2ff; color: #4338ca;">
+            <strong>Essential:</strong> Tooltips are <strong>opt-in</strong> and require <strong>Popper.js</strong> to function.
+        </div>
+    </header>
+
+    <!-- 1. Initialization -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Mandatory Initialization</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">JavaScript Setup</span>
+            <p>Tooltips do not work until you initialize them via JavaScript.</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" title="It works!">Hover Me</button>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">// Select all elements with data-bs-toggle="tooltip"</span><br>
+            <span class="code-attr">const</span> triggerList = document.querySelectorAll(<span class="code-val">'[data-bs-toggle="tooltip"]'</span>);<br>
+            <span class="code-attr">const</span> tooltipList = [...triggerList].map(el => <span class="code-attr">new</span> bootstrap.Tooltip(el));
+        </div>
+    </section>
+
+    <!-- 2. Directions -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Four Directions</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">Placement Options</span>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Top</button>
+                <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">Right</button>
+                <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">Bottom</button>
+                <button class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Left</button>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"tooltip"</span> <span class="code-attr">data-bs-placement=</span><span class="code-val">"top"</span> <span class="code-attr">title=</span><span class="code-val">"..."</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. HTML Content & Custom Classes -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. HTML & Custom Themes</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">Rich Content</span>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-info text-white" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Bold</em> and <u>Underlined</u>">HTML Tooltip</button>
+                <button class="btn btn-dark" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" title="Themed with CSS variables">Custom Indigo</button>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- For HTML: --&gt;</span><br>
+            <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-html=</span><span class="code-val">"true"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span><br><br>
+            <span class="code-comment">&lt;!-- For Custom Class (CSS): --&gt;</span><br>
+            <span class="code-tag">.custom-tooltip</span> { <span class="code-attr">--bs-tooltip-bg:</span> <span class="code-val">#4338ca;</span> }
+        </div>
+    </section>
+
+    <!-- 4. Disabled Elements -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. Disabled Elements</h3>
+        <div class="preview-panel">
+            <span class="tt-badge">Accessibility Workaround</span>
+            <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Disabled buttons need a wrapper!">
+        <button class="btn btn-danger" type="button" disabled>Disabled Button</button>
+      </span>
+            <p class="mt-2 small text-muted">Hovering a 'disabled' attribute doesn't trigger tooltips. Wrap it in a span.</p>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"d-inline-block"</span> <span class="code-attr">tabindex=</span><span class="code-val">"0"</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"tooltip"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;button</span> <span class="code-attr">disabled</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span><br>
+            <span class="code-tag">&lt;/span&gt;</span>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Initialize all tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    // Viewport Tracker
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

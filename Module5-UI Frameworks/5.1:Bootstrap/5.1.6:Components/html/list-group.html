@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: List Group Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Breakpoint Indicator */
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #10b981; /* Emerald for List Groups */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #059669;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .lg-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #ecfdf5;
+            color: #047857;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<div class="breakpoint-indicator">
+    Current Viewport: <span id="bp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #059669;">List Groups</h1>
+        <p class="text-muted">A flexible component for displaying a series of content, from simple lists to complex custom layouts.</p>
+    </header>
+
+    <!-- 1. Basic & Active -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Example & Active States</h3>
+        <div class="preview-panel">
+            <span class="lg-badge">Standard List</span>
+            <ul class="list-group mb-4" style="max-width: 400px;">
+                <li class="list-group-item active" aria-current="true">An active item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item disabled" aria-disabled="true">A disabled item</li>
+            </ul>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"list-group"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"list-group-item active"</span><span class="code-tag">&gt;</span>Active Item<span class="code-tag">&lt;/li&gt;</span>
+            <span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"list-group-item"</span><span class="code-tag">&gt;</span>Standard Item<span class="code-tag">&lt;/li&gt;</span>
+            <span class="code-tag">&lt;/ul&gt;</span></div>
+    </section>
+
+    <!-- 2. Flush & Numbered -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Flush & Numbered Variants</h3>
+        <div class="preview-panel">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="lg-badge">Flush (No outer borders)</span>
+                    <ul class="list-group list-group-flush border">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <span class="lg-badge">Numbered</span>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Flush removes outer borders/rounded corners --&gt;</span>
+            <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"list-group list-group-flush"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ul&gt;</span>
+
+            <span class="code-comment">&lt;!-- Numbered uses CSS counters for prefix numbers --&gt;</span>
+            <span class="code-tag">&lt;ol</span> <span class="code-attr">class=</span><span class="code-val">"list-group list-group-numbered"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ol&gt;</span></div>
+    </section>
+
+    <!-- 3. Horizontal -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Horizontal Layouts</h3>
+        <div class="preview-panel">
+            <span class="lg-badge">Responsive Horizontal (MD and up)</span>
+            <ul class="list-group list-group-horizontal-md">
+                <li class="list-group-item flex-fill text-center">Item 1</li>
+                <li class="list-group-item flex-fill text-center">Item 2</li>
+                <li class="list-group-item flex-fill text-center">Item 3</li>
+            </ul>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use flex-fill on items for equal widths --&gt;</span>
+            <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"list-group list-group-horizontal-md"</span><span class="code-tag">&gt;</span>
+            <span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"list-group-item flex-fill"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/li&gt;</span>
+            <span class="code-tag">&lt;/ul&gt;</span></div>
+    </section>
+
+    <!-- 4. Contextual States -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. Contextual Variants</h3>
+        <div class="preview-panel">
+            <div class="list-group" style="max-width: 400px;">
+                <li class="list-group-item list-group-item-primary">Primary Item</li>
+                <li class="list-group-item list-group-item-success">Success Item</li>
+                <li class="list-group-item list-group-item-danger">Danger Item</li>
+                <li class="list-group-item list-group-item-warning">Warning Item</li>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"list-group-item list-group-item-success"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/li&gt;</span></div>
+    </section>
+
+    <!-- 5. Custom Content -->
+    <section class="demo-section">
+        <h3 class="mb-3">5. Custom Content & Badges</h3>
+        <div class="preview-panel">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1">Some placeholder content in a paragraph.</p>
+                    <small>And some small print.</small>
+                </a>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    A list item with a badge
+                    <span class="badge bg-primary rounded-pill">14</span>
+                </li>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Use d-flex and justify-content-between for complex layouts --&gt;</span>
+            <span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"list-group-item d-flex justify-content-between align-items-center"</span><span class="code-tag">&gt;</span>
+            Label
+            <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"badge bg-primary"</span><span class="code-tag">&gt;</span>14<span class="code-tag">&lt;/span&gt;</span>
+            <span class="code-tag">&lt;/li&gt;</span></div>
+    </section>
+
+    <!-- 6. Checkboxes/Radios -->
+    <section class="demo-section">
+        <h3 class="mb-3">6. Checkboxes & Stretched Links</h3>
+        <div class="preview-panel">
+            <ul class="list-group" style="max-width: 400px;">
+                <li class="list-group-item">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckboxStretched">
+                    <label class="form-check-label stretched-link" for="firstCheckboxStretched">Click anywhere on me (Stretched Link)</label>
+                </li>
+                <li class="list-group-item">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                    <label class="form-check-label" for="secondCheckbox">Just the checkbox</label>
+                </li>
+            </ul>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;label</span> <span class="code-attr">class=</span><span class="code-val">"form-check-label stretched-link"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/label&gt;</span></div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateBreakpoint() {
+        const width = window.innerWidth;
+        let bp = 'XS';
+        if (width >= 1400) bp = 'XXL';
+        else if (width >= 1200) bp = 'XL';
+        else if (width >= 992) bp = 'LG';
+        else if (width >= 768) bp = 'MD';
+        else if (width >= 576) bp = 'SM';
+        document.getElementById('bp-text').textContent = bp + ' (' + width + 'px)';
+    }
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Progress Bars Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #10b981; /* Green for Progress */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #10b981;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .pr-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        /* Structural Visualizer */
+        .structure-overlay .progress { border: 1px dashed #6366f1; background-color: rgba(99, 102, 241, 0.05); }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #4f46e5;">Progress</h1>
+        <p class="text-muted">Custom progress bars featuring support for labels, stacked segments, and animated backgrounds.</p>
+        <div class="alert alert-info d-inline-block py-2 px-3 small">
+            <strong>V5.3 Update:</strong> The <code>role="progressbar"</code> and <code>aria</code> attributes now move to the <code>.progress</code> container.
+        </div>
+    </header>
+
+    <!-- 1. The Core Progress Bar -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Structure & Accessibility</h3>
+        <div class="preview-panel structure-overlay">
+            <span class="pr-badge">Container & Bar</span>
+
+            <div class="progress" role="progressbar" aria-label="Example Progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 25%">25%</div>
+            </div>
+
+            <p class="mt-3 small text-muted"><em>The blue dashed line is the <code>.progress</code> wrapper. The inner solid block is the <code>.progress-bar</code>.</em></p>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Attributes on the wrapper for accessibility --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress"</span> <span class="code-attr">role=</span><span class="code-val">"progressbar"</span> <span class="code-attr">aria-valuenow=</span><span class="code-val">"25"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Width style on the inner bar --&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress-bar"</span> <span class="code-attr">style=</span><span class="code-val">"width: 25%"</span><span class="code-tag">&gt;</span>25%<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Colors & Strips -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Styling & Animation</h3>
+        <div class="preview-panel">
+            <span class="pr-badge">Visual Feedback</span>
+
+            <div class="progress mb-3" role="progressbar" aria-label="Success" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-success" style="width: 50%"></div>
+            </div>
+
+            <div class="progress mb-3" role="progressbar" aria-label="Warning Striped" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped bg-warning" style="width: 75%"></div>
+            </div>
+
+            <div class="progress" role="progressbar" aria-label="Danger Animated" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Static Striped --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress-bar progress-bar-striped bg-warning"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br><br>
+            <span class="code-comment">&lt;!-- Animated Stripes --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress-bar progress-bar-striped progress-bar-animated"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. Multiple Bars (Stacked) -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Stacked Progress</h3>
+        <div class="preview-panel">
+            <span class="pop-badge">.progress-stacked</span>
+            <div class="progress-stacked">
+                <div class="progress" role="progressbar" aria-label="Segment 1" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Segment 2" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                    <div class="progress-bar bg-success"></div>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Segment 3" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                    <div class="progress-bar bg-info"></div>
+                </div>
+            </div>
+            <p class="mt-3 x-small text-muted"><strong>Note:</strong> When stacking, the <code>width</code> utility is applied to the <code>.progress</code> elements.</p>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress-stacked"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress"</span> <span class="code-attr">style=</span><span class="code-val">"width: 15%"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress"</span> <span class="code-attr">style=</span><span class="code-val">"width: 30%"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 4. Height Customization -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. Custom Height</h3>
+        <div class="preview-panel">
+            <span class="pr-badge">Vertical Scaling</span>
+
+            <p class="small text-muted">Super Thin (1px)</p>
+            <div class="progress mb-4" role="progressbar" style="height: 1px">
+                <div class="progress-bar" style="width: 45%"></div>
+            </div>
+
+            <p class="small text-muted">Extra Thick (2.5rem)</p>
+            <div class="progress" role="progressbar" style="height: 2.5rem">
+                <div class="progress-bar" style="width: 45%"></div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Height is defined on the .progress container --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress"</span> <span class="code-attr">style=</span><span class="code-val">"height: 20px"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"progress-bar"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

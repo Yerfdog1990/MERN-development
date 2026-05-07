@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap: Navs & Tabs Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background-color: #fcfcfc; padding: 40px 0; }
+
+    /* Floating Viewport Tracker */
+    .viewport-indicator {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #6366f1; /* Indigo for Navs */
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      z-index: 2000;
+      border: 1px solid #6366f1;
+    }
+
+    .demo-section { margin-bottom: 4rem; }
+
+    .preview-panel {
+      background: #ffffff;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+    }
+
+    .code-panel {
+      background: #1e1e2e;
+      color: #89ddff;
+      padding: 1.5rem;
+      border-radius: 0 0 8px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .code-tag { color: #f07178; }
+    .code-attr { color: #c3e88d; }
+    .code-val { color: #ffcb6b; }
+    .code-comment { color: #676e95; font-style: italic; }
+
+    .nav-badge {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      background: #eef2ff;
+      color: #4338ca;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    /* Structural Visualizer */
+    .structure-overlay .nav { border: 1px dashed #6366f1; background: rgba(99, 102, 241, 0.03); }
+    .structure-overlay .nav-item { border: 1px dotted #94a3b8; }
+  </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+  Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+  <header class="text-center mb-5">
+    <h1 class="fw-bold" style="color: #4f46e5;">Navs & Tabs</h1>
+    <p class="text-muted">Flexible flexbox-based navigation components for local content switching and list-based menus.</p>
+  </header>
+
+  <!-- 1. The Base Nav -->
+  <section class="demo-section">
+    <h3 class="mb-3">1. Base Flex Structure</h3>
+    <div class="preview-panel structure-overlay">
+      <span class="nav-badge">Flexbox Skeleton</span>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Active Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Standard Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <p class="mt-2 small text-muted"><em>Blue dashed lines show .nav (flex container); dotted lines show .nav-item.</em></p>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Basic List-based Nav --&gt;</span><br>
+      <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"nav"</span><span class="code-tag">&gt;</span><br>
+      &nbsp;&nbsp;<span class="code-tag">&lt;li</span> <span class="code-attr">class=</span><span class="code-val">"nav-item"</span><span class="code-tag">&gt;</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;a</span> <span class="code-attr">class=</span><span class="code-val">"nav-link active"</span><span class="code-tag">&gt;</span>Active<span class="code-tag">&lt;/a&gt;</span><br>
+      &nbsp;&nbsp;<span class="code-tag">&lt;/li&gt;</span><br>
+      <span class="code-tag">&lt;/ul&gt;</span>
+    </div>
+  </section>
+
+  <!-- 2. Visual Variants -->
+  <section class="demo-section">
+    <h3 class="mb-3">2. Tabs, Pills, & Underlines</h3>
+    <div class="preview-panel">
+      <span class="nav-badge">Styling Variants</span>
+
+      <p class="small fw-bold text-secondary">Tabs (.nav-tabs)</p>
+      <ul class="nav nav-tabs mb-4">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+      </ul>
+
+      <p class="small fw-bold text-secondary">Pills (.nav-pills)</p>
+      <ul class="nav nav-pills mb-4">
+        <li class="nav-item"><a class="nav-link active" href="#">Store</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+      </ul>
+
+      <p class="small fw-bold text-secondary">Underline (.nav-underline)</p>
+      <ul class="nav nav-underline">
+        <li class="nav-item"><a class="nav-link active" href="#">Settings</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Security</a></li>
+      </ul>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Just add the modifier class to the .nav base --&gt;</span><br>
+      <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"nav nav-tabs"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ul&gt;</span><br>
+      <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"nav nav-pills"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ul&gt;</span><br>
+      <span class="code-tag">&lt;ul</span> <span class="code-attr">class=</span><span class="code-val">"nav nav-underline"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/ul&gt;</span>
+    </div>
+  </section>
+
+  <!-- 3. Dynamic Tab Content -->
+  <section class="demo-section">
+    <h3 class="mb-3">3. Interactive Tab Behavior</h3>
+    <div class="preview-panel">
+      <span class="nav-badge">JavaScript Enabled</span>
+
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab">Profile</button>
+        </li>
+      </ul>
+
+      <div class="tab-content border p-3 rounded" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+          <strong>Home Content:</strong> This is the default visible pane.
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+          <strong>Profile Content:</strong> This appears when you click the Profile tab.
+        </div>
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Use data-bs-toggle="tab" (or "pill") and data-bs-target --&gt;</span><br>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"pill"</span> <span class="code-attr">data-bs-target=</span><span class="code-val">"#id"</span><span class="code-tag">&gt;</span>Tab<span class="code-tag">&lt;/button&gt;</span><br><br>
+      <span class="code-comment">&lt;!-- Content containers --&gt;</span><br>
+      <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"tab-content"</span><span class="code-tag">&gt;</span><br>
+      &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"tab-pane fade show active"</span> <span class="code-attr">id=</span><span class="code-val">"id"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+      <span class="code-tag">&lt;/div&gt;</span>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function updateViewport() {
+    const w = window.innerWidth;
+    let label = 'XS';
+    if (w >= 1400) label = 'XXL';
+    else if (w >= 1200) label = 'XL';
+    else if (w >= 992) label = 'LG';
+    else if (w >= 768) label = 'MD';
+    else if (w >= 576) label = 'SM';
+    document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+  }
+  updateViewport();
+  window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

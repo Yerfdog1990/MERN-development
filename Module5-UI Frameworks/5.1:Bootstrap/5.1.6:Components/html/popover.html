@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap: Popovers Guide</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background-color: #fcfcfc; padding: 40px 0; }
+
+    /* Floating Viewport Tracker */
+    .viewport-indicator {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #d946ef; /* Fuchsia for Popovers */
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+      z-index: 2000;
+      border: 1px solid #d946ef;
+    }
+
+    .demo-section { margin-bottom: 4rem; }
+
+    .preview-panel {
+      background: #ffffff;
+      padding: 3rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .code-panel {
+      background: #1e1e2e;
+      color: #89ddff;
+      padding: 1.5rem;
+      border-radius: 0 0 8px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .code-tag { color: #f07178; }
+    .code-attr { color: #c3e88d; }
+    .code-val { color: #ffcb6b; }
+    .code-comment { color: #676e95; font-style: italic; }
+
+    .pop-badge {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      background: #fdf4ff;
+      color: #a21caf;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+  Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+  <header class="text-center mb-5">
+    <h1 class="fw-bold" style="color: #a21caf;">Popovers</h1>
+    <p class="text-muted">Interactive overlays that house secondary information, powered by the Popper engine.</p>
+    <div class="alert alert-warning d-inline-block py-2 px-3 small">
+      <strong>Note:</strong> Popovers are <strong>opt-in</strong>. You must initialize them via JavaScript.
+    </div>
+  </header>
+
+  <!-- 1. Initialization & Basic Popover -->
+  <section class="demo-section">
+    <h3 class="mb-3">1. The Basic Trigger</h3>
+    <div class="preview-panel">
+      <span class="pop-badge">Attributes Required</span>
+      <button type="button" class="btn btn-lg btn-danger"
+              data-bs-toggle="popover"
+              data-bs-title="Popover Title"
+              data-bs-content="This is the body content of the popover. It can be quite engaging!">
+        Click to toggle popover
+      </button>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">// JS Initialization (Required)</span><br>
+      <span class="code-tag">const</span> popoverTriggerList = document.querySelectorAll(<span class="code-val">'[data-bs-toggle="popover"]'</span>);<br>
+      <span class="code-tag">const</span> popoverList = [...popoverTriggerList].map(el => <span class="code-tag">new</span> bootstrap.Popover(el));<br><br>
+      <span class="code-comment">&lt;!-- HTML Trigger --&gt;</span><br>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"popover"</span> <span class="code-attr">data-bs-title=</span><span class="code-val">"Header"</span> <span class="code-attr">data-bs-content=</span><span class="code-val">"Body"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span>
+    </div>
+  </section>
+
+  <!-- 2. Four Directions -->
+  <section class="demo-section">
+    <h3 class="mb-3">2. Directional Placement</h3>
+    <div class="preview-panel">
+      <span class="pop-badge">data-bs-placement</span>
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top content">Top</button>
+        <button class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right content">Right</button>
+        <button class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom content">Bottom</button>
+        <button class="btn btn-secondary" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left content">Left</button>
+      </div>
+    </div>
+    <div class="code-panel">
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-placement=</span><span class="code-val">"top"</span><span class="code-tag">&gt;</span>Top<span class="code-tag">&lt;/button&gt;</span><br>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-placement=</span><span class="code-val">"right"</span><span class="code-tag">&gt;</span>Right<span class="code-tag">&lt;/button&gt;</span><br>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-placement=</span><span class="code-val">"bottom"</span><span class="code-tag">&gt;</span>Bottom<span class="code-tag">&lt;/button&gt;</span><br>
+      <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-placement=</span><span class="code-val">"left"</span><span class="code-tag">&gt;</span>Left<span class="code-tag">&lt;/button&gt;</span>
+    </div>
+  </section>
+
+  <!-- 3. Dismissible Popover -->
+  <section class="demo-section">
+    <h3 class="mb-3">3. Dismiss on Next Click</h3>
+    <div class="preview-panel">
+      <span class="pop-badge">Trigger: Focus</span>
+      <a tabindex="0" class="btn btn-info" role="button"
+         data-bs-toggle="popover"
+         data-bs-trigger="focus"
+         data-bs-title="Dismissible"
+         data-bs-content="Click anywhere else on the page to close me.">
+        Dismissible Popover
+      </a>
+      <p class="mt-2 x-small text-muted">Requires an &lt;a&gt; tag and tabindex="0".</p>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Must use &lt;a&gt; for proper cross-browser focus behavior --&gt;</span><br>
+      <span class="code-tag">&lt;a</span> <span class="code-attr">tabindex=</span><span class="code-val">"0"</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"popover"</span> <span class="code-attr">data-bs-trigger=</span><span class="code-val">"focus"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/a&gt;</span>
+    </div>
+  </section>
+
+  <!-- 4. Disabled Elements -->
+  <section class="demo-section">
+    <h3 class="mb-3">4. Triggering on Disabled Buttons</h3>
+    <div class="preview-panel">
+      <span class="pop-badge">Wrapper Technique</span>
+      <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="I explain why this button is disabled.">
+        <button class="btn btn-primary" type="button" disabled>Disabled Button</button>
+      </span>
+    </div>
+    <div class="code-panel">
+      <span class="code-comment">&lt;!-- Wrap disabled elements in a focusable span --&gt;</span><br>
+      <span class="code-tag">&lt;span</span> <span class="code-attr">class=</span><span class="code-val">"d-inline-block"</span> <span class="code-attr">tabindex=</span><span class="code-val">"0"</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"popover"</span><span class="code-tag">&gt;</span><br>
+      &nbsp;&nbsp;<span class="code-tag">&lt;button</span> <span class="code-attr">class=</span><span class="code-val">"btn"</span> <span class="code-val">disabled</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/button&gt;</span><br>
+      <span class="code-tag">&lt;/span&gt;</span>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Initialize all popovers
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+  function updateViewport() {
+    const w = window.innerWidth;
+    let label = 'XS';
+    if (w >= 1400) label = 'XXL';
+    else if (w >= 1200) label = 'XL';
+    else if (w >= 992) label = 'LG';
+    else if (w >= 768) label = 'MD';
+    else if (w >= 576) label = 'SM';
+    document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+  }
+  updateViewport();
+  window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>

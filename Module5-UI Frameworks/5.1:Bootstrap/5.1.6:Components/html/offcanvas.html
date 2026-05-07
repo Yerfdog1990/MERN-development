@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap: Offcanvas Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #fcfcfc; padding: 40px 0; }
+
+        /* Floating Viewport Tracker */
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0d9488; /* Teal for Offcanvas */
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 2000;
+            border: 1px solid #0d9488;
+        }
+
+        .demo-section { margin-bottom: 4rem; }
+
+        .preview-panel {
+            background: #ffffff;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .code-panel {
+            background: #1e1e2e;
+            color: #89ddff;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-tag { color: #f07178; }
+        .code-attr { color: #c3e88d; }
+        .code-val { color: #ffcb6b; }
+        .code-comment { color: #676e95; font-style: italic; }
+
+        .oc-badge {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            background: #f0fdfa;
+            color: #0f766e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            width: fit-content;
+        }
+
+        /* Structural Visualizer - Highlights the trigger relationship */
+        .trigger-logic { border: 1px dashed #0d9488; padding: 10px; display: inline-block; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="viewport-indicator">
+    Viewport: <span id="vp-text">Detecting...</span>
+</div>
+
+<div class="container">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #0d9488;">Offcanvas</h1>
+        <p class="text-muted">Hidden sidebars that toggle from any edge of the viewport via JavaScript.</p>
+    </header>
+
+    <!-- 1. The Core Component -->
+    <section class="demo-section">
+        <h3 class="mb-3">1. Basic Structure & Toggle</h3>
+        <div class="preview-panel">
+            <span class="oc-badge">Trigger & Container</span>
+
+            <!-- Trigger Button -->
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocBasic">
+                Launch Offcanvas
+            </button>
+
+            <!-- Offcanvas Element -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="ocBasic" aria-labelledby="ocBasicLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="ocBasicLabel">Sidebar Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <p>Any Bootstrap component can go here: links, forms, or images.</p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Menu Item 1</li>
+                        <li class="list-group-item">Menu Item 2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- 1. The Trigger (Button or Link) --&gt;</span><br>
+            <span class="code-tag">&lt;button</span> <span class="code-attr">data-bs-toggle=</span><span class="code-val">"offcanvas"</span> <span class="code-attr">data-bs-target=</span><span class="code-val">"#ocBasic"</span><span class="code-tag">&gt;</span>Launch<span class="code-tag">&lt;/button&gt;</span><br><br>
+            <span class="code-comment">&lt;!-- 2. The Panel (Hidden by default) --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-start"</span> <span class="code-attr">id=</span><span class="code-val">"ocBasic"</span><span class="code-tag">&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas-header"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            &nbsp;&nbsp;<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas-body"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br>
+            <span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 2. Placement Variants -->
+    <section class="demo-section">
+        <h3 class="mb-3">2. Placement & Sides</h3>
+        <div class="preview-panel">
+            <span class="oc-badge">Directional Control</span>
+            <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocTop">Top</button>
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocEnd">Right (End)</button>
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocBottom">Bottom</button>
+            </div>
+
+            <!-- Right Panel Example -->
+            <div class="offcanvas offcanvas-end" id="ocEnd">
+                <div class="offcanvas-header"><h5 class="offcanvas-title">Right Panel</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+                <div class="offcanvas-body">Slide from the right side.</div>
+            </div>
+
+            <!-- Top Panel Example -->
+            <div class="offcanvas offcanvas-top" id="ocTop">
+                <div class="offcanvas-header"><h5 class="offcanvas-title">Top Panel</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+                <div class="offcanvas-body">Slide from the top.</div>
+            </div>
+
+            <!-- Bottom Panel Example -->
+            <div class="offcanvas offcanvas-bottom" id="ocBottom">
+                <div class="offcanvas-header"><h5 class="offcanvas-title">Bottom Panel</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+                <div class="offcanvas-body">Slide from the bottom.</div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-start"</span><span class="code-tag">&gt;</span> <span class="code-comment">&lt;!-- Left --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-end"</span><span class="code-tag">&gt;</span>   <span class="code-comment">&lt;!-- Right --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-top"</span><span class="code-tag">&gt;</span>   <span class="code-comment">&lt;!-- Top --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas offcanvas-bottom"</span><span class="code-tag">&gt;</span><span class="code-comment">&lt;!-- Bottom --&gt;</span>
+        </div>
+    </section>
+
+    <!-- 3. Advanced Behavior -->
+    <section class="demo-section">
+        <h3 class="mb-3">3. Backdrop & Scrolling</h3>
+        <div class="preview-panel">
+            <span class="oc-badge">UX Behavior</span>
+            <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocScroll" data-bs-scroll="true" data-bs-backdrop="false">
+                Enable Body Scrolling
+            </button>
+
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" id="ocScroll">
+                <div class="offcanvas-header"><h5 class="offcanvas-title">No Backdrop</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+                <div class="offcanvas-body">You can scroll the main page content while I am open!</div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Allow page scrolling while panel is open --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">data-bs-scroll=</span><span class="code-val">"true"</span> <span class="code-attr">data-bs-backdrop=</span><span class="code-val">"false"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span><br><br>
+            <span class="code-comment">&lt;!-- Prevent closing when clicking outside --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">data-bs-backdrop=</span><span class="code-val">"static"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+
+    <!-- 4. Responsive Offcanvas -->
+    <section class="demo-section">
+        <h3 class="mb-3">4. Responsive (Toggle only on Mobile)</h3>
+        <div class="preview-panel">
+            <span class="oc-badge">Desktop vs Mobile</span>
+            <div class="alert alert-info d-none d-lg-block">
+                Currently on <strong>LG+</strong>: The menu is visible as a standard block below. Resize to MD or SM to see the toggle button.
+            </div>
+
+            <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ocResponsive">
+                Mobile Menu Toggle
+            </button>
+
+            <div class="offcanvas-lg offcanvas-end mt-3" id="ocResponsive">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="offcanvas-title">Responsive Panel</h5>
+                    <button class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#ocResponsive"></button>
+                </div>
+                <div class="offcanvas-body bg-light">
+                    This content is an <strong>Offcanvas on mobile</strong> but behaves like a <strong>regular div on Desktop (LG+)</strong>.
+                </div>
+            </div>
+        </div>
+        <div class="code-panel">
+            <span class="code-comment">&lt;!-- Uses .offcanvas-{breakpoint} variant --&gt;</span><br>
+            <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-val">"offcanvas-lg offcanvas-end"</span><span class="code-tag">&gt;</span>...<span class="code-tag">&lt;/div&gt;</span>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateViewport() {
+        const w = window.innerWidth;
+        let label = 'XS';
+        if (w >= 1400) label = 'XXL';
+        else if (w >= 1200) label = 'XL';
+        else if (w >= 992) label = 'LG';
+        else if (w >= 768) label = 'MD';
+        else if (w >= 576) label = 'SM';
+        document.getElementById('vp-text').textContent = `${label} (${w}px)`;
+    }
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+</script>
+</body>
+</html>
