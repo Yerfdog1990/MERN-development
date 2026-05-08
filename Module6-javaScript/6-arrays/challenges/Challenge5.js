@@ -1,0 +1,30 @@
+/*
+Average
+Difficulty: EasyAccuracy: 49.87%Submissions: 25K+Points: 2Average Time: -1m
+You are given a list arr that contains integers. You need to return average of the non negative integers.
+
+Examples:
+
+Input: arr = [-12, 8, -7, 6, 12, -9, 14]
+Output: avg = 10.0
+Explanation: The non negative numbers are 8 6 12 14. The sum is 8+6+12+14 = 40, Average = 40/4 = 10.0
+Input: arr = [1, 2, 3]
+Output: avg = 2.0
+Explanation: The non negative numbers are 1 2 3. The sum is 1+2+3 = 6, Average = 6/3 = 2.0
+Input: arr = [5, 0, 0, 0]
+Output: avg = 1.25
+Explanation: The non negative numbers are 5 0 0 0. The sum is 5+0+0+0 = 5, Average = 5/4 = 1.25
+ */
+
+// User function Template for javascript
+class Solution {
+    posAverage(arr) {
+        const nonNegatives = arr.filter(x => x >= 0);
+        const sum = nonNegatives.reduce((acc, x) => acc + x, 0);
+        return sum / nonNegatives.length;
+    }
+}
+
+const sol = new Solution();
+console.log(sol.posAverage([-12, 8, -7, 6, 12, -9, 14]));
+
