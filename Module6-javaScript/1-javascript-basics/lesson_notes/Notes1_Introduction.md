@@ -51,7 +51,7 @@
 
 ### In a Server Console (Node.js)
 
-Create a file called `index.js`:
+Create a file called `object-literal.js`:
 
 ```js
 // This is a comment
@@ -61,7 +61,7 @@ console.log("Hello, World!");
 Run it in your terminal:
 
 ```bash
-node index.js
+node object-literal.js
 ```
 
 ---

@@ -182,7 +182,7 @@ You were born in the year 2001.
    ```bash
    node your-script-file.js
    ```
-   Replace `your-script-file.js` with the actual name of your file (e.g., `index.js`)
+   Replace `your-script-file.js` with the actual name of your file (e.g., `object-literal.js`)
 
 ---
 

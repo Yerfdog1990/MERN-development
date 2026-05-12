@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optional Chaining Demo - Form Handling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .mandatory {
+            border-left: 4px solid #e74c3c;
+            padding-left: 10px;
+        }
+        .optional {
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #219a52;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .error {
+            color: #e74c3c;
+            background-color: #ffe6e6;
+        }
+        .success {
+            color: #27ae60;
+            background-color: #e8f8f5;
+        }
+        .legend {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .legend-item {
+            margin: 5px 0;
+        }
+        .mandatory-badge {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .optional-badge {
+            color: #3498db;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Optional Chaining Demo - Form Handling</h1>
+        
+        <div class="legend">
+            <div class="legend-item"><span class="mandatory-badge">RED</span> = Mandatory fields (must be provided)</div>
+            <div class="legend-item"><span class="optional-badge">BLUE</span> = Optional fields (can be undefined/null)</div>
+        </div>
+
+        <form id="userForm">
+            <div class="form-group mandatory">
+                <label for="name">Name (Mandatory):</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group mandatory">
+                <label for="email">Email (Mandatory):</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group optional">
+                <label for="phone">Phone (Optional):</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group optional">
+                <label for="address">Address (Optional):</label>
+                <input type="text" id="address" name="address">
+            </div>
+
+            <div class="form-group optional">
+                <label for="company">Company (Optional):</label>
+                <input type="text" id="company" name="company">
+            </div>
+
+            <button type="submit">Submit Form</button><br><br>
+            <button type="button" onclick="simulatePartialData()">Simulate Partial Data</button><br><br>
+            <button type="button" onclick="clearForm()">Clear Form</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        // User profile structure with nested optional properties
+        const userProfileTemplate = {
+            personal: {
+                name: null,
+                email: null,
+                phone: null,
+                address: {
+                    street: null,
+                    city: null,
+                    country: null
+                }
+            },
+            professional: {
+                company: null,
+                position: null,
+                department: {
+                    name: null,
+                    manager: null
+                }
+            },
+            preferences: {
+                newsletter: null,
+                notifications: {
+                    email: null,
+                    sms: null
+                }
+            }
+        };
+
+        // Function to safely access nested properties using optional chaining
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((current, key) => current?.[key], obj);
+        }
+
+        // Function to safely set nested properties
+        function setNestedValue(obj, path, value) {
+            const keys = path.split('.');
+            const lastKey = keys.pop();
+            const target = keys.reduce((current, key) => {
+                if (current[key] === undefined || current[key] === null) {
+                    current[key] = {};
+                }
+                return current[key];
+            }, obj);
+            target[lastKey] = value || null;
+        }
+
+        // Function to validate mandatory fields using optional chaining
+        function validateMandatoryFields(userData) {
+            const errors = [];
+            
+            // Check mandatory personal fields
+            if (!userData?.personal?.name) {
+                errors.push('Name is required');
+            }
+            
+            if (!userData?.personal?.email) {
+                errors.push('Email is required');
+            }
+            
+            return errors;
+        }
+
+        // Function to extract user data from form
+        function extractFormData() {
+            const formData = new FormData(document.getElementById('userForm'));
+            const userData = JSON.parse(JSON.stringify(userProfileTemplate));
+            
+            // Set mandatory fields
+            setNestedValue(userData, 'personal.name', formData.get('name'));
+            setNestedValue(userData, 'personal.email', formData.get('email'));
+            
+            // Set optional fields using optional chaining
+            setNestedValue(userData, 'personal.phone', formData.get('phone'));
+            setNestedValue(userData, 'personal.address.street', formData.get('address'));
+            setNestedValue(userData, 'professional.company', formData.get('company'));
+            
+            return userData;
+        }
+
+        // Function to display user data using optional chaining
+        function displayUserData(userData) {
+            const resultDiv = document.getElementById('result');
+            
+            // Demonstrate optional chaining for safe property access
+            const output = `
+=== USER PROFILE ===
+
+Mandatory Information:
+• Name: ${userData?.personal?.name ?? 'Not provided'}
+• Email: ${userData?.personal?.email ?? 'Not provided'}
+
+Optional Information:
+• Phone: ${userData?.personal?.phone ?? 'Not provided'}
+• Address: ${userData?.personal?.address?.street ?? 'Not provided'}
+• Company: ${userData?.professional?.company ?? 'Not provided'}
+
+Deep Nested Properties (using optional chaining):
+• Country: ${userData?.personal?.address?.country ?? 'Not provided'}
+• Position: ${userData?.professional?.position ?? 'Not provided'}
+• Department: ${userData?.professional?.department?.name ?? 'Not provided'}
+• Manager: ${userData?.professional?.department?.manager ?? 'Not provided'}
+• Newsletter: ${userData?.preferences?.newsletter ?? 'Not set'}
+• Email Notifications: ${userData?.preferences?.notifications?.email ?? 'Not set'}
+• SMS Notifications: ${userData?.preferences?.notifications?.sms ?? 'Not set'}
+
+=== OPTIONAL CHAINING BENEFITS ===
+✓ No TypeError when accessing undefined nested properties
+✓ Clean, readable code without multiple if statements
+✓ Graceful handling of missing optional data
+✓ Default values using nullish coalescing operator (??)
+            `;
+            
+            resultDiv.textContent = output;
+            resultDiv.className = 'result success';
+            resultDiv.style.display = 'block';
+        }
+
+        // Form submission handler
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userData = extractFormData();
+            const errors = validateMandatoryFields(userData);
+            
+            const resultDiv = document.getElementById('result');
+            
+            if (errors.length > 0) {
+                resultDiv.textContent = `VALIDATION ERRORS:\n${errors.join('\n')}`;
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+            } else {
+                displayUserData(userData);
+            }
+        });
+
+        // Function to simulate partial data submission
+        function simulatePartialData() {
+            // Clear form first
+            document.getElementById('userForm').reset();
+            
+            // Fill only mandatory fields
+            document.getElementById('name').value = 'John Doe';
+            document.getElementById('email').value = 'john.doe@example.com';
+            
+            // Leave optional fields empty to demonstrate optional chaining
+            const userData = extractFormData();
+            displayUserData(userData);
+        }
+
+        // Function to clear form
+        function clearForm() {
+            document.getElementById('userForm').reset();
+            document.getElementById('result').style.display = 'none';
+        }
+
+        // Demonstrate optional chaining in console
+        console.log('=== OPTIONAL CHAINING DEMO ===');
+        
+        // Example 1: Safe property access
+        const testUser = {
+            personal: { name: 'Alice' }
+            // No email property
+        };
+        
+        console.log('Without optional chaining:', testUser.personal.email); // undefined
+        console.log('With optional chaining:', testUser?.personal?.email); // undefined
+        console.log('With optional chaining + default:', testUser?.personal?.email ?? 'No email'); // 'No email'
+        
+        // Example 2: Deep nested access
+        console.log('Deep nested access:', testUser?.personal?.address?.city ?? 'No city');
+        
+        // Example 3: Method calls with optional chaining
+        const testUser2 = {
+            personal: { 
+                name: 'Bob',
+                getAddress: () => '123 Main St'
+            }
+        };
+        
+        console.log('Method call with optional chaining:', testUser2?.personal?.getAddress?.()); // '123 Main St'
+        console.log('Non-existent method with optional chaining:', testUser?.personal?.getAddress?.()); // undefined
+    </script>
+</body>
+</html>

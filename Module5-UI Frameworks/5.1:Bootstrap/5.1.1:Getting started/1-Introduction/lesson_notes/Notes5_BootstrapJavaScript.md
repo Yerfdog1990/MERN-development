@@ -131,7 +131,7 @@ Instead of importing `bootstrap.bundle.min.js`, you should install these librari
 Even if you don't use Bootstrap's JavaScript, you can still use its powerful CSS system (Grid, Utilities, Typography).
 
 1.  **Install via npm:** `npm install bootstrap`
-2.  **Import in your entry point:** \* **React (`index.js`):** `import 'bootstrap/dist/css/bootstrap.min.css';`
+2.  **Import in your entry point:** \* **React (`object-literal.js`):** `import 'bootstrap/dist/css/bootstrap.min.css';`
     * **Vue (`main.js`):** `import 'bootstrap/dist/css/bootstrap.min.css';`
     * **Angular (`angular.json`):** Add the path to the `styles` array.
 
