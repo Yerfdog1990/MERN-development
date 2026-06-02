@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Page Load Events Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #fafafa; }
+        .box { border: 1px solid #bdc3c7; padding: 20px; margin: 15px 0; border-radius: 6px; background-color: #ffffff; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"] { padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 14px; overflow-x: auto; }
+        .status-badge { inline-size: max-content; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
+        .status-dom { background-color: #d4edda; color: #155724; }
+        .status-window { background-color: #cce5ff; color: #004085; }
+    </style>
+</head>
+<body>
+<h1>Page Load & Lifecycle Events</h1>
+
+<div class="box">
+    <h3>1. Tracking Initialization Sequence</h3>
+    <p>Open your browser's console tab to view the live execution tracking details.</p>
+    <pre id="lifecycle-log">Tracking page lifecycle activity...</pre>
+</div>
+
+<div class="box">
+    <h3>2. Simulating Unsaved Form Data Loss</h3>
+    <p>Type some text into the field below and try refreshing the tab or navigating away to trigger the <b>beforeunload</b> confirmation prompt.</p>
+
+    <div class="form-group">
+        <label for="username">Form Field Input:</label>
+        <input type="text" id="username" placeholder="Type here to lock navigation protection...">
+    </div>
+
+    <p><a href="https://www.google.com">Click here to test navigating to an external page</a></p>
+</div>
+
+<script>
+    const logArea = document.getElementById('lifecycle-log');
+    let logData = "--- Event Sequence Timeline Log ---\n";
+
+    function appendLog(message) {
+        logData += `${message}\n`;
+        // If the DOM element is parsed and available, update it visually
+        if (logArea) {
+            logArea.textContent = logData;
+        }
+        console.log(message);
+    }
+
+    // --- PHASE 1: DOMContentLoaded ---
+    // Attached to the document object
+    document.addEventListener('DOMContentLoaded', (event) => {
+        appendLog("1. [DOMContentLoaded Event] - The HTML structure is fully parsed and the DOM tree is built.");
+        appendLog("   -> Elements can now be queried safely. (Images/styles might still be loading)");
+    });
+
+    // --- PHASE 2: load ---
+    // Attached to the window object
+    window.addEventListener('load', (event) => {
+        appendLog("2. [load Event] - The page structure and all external assets are completely loaded.");
+        appendLog("   -> Stylesheets, scripts, subframes, and images are fully rendered in the view.");
+    });
+
+    // --- PHASE 3: beforeunload ---
+    // Attached to the window object
+    window.addEventListener('beforeunload', (event) => {
+        const inputField = document.getElementById('username');
+
+        // Check if the user has typed anything into the input field
+        if (inputField && inputField.value.trim() !== "") {
+            // To display a confirmation dialog, cancel the event according to standard specs
+            event.preventDefault();
+
+            // Legacy support for Google Chrome and certain browser engines
+            event.returnValue = '';
+        }
+        // Note: If the input field is empty, the page will close immediately without a prompt
+    });
+
+    // --- PHASE 4: unload ---
+    // Attached to the window object
+    window.addEventListener('unload', (event) => {
+        // Note: Console logs or alerts will not be visible to the user at this point
+        // This is typically used to send analytics using navigator.sendBeacon
+        navigator.sendBeacon('/api/analytics', JSON.stringify({
+            event: 'page_close',
+            timestamp: Date.now()
+        }));
+    });
+</script>
+</body>
+</html>

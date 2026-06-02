@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Element Dimensions Inspection</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+
+        /* Metric configuration container */
+        #metric-box {
+            width: 200px;
+            height: 120px;
+            padding: 20px;
+            border: 10px solid #2c3e50;
+            margin: 30px;
+            background-color: #3498db;
+            color: white;
+        }
+
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; }
+        button { padding: 8px 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h1>Inspecting Layout Metrics & Dimensions</h1>
+
+<div class="box">
+    <div id="metric-box">
+        Dimension Target Box
+    </div>
+
+    <button onclick="calculateMetrics()">Calculate Box Metrics</button>
+    <pre id="metrics-output">Click calculate to review box data...</pre>
+</div>
+
+<script>
+    function calculateMetrics() {
+        const target = document.getElementById('metric-box');
+        const output = document.getElementById('metrics-output');
+
+        // 1. Reading basic offset layouts (Content + Padding + Border)
+        let offsetW = target.offsetWidth;
+        let offsetH = target.offsetHeight;
+
+        // 2. Reading client layouts (Content + Padding only)
+        let clientW = target.clientWidth;
+        let clientH = target.clientHeight;
+
+        // 3. Extracting margins via computed styles
+        let computedStyle = window.getComputedStyle(target);
+        let mt = parseInt(computedStyle.marginTop) || 0;
+        let mb = parseInt(computedStyle.marginBottom) || 0;
+        let ml = parseInt(computedStyle.marginLeft) || 0;
+        let mr = parseInt(computedStyle.marginRight) || 0;
+
+        // 4. Checking bounding client rectangle properties
+        let rect = target.getBoundingClientRect();
+
+        // 5. Fetch Window Viewport Size parameters
+        let viewportW = window.innerWidth || document.documentElement.clientWidth;
+        let viewportH = window.innerHeight || document.documentElement.clientHeight;
+
+        let log = `--- Target Dimensions Spec Sheet ---\n`;
+        log += `offsetWidth/Height   : ${offsetW}px width by ${offsetH}px height (Includes border)\n`;
+        log += `clientWidth/Height   : ${clientW}px width by ${clientH}px height (Excludes border)\n\n`;
+
+        log += `--- Parsed Margin Data ---\n`;
+        log += `Margins (Top/Right/Bottom/Left) : ${mt}px / ${mr}px / ${mb}px / ${ml}px\n\n`;
+
+        log += `--- getBoundingClientRect() Output ---\n`;
+        log += `rect.width  : ${rect.width.toFixed(2)}px\n`;
+        log += `rect.height : ${rect.height.toFixed(2)}px\n`;
+        log += `rect.top    : ${rect.top.toFixed(2)}px relative to viewport bounding limits\n\n`;
+
+        log += `--- Global Viewport Environment ---\n`;
+        log += `Window Client Viewport Size : ${viewportW}px width by ${viewportH}px height`;
+
+        output.textContent = log;
+    }
+</script>
+</body>
+</html>

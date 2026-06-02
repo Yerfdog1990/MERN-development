@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Window</title>
+</head>
+<body>
+
+<h1>Main Window</h1>
+
+<button id="openBtn">Open Popup</button>
+
+<script>
+
+    function openPopup() {
+
+        window.open(
+            'popup.html',
+            'popupWindow',
+            'width=500,height=400'
+        );
+    }
+
+    document
+        .getElementById('openBtn')
+        .addEventListener('click', openPopup);
+
+</script>
+
+</body>
+</html>

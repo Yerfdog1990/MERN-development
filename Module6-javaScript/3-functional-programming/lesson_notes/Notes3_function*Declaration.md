@@ -45,7 +45,7 @@ function* generator(i) {
 // Initialize the generator with a starting value of 50
 const generate = generator(50);
 
-// Call next() to get the first yielded value
+// Call next() to js the first yielded value
 let nextValObj = generate.next();
 console.log(nextValObj.value); // Output: 50
 

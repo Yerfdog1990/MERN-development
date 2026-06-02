@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>innerHTML Demo</title>
+    <style>
+        body  { font-family: Arial, sans-serif; padding: 20px; }
+        .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; background: #fdfefe; }
+        pre   { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 14px; white-space: pre-wrap; }
+        h3    { color: #2c3e50; margin-top: 25px; }
+        .warn { background: #fdecea; border-left: 4px solid #e74c3c; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>innerHTML Demo</h1>
+
+<!-- Demo 1: Reading innerHTML -->
+<h3>1. Reading innerHTML</h3>
+<div class="box">
+    <ul id="menu">
+        <li>Home</li>
+        <li>Services</li>
+    </ul>
+    <pre id="read-output"></pre>
+</div>
+
+<!-- Demo 2: Setting innerHTML -->
+<h3>2. Setting innerHTML (replaces existing content)</h3>
+<div class="box">
+    <div id="target">Original content here.</div>
+    <button onclick="setHTML()">Replace with innerHTML</button>
+</div>
+
+<!-- Demo 3: innerHTML reflects live DOM changes -->
+<h3>3. innerHTML reflects live DOM changes</h3>
+<div class="box">
+    <ul id="live-menu">
+        <li>Home</li>
+        <li>Services</li>
+    </ul>
+    <button onclick="addAndShow()">Add item and read innerHTML</button>
+    <pre id="live-output"></pre>
+</div>
+
+<!-- Demo 4: Security risk demonstration -->
+<h3>4. Security — Use textContent for user input</h3>
+<div class="box">
+    <input type="text" id="user-input" placeholder="Type something..." value="&lt;img src=x onerror=alert('XSS')&gt;" style="width:100%; padding:6px; box-sizing:border-box;">
+    <button onclick="insertUnsafe()">Insert via innerHTML (UNSAFE)</button>
+    <button onclick="insertSafe()">Insert via textContent (SAFE)</button>
+    <div id="result-area" class="warn" style="margin-top:10px;"></div>
+</div>
+
+<script>
+
+    // --- Demo 1: Read innerHTML ---
+    const menu   = document.getElementById('menu');
+    const output = document.getElementById('read-output');
+    output.textContent = menu.innerHTML;
+    // Shows: <li>Home</li>\n            <li>Services</li>
+
+    // --- Demo 2: Set innerHTML ---
+    function setHTML() {
+        document.getElementById('target').innerHTML =
+            '<h4>New Heading</h4><p>This was inserted with <b>innerHTML</b>.</p>';
+    }
+
+    // --- Demo 3: innerHTML always reflects the current DOM ---
+    function addAndShow() {
+        const liveMenu = document.getElementById('live-menu');
+
+        // Add a new item dynamically
+        let li = document.createElement('li');
+        li.textContent = 'About Us';
+        liveMenu.appendChild(li);
+
+        // innerHTML now includes the dynamically added item
+        document.getElementById('live-output').textContent = liveMenu.innerHTML;
+    }
+
+    // --- Demo 4: Security comparison ---
+    function insertUnsafe() {
+        // DANGEROUS: if input contains <img onerror="...">, it will execute
+        const val = document.getElementById('user-input').value;
+        document.getElementById('result-area').innerHTML = val;
+    }
+
+    function insertSafe() {
+        // SAFE: tags are treated as literal text — never parsed as HTML
+        const val = document.getElementById('user-input').value;
+        document.getElementById('result-area').textContent = val;
+    }
+
+</script>
+
+</body>
+</html>

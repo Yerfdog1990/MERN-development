@@ -223,7 +223,7 @@ JavaScript or stylesheets that **don't need to be present on the first paint** o
 <!-- Defer non-critical JavaScript -->
 <script src="bootstrap.bundle.min.js" defer></script>
 
-<!-- Async for scripts with no dependencies -->
+<!-- Async for html with no dependencies -->
 <script src="analytics.js" async></script>
 ```
 

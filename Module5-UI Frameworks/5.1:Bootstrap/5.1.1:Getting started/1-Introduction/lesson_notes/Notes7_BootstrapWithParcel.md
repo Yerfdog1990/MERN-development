@@ -61,7 +61,7 @@ Unlike other bundlers where you might link to a compiled `dist` folder, Parcel l
 ### NPM Scripts (`package.json`)
 You need to tell Parcel where to start and where to output the results.
 ```json
-"scripts": {
+"html": {
   "start": "parcel serve src/index.html --public-url / --dist-dir dist"
 }
 ```

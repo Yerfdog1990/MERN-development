@@ -209,7 +209,7 @@ myCollapse.show()
 myCollapse.hide()
 myCollapse.toggle()
 
-// Safe create-or-get (won't throw if not yet initialized)
+// Safe create-or-js (won't throw if not yet initialized)
 const safeInstance = bootstrap.Collapse.getOrCreateInstance('#collapseOne')
 ```
 

@@ -1,0 +1,249 @@
+# Radio Buttons 
+
+## Complete Guide with Full HTML Examples
+
+### Table of Contents
+
+* [Understanding Mutually Exclusive Radio Groups](https://www.google.com/search?q=%231-understanding-mutually-exclusive-radio-groups)
+* [Finding the Selected Option (Traditional Loops vs. Modern Selectors)](https://www.google.com/search?q=%232-finding-the-selected-option-traditional-loops-vs-modern-selectors)
+* [The \`change\` Event Tracking Framework](https://www.google.com/search?q=%233-the-change-event-tracking-framework)
+* [Dynamic Group Generation via Array Iteration](https://www.google.com/search?q=%234-dynamic-group-generation-via-array-iteration)
+* [Full Integration Sandbox Demo](https://www.google.com/search?q=%235-full-integration-sandbox-demo)
+* [Quick Reference Table](https://www.google.com/search?q=%23quick-reference-table)
+
+---
+
+### 1. Understanding Mutually Exclusive Radio Groups
+
+An HTML radio button is created using the `<input>` element with `type="radio"`. Radio buttons allow users to select exactly **one option** from a predefined, mutually exclusive set of choices.
+
+To form a **radio group** where checking one option automatically unchecks the previously selected option, you must assign the exact same **`name`** attribute to all related radio buttons.
+
+![img_22.png](img_22.png)
+
+```html
+<div>
+    <input type="radio" name="size" value="S" id="size-s">
+    <label for="size-s">Small</label>
+</div>
+<div>
+    <input type="radio" name="size" value="M" id="size-m">
+    <label for="size-m">Medium</label>
+</div>
+
+<input type="radio" name="option-1" value="XS"> Extra Small
+<input type="radio" name="option-2" value="XL"> Extra Large
+
+```
+
+*Accessibility Note:* Just like checkboxes, always use explicit label matching (`for="id"`) to ensure that clicking the text description toggles the corresponding radio option.
+
+---
+
+### 2. Finding the Selected Option
+
+You can determine which radio option a user selected using two primary JavaScript patterns:
+
+#### Pattern A: Looping Through Element States
+
+This classic strategy queries the collection of elements, loops through each node, and exits the loop early (`break`) once it identifies the entry with a `checked` property of `true`.
+
+```javascript
+const sizeRadioButtons = document.querySelectorAll('input[name="size"]');
+let currentSelection = null;
+
+for (const radio of sizeRadioButtons) {
+    if (radio.checked) {
+        currentSelection = radio.value; // Store the unique value string
+        break; // Terminate early since only one radio button can be active
+    }
+}
+
+```
+
+#### Pattern B: The Modern CSS Pseudo-Class Selector
+
+Instead of manual loops, you can query the active element directly in a single line using the `:checked` pseudo-class. If no item is selected, the query returns `null`:
+
+```javascript
+const chosenRadio = document.querySelector('input[name="size"]:checked');
+const finalValue = chosenRadio ? chosenRadio.value : "No selection made";
+
+```
+
+---
+
+### 3. The `change` Event Tracking Framework
+
+To respond immediately when a user selects a different radio option without waiting for a form submission, listen for the **`change`** event.
+
+[Image flow chart illustrating a user clicking a new radio item, which fires the change event and updates the DOM dynamically based on the newly selected element value]
+
+When a user switches selections within a group, the `change` event fires on the radio button that was just selected. Inside the event listener function, `this` (or `event.target`) references the underlying element node:
+
+```javascript
+const targetGroupFields = document.querySelectorAll('input[name="size"]');
+
+targetGroupFields.forEach(radio => {
+    radio.addEventListener('change', function(event) {
+        // Double-check the selected state
+        if (this.checked) {
+            console.log(`Live Update: User selected option "${this.value}"`);
+        }
+    });
+});
+
+```
+
+---
+
+### 4. Dynamic Group Generation via Array Iteration
+
+When your application's choices are driven by data records, lookups, or API payloads, you can generate your radio group markup dynamically at runtime.
+
+Using array transformation mapping functions (`.map()`) combined with string interpolation template literals makes it easy to assemble clean HTML layouts cleanly and efficiently:
+
+```javascript
+const serverSizes = ['XS', 'S', 'M', 'L', 'XL'];
+const renderingTarget = document.getElementById('radio-group-container');
+
+// Map string options into a single HTML structure
+const generatedMarkup = serverSizes.map(size => `
+    <div class="radio-row">
+        <input type="radio" name="dynamic-size" value="${size}" id="size-${size.toLowerCase()}">
+        <label for="size-${size.toLowerCase()}">Option Tier: ${size}</label>
+    </div>
+`).join('');
+
+// Inject the generated markup string into the DOM layout container
+renderingTarget.innerHTML = generatedMarkup;
+
+```
+
+---
+
+### 5. Full Integration Sandbox Demo
+
+This production-ready HTML template demonstrates both retrieval methods (button click analysis vs. live real-time `change` listeners) working alongside a dynamically generated data list.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Radio Button Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f8fafc; color: #0f172a; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
+        .card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+        
+        /* Interactive Radio Choice Layout Rows */
+        .radio-option-row { margin-bottom: 12px; }
+        .radio-option-row label { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; background: #f1f5f9; border-radius: 6px; cursor: pointer; user-select: none; width: 80%; transition: background 0.2s; }
+        .radio-option-row label:hover { background-color: #e2e8f0; }
+        .radio-option-row input[type="radio"] { width: 18px; height: 18px; cursor: pointer; margin: 0; }
+        
+        .action-btn { display: inline-block; width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .action-btn:hover { background-color: #2563eb; }
+        pre { background: #0f172a; color: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 120px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript Radio Button Interface Laboratory</h1>
+    
+    <div class="grid">
+        <div class="card">
+            <h3>1. Dynamic Tier Selection</h3>
+            <p>Select your tier preference. This group is built dynamically from an array config list:</p>
+            
+            <div id="dynamic-radio-group-root">
+                </div>
+
+            <button id="btn-inspect-explicit" class="action-btn">Inspect Active Radio State via Button</button>
+        </div>
+
+        <div class="card">
+            <h3>2. Runtime Diagnostic Output Terminal</h3>
+            <pre id="diagnostic-terminal">Awaiting structural configuration or selection interactions...</pre>
+        </div>
+    </div>
+
+    <script>
+        const radioGroupRoot = document.getElementById('dynamic-radio-group-root');
+        const inspectBtn = document.getElementById('btn-inspect-explicit');
+        const diagnosticTerminal = document.getElementById('diagnostic-terminal');
+
+        // Core data array model representing incoming records
+        const dataOptions = ["Bronze-Tier", "Silver-Tier", "Gold-Tier", "Platinum-Tier"];
+
+        // --- 1. Dynamic DOM Component Assembly ---
+        function assembleRadioLayout() {
+            radioGroupRoot.innerHTML = dataOptions.map(option => {
+                const uniqueId = `id-${option.toLowerCase()}`;
+                return `
+                    <div class="radio-option-row">
+                        <input type="radio" name="subscription-tier" value="${option}" id="${uniqueId}">
+                        <label for="${uniqueId}">
+                            <span>Active System Tier: <b>${option}</b></span>
+                        </label>
+                    </div>
+                `;
+            }).join('');
+
+            // Bind change listeners to our newly generated inputs
+            bindGroupChangeListeners();
+        }
+
+        // --- 2. Live Change Tracking Logic ---
+        function bindGroupChangeListeners() {
+            const freshRadioElements = document.querySelectorAll('input[name="subscription-tier"]');
+            
+            freshRadioElements.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        diagnosticTerminal.textContent = `[Live Event Alert]: "change" event detected!\n` +
+                            `• Target Value Token  : "${this.value}"\n` +
+                            `• Element Node Source : <input id="${this.id}">`;
+                    }
+                });
+            });
+        }
+
+        // --- 3. Explicit Target Inspection via Button Click ---
+        inspectBtn.addEventListener('click', () => {
+            // Find the active choice using the CSS :checked pseudo-class selector
+            const activeChoiceNode = document.querySelector('input[name="subscription-tier"]:checked');
+            
+            if (activeChoiceNode) {
+                diagnosticTerminal.textContent = `[Explicit Query Result]: Manual check successful.\n` +
+                    `----------------------------------------\n` +
+                    `• Active Selected Value : "${activeChoiceNode.value}"\n` +
+                    `• Verification State    : .checked === ${activeChoiceNode.checked}`;
+            } else {
+                diagnosticTerminal.textContent = `[Explicit Query Result]:\n----------------------------------------\n⚠ Validation failure: No radio choices are checked within this group right now.`;
+            }
+        });
+
+        // Initialize component generation on page load
+        assembleRadioLayout();
+    </script>
+</body>
+</html>
+
+```
+
+---
+
+### Quick Reference Table
+
+| Target API Hook / Selector | Evaluation Property Type | Functional Objective Description | Notable Behavioral Exceptions |
+| --- | --- | --- | --- |
+| **`input[name="group"]:checked`** | CSS Selector Match | Queries and returns the specific single radio element within a group that is currently checked. | Returns **`null`** if no item within the targeted group has been selected yet. |
+| **`radioNode.checked`** | Read/Write Boolean | Checks or sets whether a specific radio button is currently selected (`true` or `false`). | In a group, setting one button to `true` automatically sets all other buttons in that group to `false`. |
+| **`radioNode.value`** | String | Returns the text string value token associated with the targeted element node. | Reading this value returns the assigned string regardless of whether the button is checked or unchecked. |
+| **`'change'`** | Event Listener Target | Fires a tracking event exactly when an item in the group becomes selected. | The event fires exclusively on the button that *gains* selection, not on the button losing it. |
+| Shared **`name=""`** attribute | Markup Group Key | Groups individual radio button inputs together to enforce mutual exclusivity. | Omitting a shared group name breaks mutual exclusivity, allowing multiple radio choices to be selected at once. |
+
+---

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comprehensive Mouse Events Sandbox</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1100px; }
+    .card { border: 1px solid #dcdde1; padding: 20px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .track-pad { background-color: #eccc68; height: 180px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: crosshair; border: 2px dashed #b53b00; }
+    .boundary-zone { background-color: #70a1ff; padding: 30px; border-radius: 6px; text-align: center; color: white; font-weight: bold; }
+    .nested-child { background-color: #1e90ff; padding: 20px; margin-top: 15px; border-radius: 4px; border: 2px solid white; }
+    pre { background: #2f3640; color: #f5f6fa; padding: 12px; border-radius: 6px; font-size: 13px; font-family: monospace; line-height: 1.4; }
+    .interactive-btn { width: 100%; padding: 15px; font-size: 14px; font-weight: bold; border-radius: 6px; border: 2px solid #2f3640; cursor: pointer; }
+    .active-key { background-color: #2ed573 !important; color: white; }
+    .key-badge { display: inline-block; padding: 5px 10px; background: #dcdde1; margin-right: 5px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>JavaScript Mouse Events Lab</h1>
+
+<div class="grid">
+  <div class="card">
+    <h3>1. Position Vector Monitor (mousemove)</h3>
+    <p>Move your cursor inside the box below to track screen vs. client coordinates:</p>
+    <div id="move-pad" class="track-pad">Hover & Move Mouse Inside</div>
+    <pre id="coordinate-log">Screen Coordinates: (0, 0)&#10;Client Coordinates: (0, 0)</pre>
+  </div>
+
+  <div class="card">
+    <h3>2. Inputs & Modifiers Monitor</h3>
+    <p>Click the button using different mouse buttons (left, middle, right) while holding down modifier keys (Shift, Ctrl, Alt):</p>
+    <button id="click-btn" class="interactive-btn">Click Me Every Which Way</button>
+
+    <div style="margin: 15px 0;">
+      <span id="badge-shift" class="key-badge">SHIFT</span>
+      <span id="badge-ctrl" class="key-badge">CTRL</span>
+      <span id="badge-alt" class="key-badge">ALT</span>
+      <span id="badge-meta" class="key-badge">META</span>
+    </div>
+    <pre id="input-log">Last Click Action: Waiting for click...</pre>
+  </div>
+
+  <div class="card">
+    <h3>3. Boundary Crossing Lab (mouseover vs mouseenter)</h3>
+    <p>Watch the console log to see how events fire when moving into the parent container versus its nested child:</p>
+    <div id="parent-zone" class="boundary-zone">
+      PARENT CONTAINER (mouseenter / mouseover)
+      <div id="child-zone" class="nested-child">NESTED CHILD ELEMENT</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>4. Scroll Wheel Monitor (wheel)</h3>
+    <p>Scroll up or down inside the field below to monitor delta rotation deltas:</p>
+    <div id="scroll-pad" class="track-pad" style="background-color: #a4b0be; border-color: #2f3640; color: white;">
+      Scroll Wheel / Trackpad Here
+    </div>
+    <pre id="scroll-log">Scroll DeltaY: 0</pre>
+  </div>
+</div>
+
+<script>
+  // --- 1. Coordinate Tracking Logic ---
+  const movePad = document.getElementById('move-pad');
+  const coordinateLog = document.getElementById('coordinate-log');
+
+  movePad.addEventListener('mousemove', (event) => {
+    coordinateLog.textContent = `Screen Coordinates: (X: ${event.screenX}, Y: ${event.screenY})\nClient Coordinates: (X: ${event.clientX}, Y: ${event.clientY})`;
+  });
+
+  // --- 2. Button & Modifier Detection Logic ---
+  const clickBtn = document.getElementById('click-btn');
+  const inputLog = document.getElementById('input-log');
+
+  // Prevent right-click context menus from opening on the button
+  clickBtn.addEventListener('contextmenu', e => e.preventDefault());
+
+  clickBtn.addEventListener('mouseup', (event) => {
+    let buttonName = '';
+    switch(event.button) {
+      case 0: buttonName = 'Primary/Left Button'; break;
+      case 1: buttonName = 'Auxiliary/Middle Wheel Button'; break;
+      case 2: buttonName = 'Secondary/Right Button'; break;
+      default: buttonName = `Unknown Button ID: ${event.button}`;
+    }
+
+    // Update modifier key visual badges
+    document.getElementById('badge-shift').className = event.shiftKey ? 'key-badge active-key' : 'key-badge';
+    document.getElementById('badge-ctrl').className = event.ctrlKey ? 'key-badge active-key' : 'key-badge';
+    document.getElementById('badge-alt').className = event.altKey ? 'key-badge active-key' : 'key-badge';
+    document.getElementById('badge-meta').className = event.metaKey ? 'key-badge active-key' : 'key-badge';
+
+    inputLog.textContent = `Event Type Identified: ${event.type}\nButton Used: ${buttonName}\nTimestamp Delta: ${event.timeStamp.toFixed(0)}ms`;
+  });
+
+  // --- 3. Boundary Crossing Analysis Logic ---
+  const parentZone = document.getElementById('parent-zone');
+
+  // Mouseenter fires only when entering the parent container itself
+  parentZone.addEventListener('mouseenter', () => console.log('➡️ [mouseenter]: Entered Parent Container Boundary Box.'));
+  parentZone.addEventListener('mouseleave', () => console.log('⬅️ [mouseleave]: Left Parent Container Boundary Box.'));
+
+  // Mouseover fires when entering the parent container OR any of its children
+  parentZone.addEventListener('mouseover', (e) => console.log(`  🔹 [mouseover]: Pointer entered target tag: <${e.target.id}>`));
+  parentZone.addEventListener('mouseout', (e) => console.log(`  🔸 [mouseout]: Pointer exited target tag: <${e.target.id}>`));
+
+  // --- 4. Scroll Wheel Delta Logic ---
+  const scrollPad = document.getElementById('scroll-pad');
+  const scrollLog = document.getElementById('scroll-log');
+
+  scrollPad.addEventListener('wheel', (event) => {
+    event.preventDefault(); // Prevents normal page scrolling while inside the pad
+    scrollLog.textContent = `Scroll DeltaY Movement Magnitude: ${event.deltaY.toFixed(2)}`;
+  });
+</script>
+</body>
+</html>

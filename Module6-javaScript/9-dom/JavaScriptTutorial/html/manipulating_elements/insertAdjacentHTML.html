@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>insertAdjacentHTML Demo</title>
+    <style>
+        body   { font-family: Arial, sans-serif; padding: 20px; }
+        .box   { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        ul     { background: #eaf2ff; padding: 15px 35px; }
+        .added { background: #fef9e7; font-style: italic; }
+        h3     { color: #2c3e50; margin-top: 25px; }
+        button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+        code   { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<h1>insertAdjacentHTML Demo</h1>
+
+<!-- Demo 1: All four positions -->
+<h3>1. All Four Positions Around a List</h3>
+<div class="box">
+    <div id="adjacent-wrapper">
+        <ul id="adj-list">
+            <li>CSS</li>
+        </ul>
+    </div>
+    <button onclick="insertBeforeBegin()">beforebegin — before &lt;ul&gt;</button>
+    <button onclick="insertAfterBegin()">afterbegin — before first &lt;li&gt;</button>
+    <button onclick="insertBeforeEnd()">beforeend — after last &lt;li&gt;</button>
+    <button onclick="insertAfterEnd()">afterend — after &lt;ul&gt;</button>
+    <button onclick="resetAdj()">Reset</button>
+</div>
+
+<!-- Demo 2: Practical use — adding notification banner -->
+<h3>2. Practical Use — Insert a Notification Banner</h3>
+<div class="box">
+    <div id="main-content">
+        <p>This is the main content area.</p>
+    </div>
+    <button onclick="addBanner()">Add Banner Before Content</button>
+</div>
+
+<script>
+
+    const originalHTML = '<ul id="adj-list"><li>CSS</li></ul>';
+
+    function resetAdj() {
+        document.getElementById('adjacent-wrapper').innerHTML = originalHTML;
+    }
+
+    // --- Demo 1: All four positions ---
+    function insertBeforeBegin() {
+        const list = document.querySelector('#adj-list');
+        // Inserts BEFORE the <ul> element itself (as a sibling)
+        list.insertAdjacentHTML('beforebegin', '<h4 class="added">↑ beforebegin: Inserted before &lt;ul&gt;</h4>');
+    }
+
+    function insertAfterBegin() {
+        const list = document.querySelector('#adj-list');
+        // Inserts INSIDE the <ul>, before its first child
+        list.insertAdjacentHTML('afterbegin', '<li class="added">↓ afterbegin: First child</li>');
+    }
+
+    function insertBeforeEnd() {
+        const list = document.querySelector('#adj-list');
+        // Inserts INSIDE the <ul>, after its last child
+        list.insertAdjacentHTML('beforeend', '<li class="added">↑ beforeend: Last child</li>');
+    }
+
+    function insertAfterEnd() {
+        const list = document.querySelector('#adj-list');
+        // Inserts AFTER the <ul> element itself (as a sibling)
+        list.insertAdjacentHTML('afterend', '<p class="added">↓ afterend: Inserted after &lt;ul&gt;</p>');
+    }
+
+    // --- Demo 2: Practical banner insertion ---
+    function addBanner() {
+        const main = document.getElementById('main-content');
+        main.insertAdjacentHTML('beforebegin',
+            '<div style="background:#fdecea; border:1px solid #e74c3c; padding:10px; border-radius:4px; margin-bottom:10px;">⚠️ This is a notification banner inserted with insertAdjacentHTML()</div>'
+        );
+    }
+
+</script>
+
+</body>
+</html>

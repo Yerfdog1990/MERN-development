@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Option Purging Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f8fafc; color: #0f172a; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; margin: 0 auto; }
+        .card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
+        select[multiple] { width: 100%; height: 160px; padding: 10px; font-size: 15px; border: 2px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; background: #fff; outline: none; }
+
+        .btn-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .action-btn { width: 100%; padding: 11px; font-weight: bold; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; color: white; transition: background 0.2s; }
+        .btn-blue { background-color: #2563eb; }
+        .btn-blue:hover { background-color: #1d4ed8; }
+        .btn-purple { background-color: #7c3aed; }
+        .btn-purple:hover { background-color: #6d28d9; }
+        .btn-reset { background-color: #64748b; }
+        .btn-reset:hover { background-color: #475569; }
+
+        pre { background: #0f172a; color: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 200px; white-space: pre-wrap; margin: 0; }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align: center; margin-bottom: 30px;">Conditional Option Purging Laboratory</h1>
+
+<div class="grid">
+    <div class="card">
+        <label for="framework-select">Interactive Framework Targets</label>
+        <select id="framework-select" multiple>
+            <option value="1">Angular</option>
+            <option value="2">React</option>
+            <option value="3">Vue.js</option>
+            <option value="4">Ember.js</option>
+            <option value="5">Svelte</option>
+            <option value="6">Next.js</option>
+        </select>
+
+        <div class="btn-stack">
+            <button type="button" id="btn-purge-js" class="action-btn btn-blue">
+                Remove Items Ending in ".js" (Uses Reverse Loop)
+            </button>
+            <button type="button" id="btn-purge-short" class="action-btn btn-purple">
+                Remove Items under 7 Characters (Uses Pointer Correction)
+            </button>
+            <button type="button" id="btn-reload-dataset" class="action-btn btn-reset">
+                Reload Baseline Demo Options
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Live Telemetry Terminal</h3>
+        <pre id="diagnostic-terminal">Awaiting testing execution inputs...</pre>
+    </div>
+</div>
+
+<script>
+    const selectElement = document.getElementById('framework-select');
+    const terminal = document.getElementById('diagnostic-terminal');
+
+    // Static baseline map array used for reloading components
+    const backupDataset = [
+        { val: "1", txt: "Angular" },
+        { val: "2", txt: "React" },
+        { val: "3", txt: "Vue.js" },
+        { val: "4", txt: "Ember.js" },
+        { val: "5", txt: "Svelte" },
+        { val: "6", txt: "Next.js" }
+    ];
+
+    // --- Utility function to update telemetry report text ---
+    function runDiagnostics(actionTitle) {
+        const currentOptions = Array.from(selectElement.options);
+        let mapReport = currentOptions.map((opt, i) => `  [Index ${i}] -> Value: "${opt.value}" | Text: "${opt.text}"`).join('\n');
+
+        terminal.textContent = `[Action Log Output]: ${actionTitle}\n` +
+            `------------------------------------------------------------\n` +
+            `• Total Item Length Counter: ${selectElement.options.length}\n\n` +
+            `Current Layout Map Tree:\n${mapReport || "  (The select element is empty)"}`;
+    }
+
+    // --- 1. Condition Strategy: Reverse Loop (Ends with '.js') ---
+    document.getElementById('btn-purge-js').addEventListener('click', () => {
+        let indexPointer = selectElement.options.length;
+        let targetCounter = 0;
+
+        while (indexPointer--) {
+            const textValue = selectElement.options[indexPointer].text;
+
+            if (textValue.toLowerCase().endsWith('.js')) {
+                selectElement.remove(indexPointer);
+                targetCounter++;
+            }
+        }
+        runDiagnostics(`Reverse Loop removed ${targetCounter} item(s) matching criteria (*.js)`);
+    });
+
+    // --- 2. Condition Strategy: Forward Loop with Correction (< 7 Chars) ---
+    document.getElementById('btn-purge-short').addEventListener('click', () => {
+        let targetCounter = 0;
+
+        for (let i = 0; i < selectElement.options.length; i++) {
+            const textValue = selectElement.options[i].text;
+
+            if (textValue.length < 7) {
+                selectElement.remove(i);
+                targetCounter++;
+
+                // CRITICAL: Step counter back by one to capture the shifted item position
+                i--;
+            }
+        }
+        runDiagnostics(`Forward Loop with pointer correction removed ${targetCounter} short item(s)`);
+    });
+
+    // --- 3. Utility Strategy: Resetting Layout Data ---
+    document.getElementById('btn-reload-dataset').addEventListener('click', () => {
+        // Clear current list content
+        selectElement.options.length = 0;
+
+        // Repopulate using the static backup array layout
+        backupDataset.forEach(item => {
+            selectElement.add(new Option(item.txt, item.val), undefined);
+        });
+
+        runDiagnostics("Successfully reloaded standard dataset entries.");
+    });
+
+    // Run baseline analytics upon page launch
+    runDiagnostics("Laboratory environment ready.");
+</script>
+</body>
+</html>

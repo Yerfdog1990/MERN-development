@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DocumentFragment Demo</title>
+  <style>
+    body   { font-family: Arial, sans-serif; padding: 20px; }
+    .box   { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    .timer { font-weight: bold; color: #8e44ad; margin: 8px 0; }
+    button { padding: 8px 16px; margin: 5px 5px 5px 0; cursor: pointer; }
+    ul     { max-height: 120px; overflow: auto; background: #f8f9fa; padding: 10px 30px; }
+    h3     { color: #2c3e50; margin-top: 25px; }
+  </style>
+</head>
+<body>
+
+<h1>DocumentFragment Demo</h1>
+
+<!-- Demo 1: Basic fragment usage -->
+<h3>1. Basic Usage — Language List</h3>
+<div class="box">
+  <ul id="language"></ul>
+  <button onclick="buildWithFragment()">Build List with Fragment</button>
+</div>
+
+<!-- Demo 2: Performance comparison -->
+<h3>2. Performance — 1000 items</h3>
+<div class="box">
+  <button onclick="withoutFragment()">Without Fragment</button>
+  <button onclick="withFragment()">With Fragment</button>
+  <div class="timer" id="frag-timer"></div>
+  <ul id="frag-list" style="max-height:80px; overflow:auto;"></ul>
+</div>
+
+<!-- Demo 3: Fragment remains empty after insert -->
+<h3>3. Fragment is Empty After Insertion</h3>
+<div class="box">
+  <button onclick="showFragmentBehaviour()">Show Fragment Behaviour</button>
+  <p id="frag-status"></p>
+</div>
+
+<script>
+
+  // --- Demo 1: Basic fragment usage ---
+  function buildWithFragment() {
+    const languages = ['JS', 'TypeScript', 'Elm', 'Dart', 'Scala'];
+    const langEl    = document.querySelector('#language');
+    const fragment  = new DocumentFragment();
+
+    languages.forEach((language) => {
+      let li = document.createElement('li');
+      li.textContent = language;
+      fragment.appendChild(li); // Append to fragment — no DOM update yet
+    });
+
+    langEl.appendChild(fragment); // Single DOM update — all items inserted at once
+  }
+
+  // --- Demo 2: Performance comparison ---
+  function withoutFragment() {
+    const list = document.getElementById('frag-list');
+    list.innerHTML = '';
+    const start = performance.now();
+
+    for (let i = 0; i < 1000; i++) {
+      const li = document.createElement('li');
+      li.textContent = `Item ${i}`;
+      list.appendChild(li); // 1000 separate DOM updates
+    }
+
+    const elapsed = (performance.now() - start).toFixed(2);
+    document.getElementById('frag-timer').textContent =
+            `Without Fragment: ${elapsed}ms (1000 DOM updates)`;
+  }
+
+  function withFragment() {
+    const list = document.getElementById('frag-list');
+    list.innerHTML = '';
+    const start    = performance.now();
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < 1000; i++) {
+      const li = document.createElement('li');
+      li.textContent = `Item ${i}`;
+      fragment.appendChild(li); // No DOM update
+    }
+
+    list.appendChild(fragment); // 1 DOM update
+
+    const elapsed = (performance.now() - start).toFixed(2);
+    document.getElementById('frag-timer').textContent =
+            `With Fragment: ${elapsed}ms (1 DOM update)`;
+  }
+
+  // --- Demo 3: Fragment becomes empty after insertion ---
+  function showFragmentBehaviour() {
+    const fragment = new DocumentFragment();
+    const p1       = document.createElement('p');
+    const p2       = document.createElement('p');
+    p1.textContent = 'First paragraph';
+    p2.textContent = 'Second paragraph';
+    fragment.appendChild(p1);
+    fragment.appendChild(p2);
+
+    const beforeCount = fragment.childNodes.length;
+    document.body.appendChild(fragment);
+    const afterCount = fragment.childNodes.length;
+
+    document.getElementById('frag-status').textContent =
+            `Fragment children BEFORE insert: ${beforeCount} | AFTER insert: ${afterCount} — children moved to DOM.`;
+  }
+
+</script>
+
+</body>
+</html>

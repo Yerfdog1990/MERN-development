@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popup Window</title>
+</head>
+<body>
+
+<h2>Popup Window</h2>
+
+<button id="changeBtn">
+    Change Parent Window
+</button>
+
+<script>
+
+    document
+        .getElementById('changeBtn')
+        .addEventListener('click', () => {
+
+            // access the parent window
+            window.opener.document.body.style.backgroundColor =
+                'lightblue';
+
+            window.opener.document.title =
+                'Updated From Popup';
+
+            alert('Parent window updated!');
+        });
+
+</script>
+
+</body>
+</html>

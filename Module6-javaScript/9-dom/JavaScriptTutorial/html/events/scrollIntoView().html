@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive scrollIntoView Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+        .grid { display: grid; grid-template-columns: 320px 1fr; gap: 30px; max-width: 1000px; }
+        .control-panel { position: sticky; top: 25px; height: fit-content; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .list-container { max-height: 400px; overflow-y: scroll; border: 2px solid #2f3640; border-radius: 6px; background: #ffffff; padding: 0; margin: 0; list-style: none; }
+        .list-container li { padding: 15px 20px; border-bottom: 1px solid #f1f2f6; font-size: 16px; font-weight: bold; }
+        .list-container li:nth-child(even) { background-color: #f8f9fa; }
+
+        /* The target element to scroll into view */
+        .special-target { background-color: #eccc68 !important; color: #2f3640; border-left: 6px solid #ff7f50; }
+
+        .action-btn { display: block; width: 100%; padding: 10px; margin-bottom: 10px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #2f3640; background: #f1f2f6; transition: all 0.2s; }
+        .action-btn:hover { background: #2f3640; color: white; }
+        .accent-btn { background: #ff7f50; color: white; border-color: #ff7f50; }
+        .accent-btn:hover { background: #e06336; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript scrollIntoView Engine Lab</h1>
+<p>Use the control triggers to scroll the hidden, highlighted target language option element into view:</p>
+
+<div class="grid">
+    <div class="control-panel">
+        <h3>Viewport Controls</h3>
+        <button id="btn-top" class="action-btn">Top Alignment (Boolean: true)</button>
+        <button id="btn-bottom" class="action-btn">Bottom Alignment (Boolean: false)</button>
+        <button id="btn-smooth-center" class="action-btn accent-btn">Smooth Center (Object Setup)</button>
+        <button id="btn-nearest" class="action-btn">Nearest Edge Alignment</button>
+        <button id="btn-reset" class="action-btn" style="background:#747d8c; color:white; border-color:#747d8c;">Reset View to Top</button>
+    </div>
+
+    <ul id="languages-list" class="list-container">
+        <li>1. C Programming</li>
+        <li>2. Java Standard Edition</li>
+        <li>3. Python Scripting</li>
+        <li>4. C++ Language Engine</li>
+        <li>5. C# Enterprise Platform</li>
+        <li>6. Go Runtime Environment</li>
+        <li>7. Visual Basic Systems</li>
+        <li>8. PHP Hypertext Preprocessor</li>
+        <li>9. SQL Database Queries</li>
+        <li>10. R Statistical Engine</li>
+        <li>11. Swift iOS Frameworks</li>
+        <li id="target-lang" class="special-target">🌟 12. JavaScript Master Node</li>
+        <li>13. MATLAB Operations</li>
+        <li>14. Assembly System Assembly</li>
+        <li>15. Ruby Rails Web System</li>
+        <li>16. PL/SQL Processing Blocks</li>
+        <li>17. Classic Engine Coding</li>
+        <li>18. Perl Regular Logic</li>
+        <li>19. Scratch Block Foundations</li>
+        <li>20. Objective-C Application Layouts</li>
+    </ul>
+</div>
+
+<script>
+    const targetElement = document.getElementById('target-lang');
+    const scrollBox = document.getElementById('languages-list');
+
+    // --- Trigger Option A: Boolean True ---
+    document.getElementById('btn-top').addEventListener('click', () => {
+        // Snaps the element's top edge to the top of the scrollable box
+        targetElement.scrollIntoView(true);
+    });
+
+    // --- Trigger Option B: Boolean False ---
+    document.getElementById('btn-bottom').addEventListener('click', () => {
+        // Snaps the element's bottom edge to the bottom of the scrollable box
+        targetElement.scrollIntoView(false);
+    });
+
+    // --- Trigger Option C: Object Configuration Matrix ---
+    document.getElementById('btn-smooth-center').addEventListener('click', () => {
+        // Smoothly scrolls to center the element inside the scrollable box
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    });
+
+    // --- Trigger Option D: Nearest Logical Border ---
+    document.getElementById('btn-nearest').addEventListener('click', () => {
+        // Scrolls just enough to show the element with minimal movement
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        });
+    });
+
+    // --- Reset Viewport Workspace Function ---
+    document.getElementById('btn-reset').addEventListener('click', () => {
+        scrollBox.scrollTop = 0;
+    });
+</script>
+</body>
+</html>

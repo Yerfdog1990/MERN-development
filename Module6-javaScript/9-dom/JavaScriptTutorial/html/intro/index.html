@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript DOM</title>
+</head>
+<body>
+<h1>Hello DOM!</h1>
+<p id="demo"></p>
+</body>
+<script>
+    // Selecting Elements
+    // For example, you can use JavaScript to select the h1 tag using the querySelector() method:
+
+    const h1 = document.querySelector('h1');
+    // Getting Text Content
+    // And you can js the text content of the h1 element:
+
+    console.log(h1.textContent);
+    // It'll show the text content of the h1 tag in the console:
+
+    // Hello DOM!
+    // Modifying Elements Dynamically
+    // You can change the h1 tag dynamically by setting the textContent to a new text:
+
+    h1.textContent = 'Hi JS';
+    // Using DOM API in JavaScript, you can manipulate the HTML document effectively.
+
+    // Using getElementById()
+    // The most common way to access an element is by its id:
+    const myPara = document.getElementById("demo");
+    myPara.innerHTML = "Hello World!";
+</script>
+</html>

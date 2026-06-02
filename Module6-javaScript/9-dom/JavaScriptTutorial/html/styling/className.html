@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>className Manipulation</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+
+    /* Functional design utility styles */
+    .card { background: #f8f9fa; border: 1px solid #dcdde1; padding: 15px; transition: 0.3s; }
+    .highlight { border-left: 5px solid #3498db; background: #eaf4fb; }
+    .rounded { border-radius: 12px; }
+    .sharded { box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+    pre { background: #2c3e50; color: #ecf0f1; padding: 10px; font-family: monospace; }
+    button { padding: 8px 14px; margin: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<h1>Class Control with className</h1>
+
+<div class="box">
+  <div id="badge-element" class="card rounded">
+    Interactive Dynamic Card Component
+  </div>
+
+  <br>
+  <button onclick="readClassString()">Read Class String</button>
+  <button onclick="appendWithSpace()">Append '.highlight' Class</button>
+  <button onclick="completeReset()">Overwrite entirely with '.card .sharded'</button>
+
+  <pre id="class-viewer">Inspect current class attribute status...</pre>
+</div>
+
+<script>
+  function updateViewer() {
+    const el = document.getElementById('badge-element');
+    const viewer = document.getElementById('class-viewer');
+    viewer.textContent = `Raw class attribute string: "${el.className}"`;
+  }
+
+  function readClassString() {
+    updateViewer();
+  }
+
+  function appendWithSpace() {
+    const el = document.getElementById('badge-element');
+    // Crucial: A space prefix is added to prevent accidental string merging like "cardroundedhighlight"
+    el.className += " highlight";
+    updateViewer();
+  }
+
+  function completeReset() {
+    const el = document.getElementById('badge-element');
+    // Overwrites all prior entries
+    el.className = "card sharded";
+    updateViewer();
+  }
+
+  // Render current attribute values on load
+  updateViewer();
+</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Element Selection Methods Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            min-height: 20px;
+        }
+        label {
+            margin-right: 15px;
+        }
+        .menu-item {
+            padding: 5px 10px;
+            margin: 2px;
+            background-color: #e9ecef;
+            display: inline-block;
+            border-radius: 4px;
+        }
+        .menu-item.highlight {
+            background-color: #ffc107;
+        }
+        .secondary {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Element Selection Methods Demo</h1>
+    <p>This page demonstrates all the different ways to select HTML elements using JavaScript.</p>
+
+    <!-- getElementById Demo -->
+    <div class="demo-section">
+        <h2>1. getElementById() Method</h2>
+        <p id="first">Hi, There! (This has id="first")</p>
+        <p>JavaScript is fun. (This has no id)</p>
+        <button onclick="demoGetElementById()">Select by ID</button>
+        <div class="output" id="output-getById"></div>
+    </div>
+
+    <!-- getElementsByName Demo -->
+    <div class="demo-section">
+        <h2>2. getElementsByName() Method</h2>
+        <p>Please rate the service:</p>
+        <p>
+            <label for="very-poor">
+                <input type="radio" name="rate" value="Very poor" id="very-poor"> Very poor
+            </label>
+            <label for="poor">
+                <input type="radio" name="rate" value="Poor" id="poor"> Poor
+            </label>
+            <label for="ok">
+                <input type="radio" name="rate" value="OK" id="ok"> OK
+            </label>
+            <label for="good">
+                <input type="radio" name="rate" value="Good" id="good"> Good
+            </label>
+            <label for="very-good">
+                <input type="radio" name="rate" value="Very Good" id="very-good"> Very Good
+            </label>
+        </p>
+        <button id="btnRate">Submit Rating</button>
+        <div class="output" id="output-getByName"></div>
+    </div>
+
+    <!-- getElementsByTagName Demo -->
+    <div class="demo-section">
+        <h2>3. getElementsByTagName() Method</h2>
+        <h2>First heading</h2>
+        <p>This is the first paragraph.</p>
+        <h2>Second heading</h2>
+        <p>This is the second paragraph.</p>
+        <h2>Third heading</h2>
+        <p>This is the third paragraph.</p>
+        <button id="btnCount">Count H2 Tags</button>
+        <div class="output" id="output-getByTagName"></div>
+    </div>
+
+    <!-- getElementsByClassName Demo -->
+    <div class="demo-section">
+        <h2>4. getElementsByClassName() Method</h2>
+        <nav>
+            <ul id="menu">
+                <li class="item">HTML</li>
+                <li class="item">CSS</li>
+                <li class="item highlight">JavaScript</li>
+                <li class="item">TypeScript</li>
+            </ul>
+        </nav>
+        <section>
+            <article>
+                <h3 class="secondary">Example 1</h3>
+            </article>
+            <article>
+                <h3 class="secondary">Example 2</h3>
+            </article>
+        </section>
+        <button onclick="demoGetElementsByClassNameOnElement()">Select .item from menu</button>
+        <button onclick="demoGetElementsByClassNameOnDocument()">Select .secondary from document</button>
+        <div class="output" id="output-getByClassName"></div>
+    </div>
+
+    <!-- querySelector and querySelectorAll Demo -->
+    <div class="demo-section">
+        <h2>5. querySelector() and querySelectorAll() Methods</h2>
+        <div id="logo">
+            <img src="../../assets/icons8-metamask-logo-48.png" alt="Logo" id="logo-img">
+        </div>
+        <nav class="primary-nav">
+            <ul>
+                <li class="menu-item current"><a href="#home">Home</a></li>
+                <li class="menu-item"><a href="#services">Services</a></li>
+                <li class="menu-item"><a href="#about">About</a></li>
+                <li class="menu-item"><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h1>Welcome to the JS Dev Agency</h1>
+            <div class="container">
+                <section class="section-a">
+                    <h2>UI/UX</h2>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <button>Read More</button>
+                </section>
+                <section class="section-b">
+                    <h2>PWA Development</h2>
+                    <p>Lorem ipsum dolor sit.</p>
+                    <button>Read More</button>
+                </section>
+                <section class="section-c">
+                    <h2>Mobile App Dev</h2>
+                    <p>Lorem ipsum dolor sit.</p>
+                    <button>Read More</button>
+                </section>
+            </div>
+        </main>
+        
+        <h3>CSS Selector Examples:</h3>
+        <button onclick="demoQuerySelectorUniversal()">Universal Selector (*)</button>
+        <button onclick="demoQuerySelectorType()">Type Selector (h1)</button>
+        <button onclick="demoQuerySelectorClass()">Class Selector (.menu-item)</button>
+        <button onclick="demoQuerySelectorID()">ID Selector (#logo)</button>
+        <button onclick="demoQuerySelectorAttribute()">Attribute Selector ([alt])</button>
+        <button onclick="demoQuerySelectorGroup()">Group Selector (div, p)</button>
+        <button onclick="demoQuerySelectorDescendant()">Descendant (p a)</button>
+        <button onclick="demoQuerySelectorChild()">Child (ul > li)</button>
+        <button onclick="demoQuerySelectorPseudo()">Pseudo-class (li:nth-child(2))</button>
+        <div class="output" id="output-querySelector"></div>
+    </div>
+
+    <script>
+        // 1. getElementById() Demo
+        function demoGetElementById() {
+            const elem = document.getElementById("first");
+            const output = document.getElementById("output-getById");
+            output.innerHTML = `
+                <strong>Selected element:</strong> ${elem.tagName}<br>
+                <strong>Text content:</strong> ${elem.textContent}<br>
+                <strong>ID:</strong> ${elem.id}
+            `;
+        }
+
+        // 2. getElementsByName() Demo
+        let btnRate = document.getElementById('btnRate');
+        let outputGetByName = document.getElementById('output-getByName');
+
+        btnRate.addEventListener('click', () => {
+            let rates = document.getElementsByName('rate');
+            let selected = false;
+            rates.forEach((rate) => {
+                if (rate.checked) {
+                    outputGetByName.innerHTML = `<strong>You selected:</strong> ${rate.value}`;
+                    selected = true;
+                }
+            });
+            if (!selected) {
+                outputGetByName.innerHTML = "Please select a rating first!";
+            }
+        });
+
+        // 3. getElementsByTagName() Demo
+        let btnCount = document.getElementById('btnCount');
+        let outputGetByTagName = document.getElementById('output-getByTagName');
+
+        btnCount.addEventListener('click', () => {
+            let headings = document.getElementsByTagName('h2');
+            outputGetByTagName.innerHTML = `<strong>The number of H2 tags:</strong> ${headings.length}`;
+        });
+
+        // 4. getElementsByClassName() Demo
+        function demoGetElementsByClassNameOnElement() {
+            let menu = document.getElementById('menu');
+            let items = menu.getElementsByClassName('item');
+            const output = document.getElementById('output-getByClassName');
+            
+            let data = Array.from(items).map((item) => item.textContent);
+            output.innerHTML = `
+                <strong>Selected from menu element:</strong><br>
+                HTMLCollection length: ${items.length}<br>
+                Items: ${data.join(', ')}
+            `;
+        }
+
+        function demoGetElementsByClassNameOnDocument() {
+            const items = document.getElementsByClassName('secondary');
+            const output = document.getElementById('output-getByClassName');
+            
+            let data = Array.from(items).map((item) => item.textContent);
+            output.innerHTML = `
+                <strong>Selected from document:</strong><br>
+                HTMLCollection length: ${items.length}<br>
+                Items: ${data.join(', ')}
+            `;
+        }
+
+        // 5. querySelector() and querySelectorAll() Demo
+        function demoQuerySelectorUniversal() {
+            let element = document.querySelector('*');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Universal Selector (*):</strong><br>
+                First element: ${element.tagName}
+            `;
+        }
+
+        function demoQuerySelectorType() {
+            let firstHeading = document.querySelector('h1');
+            let allHeadings = document.querySelectorAll('h2');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Type Selector (h1, h2):</strong><br>
+                First h1: ${firstHeading ? firstHeading.textContent : 'Not found'}<br>
+                Number of h2: ${allHeadings.length}
+            `;
+        }
+
+        function demoQuerySelectorClass() {
+            let firstMenuItem = document.querySelector('.menu-item');
+            let allMenuItems = document.querySelectorAll('.menu-item');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Class Selector (.menu-item):</strong><br>
+                First .menu-item: ${firstMenuItem ? firstMenuItem.textContent : 'Not found'}<br>
+                Number of .menu-item: ${allMenuItems.length}
+            `;
+        }
+
+        function demoQuerySelectorID() {
+            let logo = document.querySelector('#logo');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>ID Selector (#logo):</strong><br>
+                Element: ${logo ? logo.tagName : 'Not found'}<br>
+                ID: ${logo ? logo.id : 'N/A'}
+            `;
+        }
+
+        function demoQuerySelectorAttribute() {
+            let elements = document.querySelectorAll('[alt]');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Attribute Selector ([alt]):</strong><br>
+                Number of elements with alt attribute: ${elements.length}<br>
+                First element: ${elements[0] ? elements[0].tagName : 'Not found'}
+            `;
+        }
+
+        function demoQuerySelectorGroup() {
+            let elements = document.querySelectorAll('div, p');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Group Selector (div, p):</strong><br>
+                Number of div and p elements: ${elements.length}
+            `;
+        }
+
+        function demoQuerySelectorDescendant() {
+            let links = document.querySelectorAll('p a');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Descendant Combinator (p a):</strong><br>
+                Number of anchor tags inside paragraphs: ${links.length}
+            `;
+        }
+
+        function demoQuerySelectorChild() {
+            let listItems = document.querySelectorAll('ul > li');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Child Combinator (ul > li):</strong><br>
+                Number of li elements directly inside ul: ${listItems.length}
+            `;
+        }
+
+        function demoQuerySelectorPseudo() {
+            let listItem = document.querySelectorAll('li:nth-child(2)');
+            let output = document.getElementById('output-querySelector');
+            output.innerHTML = `
+                <strong>Pseudo-class (li:nth-child(2)):</strong><br>
+                Number of second li elements: ${listItem.length}<br>
+                Text: ${listItem[0] ? listItem[0].textContent : 'Not found'}
+            `;
+        }
+    </script>
+</body>
+</html>

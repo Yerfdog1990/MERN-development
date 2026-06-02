@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Traversing Elements Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            min-height: 20px;
+            white-space: pre-wrap;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+        li.current {
+            background-color: #ffc107;
+            font-weight: bold;
+        }
+        li.first {
+            background-color: #28a745;
+            color: white;
+        }
+        li.last {
+            background-color: #dc3545;
+            color: white;
+        }
+        .note {
+            background-color: #d1ecf1;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Traversing Elements Demo</h1>
+    <p>This page demonstrates all the different ways to traverse HTML elements using JavaScript.</p>
+
+    <!-- parentNode Demo -->
+    <div class="demo-section">
+        <h2>1. Get Parent Element (parentNode)</h2>
+        <div id="main">
+            <p class="note">This is a note! (Click button to see its parent)</p>
+        </div>
+        <button onclick="demoParentNode()">Get Parent Node</button>
+        <div class="output" id="output-parentNode"></div>
+    </div>
+
+    <!-- Siblings Demo -->
+    <div class="demo-section">
+        <h2>2. Get Siblings</h2>
+        <ul id="menu">
+            <li>Home</li>
+            <li>Products</li>
+            <li class="current">Customer Support (Current)</li>
+            <li>Careers</li>
+            <li>Investors</li>
+            <li>News</li>
+            <li>About Us</li>
+        </ul>
+        <button onclick="demoNextSibling()">Get Next Sibling</button>
+        <button onclick="demoAllNextSiblings()">Get All Next Siblings</button>
+        <button onclick="demoPreviousSibling()">Get Previous Sibling</button>
+        <button onclick="demoAllPreviousSiblings()">Get All Previous Siblings</button>
+        <button onclick="demoAllSiblings()">Get All Siblings</button>
+        <div class="output" id="output-siblings"></div>
+    </div>
+
+    <!-- Child Elements Demo -->
+    <div class="demo-section">
+        <h2>3. Get Child Elements</h2>
+        <ul id="child-menu">
+            <li class="first">Home (First)</li>
+            <li>Products</li>
+            <li class="current">Customer Support (Current)</li>
+            <li>Careers</li>
+            <li>Investors</li>
+            <li>News</li>
+            <li class="last">About Us (Last)</li>
+        </ul>
+        <button onclick="demoFirstChild()">Get firstChild</button>
+        <button onclick="demoFirstElementChild()">Get firstElementChild</button>
+        <button onclick="demoLastChild()">Get lastChild</button>
+        <button onclick="demoLastElementChild()">Get lastElementChild</button>
+        <button onclick="demoChildNodes()">Get childNodes</button>
+        <button onclick="demoChildren()">Get children</button>
+        <div class="output" id="output-children"></div>
+    </div>
+
+    <script>
+        // 1. parentNode Demo
+        function demoParentNode() {
+            let note = document.querySelector('.note');
+            let output = document.getElementById('output-parentNode');
+            output.innerHTML = `
+                <strong>Element:</strong> ${note.tagName}<br>
+                <strong>Parent Node:</strong> ${note.parentNode.tagName}<br>
+                <strong>Parent ID:</strong> ${note.parentNode.id || 'No ID'}<br>
+                <strong>Parent HTML:</strong> ${note.parentNode.outerHTML.substring(0, 100)}...
+            `;
+        }
+
+        // 2. Siblings Demo
+        function demoNextSibling() {
+            let current = document.querySelector('.current');
+            let nextSibling = current.nextElementSibling;
+            let output = document.getElementById('output-siblings');
+            
+            if (nextSibling) {
+                output.innerHTML = `
+                    <strong>Next Sibling:</strong><br>
+                    Tag: ${nextSibling.tagName}<br>
+                    Text: ${nextSibling.textContent}
+                `;
+            } else {
+                output.innerHTML = "No next sibling found (null)";
+            }
+        }
+
+        function demoAllNextSiblings() {
+            let current = document.querySelector('.current');
+            let nextSibling = current.nextElementSibling;
+            let siblings = [];
+            
+            while(nextSibling) {
+                siblings.push(nextSibling.textContent);
+                nextSibling = nextSibling.nextElementSibling;
+            }
+            
+            let output = document.getElementById('output-siblings');
+            output.innerHTML = `
+                <strong>All Next Siblings:</strong><br>
+                ${siblings.length > 0 ? siblings.join(', ') : 'No next siblings'}
+            `;
+        }
+
+        function demoPreviousSibling() {
+            let current = document.querySelector('.current');
+            let prevSibling = current.previousElementSibling;
+            let output = document.getElementById('output-siblings');
+            
+            if (prevSibling) {
+                output.innerHTML = `
+                    <strong>Previous Sibling:</strong><br>
+                    Tag: ${prevSibling.tagName}<br>
+                    Text: ${prevSibling.textContent}
+                `;
+            } else {
+                output.innerHTML = "No previous sibling found (null)";
+            }
+        }
+
+        function demoAllPreviousSiblings() {
+            let current = document.querySelector('.current');
+            let prevSibling = current.previousElementSibling;
+            let siblings = [];
+            
+            while(prevSibling) {
+                siblings.unshift(prevSibling.textContent);
+                prevSibling = prevSibling.previousElementSibling;
+            }
+            
+            let output = document.getElementById('output-siblings');
+            output.innerHTML = `
+                <strong>All Previous Siblings:</strong><br>
+                ${siblings.length > 0 ? siblings.join(', ') : 'No previous siblings'}
+            `;
+        }
+
+        function demoAllSiblings() {
+            let getSiblings = function (e) {
+                let siblings = []; 
+                if(!e.parentNode) {
+                    return siblings;
+                }
+                let sibling  = e.parentNode.firstChild;
+                
+                while (sibling) {
+                    if (sibling.nodeType === 1 && sibling !== e) {
+                        siblings.push(sibling);
+                    }
+                    sibling = sibling.nextSibling;
+                }
+                return siblings;
+            };
+
+            let siblings = getSiblings(document.querySelector('.current'));
+            let siblingText = siblings.map(e => e.textContent);
+            let output = document.getElementById('output-siblings');
+            output.innerHTML = `
+                <strong>All Siblings:</strong><br>
+                Total: ${siblings.length}<br>
+                Items: ${siblingText.join(', ')}
+            `;
+        }
+
+        // 3. Child Elements Demo
+        function demoFirstChild() {
+            let menu = document.getElementById('child-menu');
+            let firstChild = menu.firstChild;
+            let output = document.getElementById('output-children');
+            
+            output.innerHTML = `
+                <strong>firstChild:</strong><br>
+                Node Type: ${firstChild ? firstChild.nodeType : 'null'}<br>
+                Node Name: ${firstChild ? firstChild.nodeName : 'null'}<br>
+                ${firstChild && firstChild.nodeType === 3 ? '(This is a text node from whitespace)' : ''}
+            `;
+        }
+
+        function demoFirstElementChild() {
+            let menu = document.getElementById('child-menu');
+            let firstElementChild = menu.firstElementChild;
+            let output = document.getElementById('output-children');
+            
+            output.innerHTML = `
+                <strong>firstElementChild:</strong><br>
+                Tag: ${firstElementChild.tagName}<br>
+                Text: ${firstElementChild.textContent}<br>
+                Class: ${firstElementChild.className}
+            `;
+        }
+
+        function demoLastChild() {
+            let menu = document.getElementById('child-menu');
+            let lastChild = menu.lastChild;
+            let output = document.getElementById('output-children');
+            
+            output.innerHTML = `
+                <strong>lastChild:</strong><br>
+                Node Type: ${lastChild ? lastChild.nodeType : 'null'}<br>
+                Node Name: ${lastChild ? lastChild.nodeName : 'null'}<br>
+                ${lastChild && lastChild.nodeType === 3 ? '(This is a text node from whitespace)' : ''}
+            `;
+        }
+
+        function demoLastElementChild() {
+            let menu = document.getElementById('child-menu');
+            let lastElementChild = menu.lastElementChild;
+            let output = document.getElementById('output-children');
+            
+            output.innerHTML = `
+                <strong>lastElementChild:</strong><br>
+                Tag: ${lastElementChild.tagName}<br>
+                Text: ${lastElementChild.textContent}<br>
+                Class: ${lastElementChild.className}
+            `;
+        }
+
+        function demoChildNodes() {
+            let menu = document.getElementById('child-menu');
+            let childNodes = menu.childNodes;
+            let output = document.getElementById('output-children');
+            
+            let nodeInfo = Array.from(childNodes).map(node => {
+                return `${node.nodeName} (type: ${node.nodeType})`;
+            });
+            
+            output.innerHTML = `
+                <strong>childNodes:</strong><br>
+                Total nodes: ${childNodes.length}<br>
+                Node types: ${nodeInfo.join(', ')}<br>
+                <em>(Includes text nodes from whitespace)</em>
+            `;
+        }
+
+        function demoChildren() {
+            let menu = document.getElementById('child-menu');
+            let children = menu.children;
+            let output = document.getElementById('output-children');
+            
+            let childText = Array.from(children).map(child => child.textContent);
+            
+            output.innerHTML = `
+                <strong>children:</strong><br>
+                Total elements: ${children.length}<br>
+                Items: ${childText.join(', ')}<br>
+                <em>(Only element nodes, no text nodes)</em>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search dom elements</title>
+</head>
+<body>
+    <button id="btnId">ById</button>
+    <button class="btnClass">ByClass</button>
+    <button name="btnName">ByName</button>
+</body>
+<script>
+    const btnId = document.getElementById('btnId');
+    console.log(btnId);
+    const btnClass = document.getElementsByClassName('btnClass');
+    console.log(btnClass);
+    const btnName = document.getElementsByName('#btnName');
+    console.log(btnName);
+</script>
+</html>

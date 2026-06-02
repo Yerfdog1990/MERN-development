@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>after() Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    h3   { color: #2c3e50; margin-top: 25px; }
+    ul   { background: #f8f9fa; padding: 15px 35px; }
+    button { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>after() Demo</h1>
+
+<!-- Demo 1: Insert paragraph after heading -->
+<h3>1. Insert a Paragraph After a Heading</h3>
+<div class="box">
+  <h2 id="target-h1">JavaScript DOM — after()</h2>
+  <button onclick="insertParagraph()">Insert Paragraph After Heading</button>
+</div>
+
+<!-- Demo 2: Insert multiple nodes after last list item -->
+<h3>2. Insert Multiple Nodes After Last List Item</h3>
+<div class="box">
+  <ul id="lib-list">
+    <li>Angular</li>
+    <li>Vue</li>
+  </ul>
+  <button onclick="insertMultipleAfter()">Insert React, Meteor, Polymer After Vue</button>
+</div>
+
+<!-- Demo 3: Insert string after button text -->
+<h3>3. Insert a String (Text Node) After Button Text</h3>
+<div class="box">
+  <button id="donate-btn2">Donate Here</button>
+  <br><br>
+  <button onclick="insertEmojiAfter()">Insert Emoji After Button Text</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Insert a paragraph after a heading ---
+  function insertParagraph() {
+    const h1 = document.querySelector('#target-h1');
+    const p  = document.createElement('p');
+    p.innerText = 'This paragraph was inserted AFTER the heading using after().';
+    h1.after(p);
+  }
+
+  // --- Demo 2: Insert multiple items after the last list item ---
+  function insertMultipleAfter() {
+    const list  = document.querySelector('#lib-list');
+    const libs  = ['React', 'Meteor', 'Polymer'];
+
+    const items = libs.map((lib) => {
+      const item = document.createElement('li');
+      item.innerText = lib;
+      return item;
+    });
+
+    // Insert all three items AFTER the last child (Vue)
+    list.lastChild.after(...items);
+  }
+
+  // --- Demo 3: Insert string as Text node after button text ---
+  function insertEmojiAfter() {
+    const button = document.querySelector('#donate-btn2');
+    button.firstChild.after(' 🧡');
+  }
+
+</script>
+
+</body>
+</html>

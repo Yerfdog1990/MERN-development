@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>insertAfter() Demo</title>
+  <style>
+    body  { font-family: Arial, sans-serif; padding: 20px; }
+    .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul    { background: #fdf2f8; padding: 15px 35px; }
+    .new  { background: #d5f5e3; font-style: italic; }
+    h3    { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+    pre   { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<h1>insertAfter() Demo</h1>
+
+<!-- The reusable helper function -->
+<h3>The Custom insertAfter() Helper Function</h3>
+<pre>
+function insertAfter(newNode, existingNode) {
+    // existingNode.nextSibling is the node right after it
+    // insertBefore places newNode before that sibling — effectively after existingNode
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}</pre>
+
+<!-- Demo 1: Insert after last item -->
+<h3>1. Insert After the Last List Item</h3>
+<div class="box">
+  <ul id="menu1">
+    <li>Home</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="insertAfterLast()">Insert "Services" After "Contact"</button>
+</div>
+
+<!-- Demo 2: Insert after a middle item -->
+<h3>2. Insert After a Middle Item</h3>
+<div class="box">
+  <ul id="menu2">
+    <li>Apple</li>
+    <li id="banana-item">Banana</li>
+    <li>Date</li>
+  </ul>
+  <button onclick="insertAfterBanana()">Insert "Cherry" After "Banana"</button>
+</div>
+
+<!-- Demo 3: Modern alternative using after() -->
+<h3>3. Modern Alternative — Using the Native after() Method</h3>
+<div class="box">
+  <ul id="menu3">
+    <li id="modern-first">Home</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="modernInsertAfter()">Insert "About" After "Home" Using after()</button>
+</div>
+
+<script>
+
+  // The reusable insertAfter helper
+  function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+  }
+
+  // --- Demo 1: Insert after last item ---
+  function insertAfterLast() {
+    const menu1   = document.getElementById('menu1');
+    const newItem = document.createElement('li');
+    newItem.textContent = 'Services';
+    newItem.className   = 'new';
+
+    // menu1.lastElementChild is "Contact"
+    // nextSibling of "Contact" is null → inserts at end
+    insertAfter(newItem, menu1.lastElementChild);
+  }
+
+  // --- Demo 2: Insert after a specific middle item ---
+  function insertAfterBanana() {
+    const banana  = document.getElementById('banana-item');
+    const cherry  = document.createElement('li');
+    cherry.textContent = 'Cherry';
+    cherry.className   = 'new';
+
+    // Places Cherry between Banana and Date
+    insertAfter(cherry, banana);
+  }
+
+  // --- Demo 3: Modern native after() method ---
+  function modernInsertAfter() {
+    const firstItem = document.getElementById('modern-first');
+    const about     = document.createElement('li');
+    about.textContent = 'About (using after())';
+    about.className   = 'new';
+
+    // Native after() — inserts directly after firstItem
+    firstItem.after(about);
+  }
+
+</script>
+
+</body>
+</html>

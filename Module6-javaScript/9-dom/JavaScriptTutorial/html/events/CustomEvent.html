@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Custom Events Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
+        .card { border: 1px solid #dcdde1; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* Interactive Box Target Frame */
+        #workspace-note { padding: 30px; font-size: 18px; font-weight: bold; border-radius: 6px; background-color: #f1f2f6; text-align: center; border: 2px solid transparent; transition: all 0.3s; margin-bottom: 15px; }
+
+        .action-btn { width: 100%; padding: 12px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .action-btn:hover { background-color: #2563eb; }
+        pre { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 120px; white-space: pre-wrap; }
+        .counter-badge { float: right; padding: 2px 8px; background: #718093; color: white; border-radius: 10px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript Custom Events Laboratory</h1>
+<p>Demonstrating one-to-many code broadcasting with complete decoupling architecture tools:</p>
+
+<div class="grid">
+    <div class="card">
+        <h3>1. Interactive Target Container</h3>
+        <div id="workspace-note">Interactive Target Content Layer</div>
+        <button id="btn-trigger" class="action-btn">Run Highlight & Dispatch Custom Event</button>
+    </div>
+
+    <div class="card">
+        <h3>2. Dynamic Multicast Observers</h3>
+        <p>Three independent listeners are catching the <code>"ui:highlight"</code> event at the exact same time:</p>
+
+        <div style="margin-bottom: 10px;">
+            <b>Listener A (Border Injector Status):</b> <span id="status-border" style="color:#718093; font-weight:bold;">Inactive</span>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <b>Listener B (Execution Counter):</b> <span id="status-counter" class="counter-badge">0</span> Active Dispatches
+        </div>
+
+        <b>Listener C (Payload Data Terminal Inspector):</b>
+        <pre id="payload-terminal">Awaiting custom event detail payload data dictionary...</pre>
+    </div>
+</div>
+
+<script>
+    const targetNote = document.getElementById('workspace-note');
+    const triggerBtn = document.getElementById('btn-trigger');
+
+    // --- Core Engine Broadcasting Logic ---
+    function runHighlightEngine(element) {
+        const selectedColor = '#fff9db'; // Warm Amber Yellow tint
+
+        // 1. Perform primary action task
+        element.style.backgroundColor = selectedColor;
+
+        // 2. Build the CustomEvent container alongside a data payload object
+        const highlightEvent = new CustomEvent('ui:highlight', {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+                hexColor: selectedColor,
+                timestamp: new Date().toLocaleTimeString(),
+                executionId: Math.floor(Math.random() * 9000) + 1000
+            }
+        });
+
+        // 3. Dispatch the event outward into the system DOM layout
+        element.dispatchEvent(highlightEvent);
+    }
+
+    // Connect the button to run our core engine function
+    triggerBtn.addEventListener('click', () => {
+        runHighlightEngine(targetNote);
+    });
+
+    // =========================================================================
+    // DECOUPLED MULTICAST LISTENERS (Could reside in completely separate files)
+    // =========================================================================
+
+    // --- Listener A: Modifies the element border style ---
+    targetNote.addEventListener('ui:highlight', function(event) {
+        this.style.borderColor = '#fab005'; // Amber border accent line
+        document.getElementById('status-border').textContent = "✓ Success Border Added";
+        document.getElementById('status-border').style.color = "#22c55e";
+    });
+
+    // --- Listener B: Increments an independent metrics counter ---
+    let globalClickCount = 0;
+    targetNote.addEventListener('ui:highlight', () => {
+        globalClickCount++;
+        document.getElementById('status-counter').textContent = globalClickCount;
+    });
+
+    // --- Listener C: Reads and prints the event.detail custom payload data ---
+    const payloadTerminal = document.getElementById('payload-terminal');
+    targetNote.addEventListener('ui:highlight', (event) => {
+        payloadTerminal.textContent = `[Listener C intercepted Event Payload!]\n` +
+            `-----------------------------------------\n` +
+            `• Captured Event Name : "${event.type}"\n` +
+            `• event.detail.hexColor:  "${event.detail.hexColor}"\n` +
+            `• event.detail.timestamp: "${event.detail.timestamp}"\n` +
+            `• event.detail.executionId: ${event.detail.executionId}`;
+    });
+</script>
+</body>
+</html>

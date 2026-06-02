@@ -212,7 +212,7 @@ const users = [
     { name: "Charlie", age: 35 }
 ];
 
-// Pure: map to get names
+// Pure: map to js names
 const getNames = (users) => users.map(user => user.name);
 console.log(getNames(users)); // Output: ["Alice", "Bob", "Charlie"]
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOMContentLoaded Infrastructure Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; }
+    .card { border: 1px solid #dcdde1; padding: 20px; border-radius: 8px; background: #ffffff; margin-bottom: 25px; }
+    pre { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; font-size: 14px; line-height: 1.5; }
+    .highlight { color: #eccc68; font-weight: bold; }
+  </style>
+
+  <script>
+    // Inline tracking array initialized in head
+    window.lifecycleLogs = [];
+    window.lifecycleLogs.push(`1. Head Script Check: readyState is "${document.readyState}"`);
+
+    // Defensive execution configuration
+    function handleInterfaceSetup() {
+      window.lifecycleLogs.push(`-> handleInterfaceSetup() executing. Button is available: ${!!document.getElementById('action-btn')}`);
+
+      // Safe to bind now because the DOM tree is compiled
+      const logBox = document.getElementById('terminal-log');
+      if (logBox) {
+        logBox.textContent = window.lifecycleLogs.join('\n');
+      }
+    }
+
+    // Setup the event listener
+    if (document.readyState === 'loading') {
+      window.lifecycleLogs.push('2. Head Script: Document is loading. Attaching DOMContentLoaded listener.');
+      document.addEventListener('DOMContentLoaded', (e) => {
+        window.lifecycleLogs.push(`4. [DOMContentLoaded Fired]: readyState is now "${document.readyState}"`);
+        handleInterfaceSetup();
+      });
+    } else {
+      window.lifecycleLogs.push('Head Script: Document already parsed. Running immediately.');
+      handleInterfaceSetup();
+    }
+  </script>
+</head>
+<body>
+
+<h1>JavaScript DOMContentLoaded Pipeline</h1>
+
+<div class="card">
+  <h3>Sequential Execution Tracker Log</h3>
+  <p>This terminal shows how scripts execute based on placement and the document's state:</p>
+  <pre id="terminal-log">Processing initial parsing pipeline...</pre>
+  <button id="action-btn" style="padding: 10px 15px; cursor: pointer;">Interactive Target Button</button>
+</div>
+
+<script>
+  window.lifecycleLogs.push(`3. Body Script: Reached end of <body>. readyState is "${document.readyState}"`);
+  window.lifecycleLogs.push(`   -> Button element exists in DOM: ${!!document.getElementById('action-btn')}`);
+
+  // Update the log view directly using the body script
+  const logBox = document.getElementById('terminal-log');
+  if (logBox) {
+    logBox.textContent = window.lifecycleLogs.join('\n');
+  }
+
+  // Track when the entire page finally completes loading
+  window.addEventListener('load', () => {
+    window.lifecycleLogs.push(`5. [Global Load Fired]: Everything finished downloading. readyState is "${document.readyState}"`);
+    if (logBox) {
+      logBox.textContent = window.lifecycleLogs.join('\n');
+    }
+  });
+</script>
+</body>
+</html>

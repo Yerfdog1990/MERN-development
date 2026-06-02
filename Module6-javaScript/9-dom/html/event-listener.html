@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>event listener</title>
+    <style>
+        .btn-red{
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<button class="start">Start</button>
+<button class="count">Counter</button>
+<button class="reset">Reset</button>
+<hr>
+<div>
+    <label for="input">Input:</label>
+    <input id="input" class="input" placeholder="Enter any text or number">
+    <br>
+    <br>
+    <p id="input-value"></p>
+</div>
+<p style="color: red" id="counter">1000</p>
+</body>
+<script>
+    let count = 1000;
+    // Search for elements using querySelector
+    const startButton = document.querySelector('.start');
+    const counterButton = document.querySelector('.count');
+    const resetButton = document.querySelector('.reset');
+    const countText = document.getElementById('counter');
+    const input = document.querySelector('.input');
+    const inputValue = document.getElementById('input-value');
+
+    // Add event listener
+    startButton.addEventListener('click', ()=>{
+        // Change button text
+        if(startButton.innerText === 'Start'){
+            startButton.innerText = 'Begin';
+            startButton.innerHTML = '<span>Let us begin</span>';
+        }else{
+            startButton.innerText = 'Start';
+        }
+
+        // Show alert on click
+        //alert('Start button clicked');
+    });
+
+    counterButton.addEventListener('click', ()=>{
+        count--;
+        countText.innerText = count;
+    })
+
+    // Add css styling
+    resetButton.addEventListener('click', ()=>{
+        //resetButton.classList.add('btn-red');
+
+        // toggle class
+        resetButton.classList.toggle('btn-red');
+    })
+
+    // change event
+    input.addEventListener('change', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // input event
+    input.addEventListener('input', ()=>{
+        console.log("You have typed: ", input.value);
+        inputValue.innerText = input.value;
+    })
+
+    // keydown event
+    input.addEventListener('keydown', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // keyup event
+    input.addEventListener('keyup', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // keypress event
+    input.addEventListener('keypress', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mouseover event
+    input.addEventListener('mouseover', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mouseout event
+    input.addEventListener('mouseout', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mouseup event
+    input.addEventListener('mouseup', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mousedown event
+    input.addEventListener('mousedown', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mousemove event
+    input.addEventListener('mousemove', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mouseenter event
+    input.addEventListener('mouseenter', ()=>{
+        console.log("You have typed: ", input.value);
+    })
+
+    // mouseleave event
+    input.addEventListener('mouseleave', (event)=>{
+        let xCoord = event.clientX;
+        let yCoord = event.clientY;
+        console.log("You have typed: ", input.value);
+        console.log("x: ", xCoord, "y: ", yCoord);
+    })
+
+</script>
+</html>

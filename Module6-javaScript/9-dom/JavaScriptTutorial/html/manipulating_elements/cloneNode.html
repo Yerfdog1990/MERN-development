@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cloneNode() Demo</title>
+  <style>
+    body  { font-family: Arial, sans-serif; padding: 20px; }
+    .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul    { background: #f4ecf7; padding: 15px 35px; margin: 10px 0; }
+    h3    { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+    .clone-label { font-weight: bold; color: #8e44ad; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<h1>cloneNode() Demo</h1>
+
+<!-- Demo 1: Deep clone -->
+<h3>1. Deep Clone (cloneNode(true)) — Clones All Children</h3>
+<div class="box">
+  <p class="clone-label">Original Menu:</p>
+  <ul id="menu">
+    <li>Home</li>
+    <li>Services</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="deepClone()">Deep Clone the Menu</button>
+  <p class="clone-label">Cloned Menu (appears below):</p>
+</div>
+
+<!-- Demo 2: Shallow clone -->
+<h3>2. Shallow Clone (cloneNode(false)) — Only the Element</h3>
+<div class="box">
+  <ul id="shallow-menu">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+  <button onclick="shallowClone()">Shallow Clone (no children)</button>
+  <div id="shallow-result" style="border:1px dashed #aaa; min-height:30px; margin-top:10px; padding:10px;">
+    Shallow clone output appears here.
+  </div>
+</div>
+
+<!-- Demo 3: Duplicate id warning -->
+<h3>3. Fix Duplicate id After Cloning</h3>
+<div class="box">
+  <nav id="main-nav">
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+    </ul>
+  </nav>
+  <button onclick="cloneWithFixedId()">Clone nav and Fix the id</button>
+  <p id="id-info"></p>
+</div>
+
+<script>
+
+  // --- Demo 1: Deep clone ---
+  function deepClone() {
+    const menu       = document.querySelector('#menu');
+    const clonedMenu = menu.cloneNode(true);  // Clone element + all <li> children
+    clonedMenu.id    = 'menu-mobile';          // Avoid duplicate id
+
+    // Add a label to the clone
+    const label = document.createElement('li');
+    label.textContent = '(Mobile Clone)';
+    label.style.fontStyle = 'italic';
+    label.style.color = '#8e44ad';
+    clonedMenu.appendChild(label);
+
+    // Insert after the original menu
+    menu.after(clonedMenu);
+  }
+
+  // --- Demo 2: Shallow clone ---
+  function shallowClone() {
+    const menu         = document.querySelector('#shallow-menu');
+    const shallowCopy  = menu.cloneNode(false); // Clone <ul> only — no children
+    shallowCopy.id     = 'shallow-copy';
+    shallowCopy.style.background = '#eafaf1';
+
+    const result = document.getElementById('shallow-result');
+    result.innerHTML  = '';
+    result.appendChild(shallowCopy);
+
+    // Confirm no children were cloned
+    result.insertAdjacentHTML('beforeend',
+            `<p>Cloned &lt;ul&gt; has ${shallowCopy.children.length} children (expected 0)</p>`);
+  }
+
+  // --- Demo 3: Clone and fix the id ---
+  function cloneWithFixedId() {
+    const nav   = document.getElementById('main-nav');
+    const clone = nav.cloneNode(true);
+
+    // WRONG — would create two elements with id="main-nav"
+    // document.body.appendChild(clone); // Do NOT do this without changing the id
+
+    // CORRECT — change the id first
+    clone.id = 'mobile-nav';
+    document.body.appendChild(clone);
+
+    document.getElementById('id-info').textContent =
+            `Original id: "${nav.id}" | Clone id: "${clone.id}" — no conflict.`;
+  }
+
+</script>
+
+</body>
+</html>

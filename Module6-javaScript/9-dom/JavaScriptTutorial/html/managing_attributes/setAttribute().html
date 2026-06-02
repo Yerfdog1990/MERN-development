@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setAttribute() Demo</title>
+    <style>
+        body    { font-family: Arial, sans-serif; padding: 20px; }
+        .box    { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        h3      { color: #2c3e50; margin-top: 25px; }
+        button  { padding: 8px 18px; margin: 5px; cursor: pointer; border-radius: 4px; }
+        pre     { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 13px; white-space: pre-wrap; }
+        .output { background: #eafaf1; padding: 8px 12px; border-left: 4px solid #27ae60; margin: 6px 0; font-family: monospace; }
+        input   { padding: 8px; margin: 5px 0; width: 250px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+
+<h1>setAttribute() Demo</h1>
+
+<!-- Demo 1: Basic setAttribute() -->
+<h3>1. Basic setAttribute() — Adding and Updating Attributes</h3>
+<div class="box">
+    <button id="btnSend">Send</button>
+    <br><br>
+    <button onclick="addAttributes()">Add name + disabled Attributes</button>
+    <button onclick="updateAttribute()">Update name Attribute</button>
+    <div class="output" id="out-basic"></div>
+</div>
+
+<!-- Demo 2: Boolean attributes -->
+<h3>2. Boolean Attributes — disabled, readonly</h3>
+<div class="box">
+    <input type="text" id="txt-input" value="I can be disabled">
+    <br>
+    <button onclick="disableInput()">Disable Input (setAttribute)</button>
+    <button onclick="enableInput()">Enable Input (removeAttribute)</button>
+    <div class="output" id="out-bool"></div>
+    <p><em>Note: setting disabled="false" still disables the element — use removeAttribute() instead.</em></p>
+</div>
+
+<!-- Demo 3: Setting class and style -->
+<h3>3. Setting class and style Attributes</h3>
+<div class="box">
+    <p id="styled-para">This paragraph will be styled via setAttribute()</p>
+    <button onclick="styleElement()">Apply Style and Class</button>
+    <div class="output" id="out-style"></div>
+</div>
+
+<!-- Demo 4: Setting data-* attributes -->
+<h3>4. Setting Custom data-* Attributes</h3>
+<div class="box">
+    <div id="data-div" style="padding:10px; background:#f8f9fa; border-radius:4px;">
+        This div will get custom data attributes.
+    </div>
+    <br>
+    <button onclick="setDataAttributes()">Set data-* Attributes</button>
+    <pre id="out-data">Output will appear here...</pre>
+</div>
+
+<!-- Demo 5: setAttribute converts to string -->
+<h3>5. Value Always Converted to String</h3>
+<div class="box">
+    <input type="range" id="slider" min="0" max="100" value="50">
+    <br><br>
+    <button onclick="setNonString()">Set Non-String Values</button>
+    <pre id="out-type">Output will appear here...</pre>
+</div>
+
+<script>
+
+    // --- Demo 1: Basic setAttribute ---
+    function addAttributes() {
+        const btn = document.querySelector('#btnSend');
+
+        // Add a 'name' attribute that did not exist before
+        btn.setAttribute('name', 'send');
+
+        // Add 'disabled' — button will no longer be clickable
+        btn.setAttribute('disabled', '');
+
+        document.getElementById('out-basic').textContent =
+            `name="${btn.getAttribute('name')}", disabled="${btn.getAttribute('disabled')}" — button is now disabled`;
+    }
+
+    function updateAttribute() {
+        const btn = document.querySelector('#btnSend');
+
+        // setAttribute updates if attribute already exists
+        btn.setAttribute('name', 'submit-form');
+        btn.removeAttribute('disabled');  // Re-enable to allow further demos
+
+        document.getElementById('out-basic').textContent =
+            `name updated to: "${btn.getAttribute('name')}" — disabled removed`;
+    }
+
+    // --- Demo 2: Boolean attributes ---
+    function disableInput() {
+        const input = document.querySelector('#txt-input');
+        input.setAttribute('disabled', ''); // Any value → disabled = true
+        document.getElementById('out-bool').textContent =
+            `disabled attribute set. input.disabled = ${input.disabled}`;
+    }
+
+    function enableInput() {
+        const input = document.querySelector('#txt-input');
+        // setAttribute('disabled', 'false') would still disable it!
+        // Must use removeAttribute to truly disable = false
+        input.removeAttribute('disabled');
+        document.getElementById('out-bool').textContent =
+            `disabled attribute removed. input.disabled = ${input.disabled}`;
+    }
+
+    // --- Demo 3: Setting class and style ---
+    function styleElement() {
+        const para = document.getElementById('styled-para');
+
+        // Set the class attribute
+        para.setAttribute('class', 'highlighted');
+
+        // Set inline style as a string
+        para.setAttribute('style', 'color: white; background: #2c3e50; padding: 8px; border-radius: 4px;');
+
+        // Set a custom title
+        para.setAttribute('title', 'This was styled by setAttribute()');
+
+        document.getElementById('out-style').textContent =
+            `class="${para.getAttribute('class')}", title="${para.getAttribute('title')}"`;
+    }
+
+    // --- Demo 4: Setting data-* attributes ---
+    function setDataAttributes() {
+        const div = document.getElementById('data-div');
+
+        div.setAttribute('data-user-id', '42');
+        div.setAttribute('data-role', 'admin');
+        div.setAttribute('data-status', 'active');
+
+        let log = 'Attributes set via setAttribute():\n\n';
+        log += `data-user-id = "${div.getAttribute('data-user-id')}"\n`;
+        log += `data-role    = "${div.getAttribute('data-role')}"\n`;
+        log += `data-status  = "${div.getAttribute('data-status')}"\n\n`;
+        log += `Via dataset:\n`;
+        log += `dataset.userId = "${div.dataset.userId}"\n`;
+        log += `dataset.role   = "${div.dataset.role}"\n`;
+        log += `dataset.status = "${div.dataset.status}"`;
+
+        document.getElementById('out-data').textContent = log;
+    }
+
+    // --- Demo 5: Value is always converted to string ---
+    function setNonString() {
+        const slider = document.getElementById('slider');
+
+        // Pass a number — converted to "75"
+        slider.setAttribute('value', 75);
+
+        // Pass a boolean — converted to "true"
+        slider.setAttribute('data-active', true);
+
+        let log = 'Non-string values passed to setAttribute():\n\n';
+        log += `setAttribute('value', 75)       → getAttribute('value') = "${slider.getAttribute('value')}" (type: ${typeof slider.getAttribute('value')})\n`;
+        log += `setAttribute('data-active', true) → getAttribute('data-active') = "${slider.getAttribute('data-active')}" (type: ${typeof slider.getAttribute('data-active')})`;
+
+        document.getElementById('out-type').textContent = log;
+    }
+
+</script>
+
+</body>
+</html>

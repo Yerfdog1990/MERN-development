@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Phase Flow Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #fafafa; }
+        #outer-zone { padding: 30px; background: #e74c3c; color: white; border-radius: 6px; }
+        #inner-zone { padding: 30px; background: #3498db; color: white; border-radius: 6px; }
+        #btn-target { padding: 12px 24px; font-size: 16px; background: #2ecc71; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; margin-top: 20px; }
+        button:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+<h1>DOM Level 2 Phase Explorer</h1>
+<p>Click the green button to see the order in which capturing and bubbling listeners fire.</p>
+
+<div id="outer-zone">
+    Outer Div (#outer-zone)
+    <div id="inner-zone">
+        Inner Div (#inner-zone)
+        <br><br>
+        <button id="btn-target">Target Button</button>
+    </div>
+</div>
+
+<h3>Execution Phase Sequence Log:</h3>
+<button onclick="clearLog()">Clear Log</button>
+<pre id="phase-log">Click the Target Button above...</pre>
+
+<script>
+    const log = document.getElementById('phase-log');
+    let orderCounter = 1;
+
+    function recordLog(elementName, phaseName) {
+        log.innerHTML += `${orderCounter++}. <b>${elementName}</b> intercepted during the <i>${phaseName}</i><br>`;
+    }
+
+    function clearLog() {
+        log.innerHTML = "";
+        orderCounter = 1;
+    }
+
+    const outer = document.getElementById('outer-zone');
+    const inner = document.getElementById('inner-zone');
+    const target = document.getElementById('btn-target');
+
+    // --- CAPTURING LISTENERS (Third parameter is true) ---
+    window.addEventListener('click', () => recordLog('Window', 'Capturing Phase'), true);
+    document.addEventListener('click', () => recordLog('Document', 'Capturing Phase'), true);
+    document.body.addEventListener('click', () => recordLog('Body', 'Capturing Phase'), true);
+    outer.addEventListener('click', () => recordLog('Outer Div', 'Capturing Phase'), true);
+    inner.addEventListener('click', () => recordLog('Inner Div', 'Capturing Phase'), true);
+    target.addEventListener('click', () => recordLog('Target Button', 'Capturing Phase/Target'), true);
+
+    // --- BUBBLING LISTENERS (Third parameter omitted or false) ---
+    target.addEventListener('click', () => recordLog('Target Button', 'Bubbling Phase/Target'));
+    inner.addEventListener('click', () => recordLog('Inner Div', 'Bubbling Phase'));
+    outer.addEventListener('click', () => recordLog('Outer Div', 'Bubbling Phase'));
+    document.body.addEventListener('click', () => recordLog('Body', 'Bubbling Phase'));
+    document.addEventListener('click', () => recordLog('Document', 'Bubbling Phase'));
+    window.addEventListener('click', () => recordLog('Window', 'Bubbling Phase'));
+</script>
+</body>
+</html>

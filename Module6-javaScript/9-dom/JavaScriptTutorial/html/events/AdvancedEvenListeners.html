@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Level 2 Listeners Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        button { padding: 10px 20px; font-size: 14px; cursor: pointer; }
+        ol { background: #f8f9fa; padding: 20px 40px; border-left: 4px solid #2ecc71; }
+    </style>
+</head>
+<body>
+<h1>Model 3: DOM Level 2 Event Listeners</h1>
+<p>This model allows you to register multiple separate listeners to respond to the same event invocation simultaneously.</p>
+
+<div class="box">
+    <button id="btn-multi-listener">Fire Multi-Listeners</button>
+
+    <h3>Execution Order Log:</h3>
+    <ol id="execution-list"></ol>
+</div>
+
+<script>
+    const actionBtn = document.getElementById('btn-multi-listener');
+    const listOutput = document.getElementById('execution-list');
+
+    function appendLogMessage(msg) {
+        const li = document.createElement('li');
+        li.textContent = msg;
+        listOutput.appendChild(li);
+    }
+
+    // --- Listener Function 1 ---
+    actionBtn.addEventListener('click', function(event) {
+        appendLogMessage(`Listener #1 caught a '${event.type}' event.`);
+    });
+
+    // --- Listener Function 2 ---
+    actionBtn.addEventListener('click', function() {
+        appendLogMessage("Listener #2 executed concurrently without conflict.");
+    });
+
+    // --- Listener Function 3 ---
+    actionBtn.addEventListener('click', () => {
+        appendLogMessage("Listener #3 (Arrow Function syntax) complete.");
+    });
+</script>
+</body>
+</html>

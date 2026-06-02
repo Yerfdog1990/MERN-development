@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>before() Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    h3   { color: #2c3e50; margin-top: 25px; }
+    ul   { background: #f8f9fa; padding: 15px 35px; }
+    button { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>before() Demo</h1>
+
+<!-- Demo 1: Insert heading before a paragraph -->
+<h3>1. Insert a Heading Before a Paragraph</h3>
+<div class="box" id="demo1-container">
+  <p id="target-p">This is the paragraph. A heading will be inserted before it.</p>
+  <button onclick="insertHeading()">Insert Heading Before Paragraph</button>
+</div>
+
+<!-- Demo 2: Insert multiple nodes before first list item -->
+<h3>2. Insert Multiple Nodes Before First List Item</h3>
+<div class="box">
+  <ul id="fw-list">
+    <li>Angular</li>
+    <li>Vue</li>
+  </ul>
+  <button onclick="insertMultiple()">Insert React, Meteor, Polymer Before Angular</button>
+</div>
+
+<!-- Demo 3: Insert a string as Text node -->
+<h3>3. Insert a String (Text Node) Before a Button</h3>
+<div class="box">
+  <button id="donate-btn">Donate Here</button>
+  <button onclick="insertEmoji()">Insert Emoji Before Button Text</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Insert a heading before a paragraph ---
+  function insertHeading() {
+    const p  = document.querySelector('#target-p');
+    const h1 = document.createElement('h1');
+    h1.innerText = 'JavaScript DOM — before() Demo';
+
+    // h1 is inserted as a sibling BEFORE p, inside the same parent
+    p.before(h1);
+  }
+
+  // --- Demo 2: Insert multiple nodes at once ---
+  function insertMultiple() {
+    const list = document.querySelector('#fw-list');
+
+    const libs  = ['React', 'Meteor', 'Polymer'];
+    const items = libs.map((lib) => {
+      const item = document.createElement('li');
+      item.innerText = lib;
+      return item;
+    });
+
+    // Spread operator passes all items as separate arguments
+    // Inserts all three BEFORE the first child (Angular)
+    list.firstChild.before(...items);
+  }
+
+  // --- Demo 3: Insert a string as a Text node ---
+  function insertEmoji() {
+    const button = document.querySelector('#donate-btn');
+    // Strings passed to before() become Text nodes automatically
+    button.firstChild.before('🧡 ');
+  }
+
+</script>
+
+</body>
+</html>

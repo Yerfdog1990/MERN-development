@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>event delegation</title>
+    <style>
+        .red-btn{
+            color: red;
+        }
+
+        .green-btn{
+            color: green;
+        }
+
+        .blue-btn{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div class="main-heading">
+    <h1>Event Delegation</h1>
+</div>
+<div class="btn-container">
+    <button class="red">Red</button>
+    <button class="green">Green</button>
+    <button class="blue">Blue</button>
+    <button class="reset">Reset</button>
+</div>
+<script>
+    // Target parent element
+    let btnContainer = document.querySelector('.btn-container');
+    btnContainer.addEventListener('click', function (event) {
+        let textColor = event.target.innerText;
+        if(textColor === "Red"){
+            event.target.classList.add('red-btn');
+        }else if(textColor === "Green"){
+            event.target.classList.add('green-btn');
+        }else if(textColor === "Blue"){
+            event.target.classList.add('blue-btn');
+        }else{
+            document.querySelectorAll('.btn-container button').forEach( (btn)=> {
+                btn.classList.remove('red-btn', 'green-btn', 'blue-btn');
+            })
+        }
+    })
+
+
+</script>
+</body>
+</html>

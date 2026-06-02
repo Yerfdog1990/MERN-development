@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>innerHTML vs createElement</title>
+    <style>
+        body   { font-family: Arial, sans-serif; padding: 20px; }
+        .box   { border: 1px dashed #aaa; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        .timer { font-weight: bold; color: #e74c3c; margin-top: 8px; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+        h3     { color: #2c3e50; margin-top: 25px; }
+        .safe  { color: #27ae60; font-weight: bold; }
+        .risky { color: #e74c3c; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h1>innerHTML vs createElement</h1>
+
+<!-- Demo 1: Performance comparison -->
+<h3>1. Performance — Adding 500 paragraphs</h3>
+<div class="box">
+    <button onclick="runInnerHTML()">Use innerHTML</button>
+    <button onclick="runCreateElement()">Use createElement</button>
+    <div id="perf-result" class="timer"></div>
+    <div id="perf-container" style="max-height:100px; overflow:auto;"></div>
+</div>
+
+<!-- Demo 2: Security comparison -->
+<h3>2. Security — Injecting untrusted content</h3>
+<div class="box">
+    <p>Payload: <code>&lt;img src=x onerror="this.alt='XSS ran!'"&gt;</code></p>
+    <button onclick="securityInnerHTML()">innerHTML (risky)</button>
+    <button onclick="securityCreateElement()">createElement (safe)</button>
+    <div id="sec-result" style="margin-top:10px;"></div>
+</div>
+
+<!-- Demo 3: Stale reference problem with innerHTML -->
+<h3>3. Stale References with innerHTML</h3>
+<div class="box">
+    <ul id="ref-list">
+        <li id="first-item">First Item</li>
+    </ul>
+    <button onclick="staleRefDemo()">Demonstrate stale reference</button>
+    <p id="stale-output"></p>
+</div>
+
+<script>
+
+    // --- Demo 1: Performance ---
+    function runInnerHTML() {
+        const container = document.getElementById('perf-container');
+        container.innerHTML = '';
+        const start = performance.now();
+
+        for (let i = 0; i < 500; i++) {
+            // Each += causes a full reparse of all existing content
+            container.innerHTML += `<p>Paragraph ${i}</p>`;
+        }
+
+        const end = performance.now();
+        document.getElementById('perf-result').textContent =
+            `innerHTML: ${(end - start).toFixed(2)}ms`;
+    }
+
+    function runCreateElement() {
+        const container = document.getElementById('perf-container');
+        container.innerHTML = '';
+        const start = performance.now();
+
+        for (let i = 0; i < 500; i++) {
+            // createElement only touches the new node
+            const p = document.createElement('p');
+            p.textContent = `Paragraph ${i}`;
+            container.appendChild(p);
+        }
+
+        const end = performance.now();
+        document.getElementById('perf-result').textContent =
+            `createElement: ${(end - start).toFixed(2)}ms`;
+    }
+
+    // --- Demo 2: Security ---
+    function securityInnerHTML() {
+        const payload = `<img src=x onerror="this.alt='XSS ran!'" alt="checking...">`;
+        document.getElementById('sec-result').innerHTML =
+            '<span class="risky">innerHTML result: </span>' + payload;
+        // The onerror fires because src=x fails to load
+    }
+
+    function securityCreateElement() {
+        const payload = `<img src=x onerror="this.alt='XSS ran!'" alt="checking...">`;
+        const p = document.createElement('p');
+        p.textContent = payload; // treated as literal text — no parsing
+        const result = document.getElementById('sec-result');
+        result.innerHTML = '';
+        const label = document.createElement('span');
+        label.className = 'safe';
+        label.textContent = 'createElement result: ';
+        result.appendChild(label);
+        result.appendChild(p);
+    }
+
+    // --- Demo 3: Stale reference ---
+    function staleRefDemo() {
+        const list      = document.getElementById('ref-list');
+        const firstItem = document.getElementById('first-item');
+
+        // Save a reference to the existing li
+        const savedRef = firstItem;
+
+        // innerHTML destroys and recreates ALL child nodes
+        list.innerHTML += '<li>Second Item</li>';
+
+        // savedRef is now a detached node — no longer in the DOM
+        document.getElementById('stale-output').textContent =
+            'savedRef still in DOM? ' + document.contains(savedRef) +
+            ' — createElement would keep the reference valid.';
+    }
+
+</script>
+
+</body>
+</html>

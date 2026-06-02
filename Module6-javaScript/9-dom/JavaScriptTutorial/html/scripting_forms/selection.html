@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Select Box Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f8fafc; color: #0f172a; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
+        .card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+        .field-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
+
+        select { width: 100%; padding: 10px; font-size: 15px; border: 2px solid #cbd5e1; border-radius: 6px; background-color: #fff; outline: none; }
+        select:focus { border-color: #3b82f6; }
+        select[multiple] { height: 110px; }
+
+        .action-btn { width: 100%; padding: 10px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 5px; margin-bottom: 15px; }
+        .action-btn:hover { background-color: #2563eb; }
+        pre { background: #0f172a; color: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 150px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript Select Element Interface Laboratory</h1>
+
+<div class="grid">
+    <div class="card">
+        <form id="dropdown-form">
+
+            <div class="field-group">
+                <label for="single-framework">1. Preferred Framework (Single-Select)</label>
+                <select id="single-framework">
+                    <option value="">-- Choose Option --</option>
+                    <option value="ang">Angular</option>
+                    <option value="rct">React</option>
+                    <option>Ember.js</option> </select>
+            </div>
+            <button type="button" id="btn-analyze-single" class="action-btn">Compile Single Selection</button>
+
+            <div class="field-group">
+                <label for="multi-framework">2. Additional Tooling (Multi-Select - Hold Ctrl/Cmd)</label>
+                <select id="multi-framework" multiple>
+                    <option value="v">Vue.js</option>
+                    <option value="s">Svelte</option>
+                    <option value="n">Next.js</option>
+                    <option value="nux">Nuxt.js</option>
+                </select>
+            </div>
+            <button type="button" id="btn-analyze-multi" class="action-btn" style="background-color: #10b981;">Compile Multiple Selections</button>
+
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Runtime Diagnostic Output Terminal</h3>
+        <pre id="diagnostic-terminal">Awaiting option interactions or evaluation requests...</pre>
+    </div>
+</div>
+
+<script>
+    const singleSelect = document.getElementById('single-framework');
+    const multiSelect = document.getElementById('multi-framework');
+    const terminal = document.getElementById('diagnostic-terminal');
+
+    // --- 1. Single Selection Processing Logic ---
+    document.getElementById('btn-analyze-single').addEventListener('click', () => {
+        const index = singleSelect.selectedIndex;
+        const value = singleSelect.value;
+
+        if (index === -1 || value === "") {
+            terminal.textContent = `[Single-Select Query Results]:\n---------------------------------\n⚠ No selection made or empty value wrapper active.`;
+            return;
+        }
+
+        // Extract the chosen option node using the index pointer
+        const selectedOptionNode = singleSelect.options[index];
+
+        terminal.textContent = `[Single-Select Query Results]:\n` +
+            `---------------------------------\n` +
+            `• selectedIndex           : ${index}\n` +
+            `• selectElement.value     : "${value}"\n` +
+            `• optionNode.text (Label) : "${selectedOptionNode.text}"\n` +
+            `• optionNode.value (Data) : "${selectedOptionNode.value}"`;
+    });
+
+    // --- 2. Multiple Selection Processing Logic ---
+    document.getElementById('btn-analyze-multi').addEventListener('click', () => {
+        // Convert options collection into a true array using Array.from()
+        const allOptionNodes = Array.from(multiSelect.options);
+
+        // Filter down to highlighted options
+        const chosenOptions = allOptionNodes.filter(opt => opt.selected);
+
+        if (chosenOptions.length === 0) {
+            terminal.textContent = `[Multi-Select Query Results]:\n---------------------------------\n⚠ No list items are selected. Hold Ctrl or Cmd to select multiple options.`;
+            return;
+        }
+
+        // Map values and text properties into distinct data arrays
+        const compiledValues = chosenOptions.map(opt => opt.value);
+        const compiledLabels = chosenOptions.map(opt => opt.text);
+
+        terminal.textContent = `[Multi-Select Query Results]:\n` +
+            `---------------------------------\n` +
+            `• First selectedIndex     : ${multiSelect.selectedIndex}\n` +
+            `• Total Count Selected    : ${chosenOptions.length}\n` +
+            `• Compiled Value Array    : ${JSON.stringify(compiledValues)}\n` +
+            `• Compiled Text Labels    : ${JSON.stringify(compiledLabels)}`;
+    });
+
+    // --- 3. Live Change Listener Feedback ---
+    singleSelect.addEventListener('change', function() {
+        terminal.textContent = `[Live Event Notification]: Dropdown "change" event detected!\n` +
+            `• Active baseline value token is now: "${this.value}"`;
+    });
+</script>
+</body>
+</html>

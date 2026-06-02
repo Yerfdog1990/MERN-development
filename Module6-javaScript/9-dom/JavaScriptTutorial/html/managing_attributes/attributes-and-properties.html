@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attributes & Properties Demo</title>
+    <style>
+        body    { font-family: Arial, sans-serif; padding: 20px; }
+        .box    { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; background: #fdfefe; }
+        pre     { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 13px; white-space: pre-wrap; }
+        h3      { color: #2c3e50; margin-top: 25px; }
+        button  { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+        .label  { font-weight: bold; color: #2980b9; margin-bottom: 4px; }
+        .output { background: #eaf4fb; padding: 8px 12px; border-left: 4px solid #3498db; margin: 6px 0; font-family: monospace; }
+        table   { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td  { border: 1px solid #bdc3c7; padding: 8px 12px; text-align: left; }
+        th      { background: #2c3e50; color: #fff; }
+    </style>
+</head>
+<body>
+
+<h1>HTML Attributes &amp; DOM Properties</h1>
+
+<!-- Demo 1: Standard vs Non-Standard attributes -->
+<h3>1. Standard vs Non-Standard Attributes</h3>
+<div class="box">
+    <input type="text" id="username" secured="true" placeholder="Enter username">
+    <br><br>
+    <button onclick="checkAttributes()">Check Attributes vs Properties</button>
+    <div class="output" id="out-standard"></div>
+    <div class="output" id="out-nonstandard"></div>
+</div>
+
+<!-- Demo 2: Attribute-Property synchronization -->
+<h3>2. Attribute ↔ Property Synchronization</h3>
+<div class="box">
+    <input type="text" id="sync-input" tabindex="1" value="initial" placeholder="Sync demo">
+    <br><br>
+    <button onclick="syncDemo()">Run Sync Demo</button>
+    <pre id="sync-output">Output will appear here...</pre>
+</div>
+
+<!-- Demo 3: Typed properties -->
+<h3>3. DOM Properties Are Typed (not always strings)</h3>
+<div class="box">
+    <input type="checkbox" id="chkAccept" checked> Accept Terms
+    <br><br>
+    <input type="password" id="password" style="color:red;width:200px" placeholder="Password">
+    <br><br>
+    <button onclick="typedDemo()">Show Typed Properties</button>
+    <pre id="typed-output">Output will appear here...</pre>
+</div>
+
+<!-- Demo 4: data-* custom attributes -->
+<h3>4. Custom data-* Attributes</h3>
+<div class="box">
+    <div id="progress-bar"
+         data-progress="pending"
+         data-value="10%"
+         data-user-id="42"
+         style="padding:10px; background:#eaf4fb; border-radius:4px;">
+        Progress bar element with data attributes
+    </div>
+    <br>
+    <button onclick="dataAttrDemo()">Read data-* Attributes</button>
+    <pre id="data-output">Output will appear here...</pre>
+</div>
+
+<!-- Demo 5: element.attributes collection -->
+<h3>5. element.attributes — List All Attributes</h3>
+<div class="box">
+    <a href="https://example.com" target="_blank" id="my-link" class="nav-link" title="Visit Example">Example Link</a>
+    <br><br>
+    <button onclick="listAttributes()">List All Attributes</button>
+    <pre id="attr-list-output">Output will appear here...</pre>
+</div>
+
+<script>
+
+    // --- Demo 1: Standard vs Non-Standard ---
+    function checkAttributes() {
+        const input = document.querySelector('#username');
+
+        // Standard attributes → properties exist
+        document.getElementById('out-standard').textContent =
+            `Standard properties: type="${input.type}", id="${input.id}" — both accessible via dot notation`;
+
+        // Non-standard attribute → property does NOT exist
+        document.getElementById('out-nonstandard').textContent =
+            `input.secured = ${input.secured} ← undefined — use getAttribute("secured") = "${input.getAttribute('secured')}" instead`;
+    }
+
+    // --- Demo 2: Attribute ↔ Property Synchronization ---
+    function syncDemo() {
+        const input = document.querySelector('#sync-input');
+        let log     = '';
+
+        // tabindex syncs both ways
+        input.setAttribute('tabindex', 2);
+        log += `After setAttribute('tabindex', 2):\n`;
+        log += `  input.tabIndex (property) = ${input.tabIndex}\n\n`; // 2
+
+        input.tabIndex = 3;
+        log += `After input.tabIndex = 3:\n`;
+        log += `  getAttribute('tabindex') = "${input.getAttribute('tabindex')}"\n\n`; // "3"
+
+        // value only syncs attribute → property, NOT the other way
+        input.setAttribute('value', 'guest');
+        log += `After setAttribute('value', 'guest'):\n`;
+        log += `  input.value (property) = "${input.value}"\n\n`; // "guest"
+
+        input.value = 'admin';
+        log += `After input.value = 'admin':\n`;
+        log += `  getAttribute('value') = "${input.getAttribute('value')}" ← still "guest"!\n`;
+        log += `  This is because "value" attribute = initial value, property = current value.`;
+
+        document.getElementById('sync-output').textContent = log;
+    }
+
+    // --- Demo 3: Typed Properties ---
+    function typedDemo() {
+        const checkbox = document.querySelector('#chkAccept');
+        const password = document.querySelector('#password');
+        let log = '';
+
+        // Boolean property
+        log += `checkbox.getAttribute('checked') = "${checkbox.getAttribute('checked')}" (type: ${typeof checkbox.getAttribute('checked')})\n`;
+        log += `checkbox.checked = ${checkbox.checked} (type: ${typeof checkbox.checked})\n\n`;
+
+        // Object property
+        log += `password.getAttribute('style') = "${password.getAttribute('style')}" (type: ${typeof password.getAttribute('style')})\n`;
+        log += `password.style = [object CSSStyleDeclaration] (type: ${typeof password.style})\n`;
+        log += `password.style.color = "${password.style.color}"`;
+
+        document.getElementById('typed-output').textContent = log;
+    }
+
+    // --- Demo 4: data-* Attributes ---
+    function dataAttrDemo() {
+        const bar = document.querySelector('#progress-bar');
+        let log = '';
+
+        // Access via dataset property
+        log += `bar.dataset.progress = "${bar.dataset.progress}"\n`;
+        log += `bar.dataset.value    = "${bar.dataset.value}"\n`;
+        log += `bar.dataset.userId   = "${bar.dataset.userId}"\n\n`;
+
+        // Modify a data attribute
+        bar.dataset.progress = 'complete';
+        bar.dataset.value    = '100%';
+        log += `After updating via dataset:\n`;
+        log += `  data-progress is now: "${bar.getAttribute('data-progress')}"\n`;
+        log += `  data-value    is now: "${bar.getAttribute('data-value')}"`;
+
+        document.getElementById('data-output').textContent = log;
+    }
+
+    // --- Demo 5: List all attributes ---
+    function listAttributes() {
+        const link = document.querySelector('#my-link');
+        let log    = `All attributes on <a id="my-link">:\n\n`;
+
+        // element.attributes is a NamedNodeMap — use Array.from to iterate
+        Array.from(link.attributes).forEach(attr => {
+            log += `  ${attr.name} = "${attr.value}"\n`;
+        });
+
+        document.getElementById('attr-list-output').textContent = log;
+    }
+
+</script>
+
+</body>
+</html>

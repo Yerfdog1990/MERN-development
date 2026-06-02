@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive dispatchEvent Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
+        .card { border: 1px solid #dcdde1; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .main-action-btn { width: 100%; padding: 15px; background-color: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .main-action-btn:hover { background-color: #2563eb; }
+        .simulator-btn { display: block; width: 100%; padding: 10px; margin-bottom: 10px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #2f3640; background: #f1f2f6; }
+        .simulator-btn:hover { background: #2f3640; color: white; }
+        pre { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 120px; white-space: pre-wrap; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-top: 5px; }
+        .trusted-true { background-color: #dcfce7; color: #15803d; }
+        .trusted-false { background-color: #fee2e2; color: #b91c1c; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript dispatchEvent Engine Laboratory</h1>
+
+<div class="grid">
+    <div class="card">
+        <h3>1. Primary Operational Target Element</h3>
+        <p>This button responds to both real physical user interactions and automated programmatic triggers:</p>
+
+        <button id="target-action-button" class="main-action-btn">Click / Analyze Interactive Node</button>
+
+        <div>
+            <strong>Event Integrity Status:</strong>
+            <span id="integrity-badge" class="badge">Waiting...</span>
+        </div>
+
+        <pre id="metrics-terminal">Awaiting event analysis logs...</pre>
+    </div>
+
+    <div class="card">
+        <h3>2. Scripted Simulation Automation Controllers</h3>
+        <p>Click these utility buttons to create and dispatch custom synthetic event objects programmatically using JavaScript:</p>
+
+        <button id="trigger-generic" class="simulator-btn">Dispatch Generic Event (new Event)</button>
+        <button id="trigger-specialized" class="simulator-btn" style="border-color:#3b82f6; color:#3b82f6;">Dispatch MouseEvent ({ clientX: 500 })</button>
+        <button id="btn-clear" style="padding: 5px 10px; cursor: pointer;">Reset Laboratory Terminal</button>
+    </div>
+</div>
+
+<script>
+    const actionButton = document.getElementById('target-action-button');
+    const integrityBadge = document.getElementById('integrity-badge');
+    const metricsTerminal = document.getElementById('metrics-terminal');
+    const clearBtn = document.getElementById('btn-clear');
+
+    // --- 1. Core Event Listener Setup ---
+    actionButton.addEventListener('click', (event) => {
+        // Evaluate authenticity via .isTrusted
+        if (event.isTrusted) {
+            integrityBadge.textContent = "✓ TRUE USER HARDWARE INTERACTION";
+            integrityBadge.className = "badge trusted-true";
+        } else {
+            integrityBadge.textContent = "⚠ FALSE SYNTHETIC CODE SCRIPT DISPATCH";
+            integrityBadge.className = "badge trusted-false";
+        }
+
+        // Print available event coordinate metrics
+        metricsTerminal.textContent = `Captured Event Details:\n` +
+            `• Event Type Name: "${event.type}"\n` +
+            `• event.isTrusted: ${event.isTrusted}\n` +
+            `• Pointer coordinate context clientX: ${event.clientX || 0}px\n` +
+            `• Pointer coordinate context clientY: ${event.clientY || 0}px`;
+    });
+
+    // --- 2. Generic Event Dispatch Automation Logic ---
+    document.getElementById('trigger-generic').addEventListener('click', () => {
+        // Build a generic event object instance
+        const syntheticEvent = new Event('click', {
+            bubbles: true,
+            cancelable: false
+        });
+
+        // Dispatch it to the target node element
+        actionButton.dispatchEvent(syntheticEvent);
+    });
+
+    // --- 3. Specialized MouseEvent Automation Logic ---
+    document.getElementById('trigger-specialized').addEventListener('click', () => {
+        // Build a specialized MouseEvent object instance with coordinates
+        const advancedMouseEvent = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            clientX: 575,
+            clientY: 210
+        });
+
+        // Dispatch it to the target node element
+        actionButton.dispatchEvent(advancedMouseEvent);
+    });
+
+    // --- Laboratory Clear Function ---
+    clearBtn.addEventListener('click', () => {
+        metricsTerminal.textContent = "Awaiting event analysis logs...";
+        integrityBadge.textContent = "Waiting...";
+        integrityBadge.className = "badge";
+    });
+</script>
+</body>
+</html>

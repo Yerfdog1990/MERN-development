@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Event Delegation Laboratory</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1100px; }
+        .card { border: 1px solid #dcdde1; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* Interactive Menu Styles */
+        ul.menu-container { list-style: none; padding: 0; margin: 0 0 20px 0; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; }
+        ul.menu-container li { border-bottom: 1px solid #f1f2f6; }
+        ul.menu-container li:last-child { border-bottom: none; }
+        ul.menu-container button.menu-item { width: 100%; padding: 12px 20px; background: #ffffff; border: none; text-align: left; font-size: 15px; font-weight: bold; color: #2f3640; cursor: pointer; transition: background 0.2s; }
+        ul.menu-container button.menu-item:hover { background-color: #f1f2f6; color: #3b82f6; }
+
+        pre { background: #2f3640; color: #f5f6fa; padding: 12px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 100px; }
+        .control-btn { padding: 8px 16px; background-color: #22c55e; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .control-btn:hover { background-color: #16a34a; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript Event Delegation Laboratory</h1>
+
+<div class="grid">
+    <!-- Panel 1: Interactive Menu Wrapper Target -->
+    <div class="card">
+        <h3>1. Centralized Parent Menu Wrapper</h3>
+        <p>A single click listener is attached to the <code>&lt;ul&gt;</code> element below, handling interactions for all nested buttons automatically:</p>
+
+        <ul id="central-menu" class="menu-container">
+            <li><button id="home" class="menu-item">Dashboard Home View</button></li>
+            <li><button id="dashboard" class="menu-item">Analytics Data Streams</button></li>
+            <li><button id="report" class="menu-item">System Operations Report</button></li>
+        </ul>
+
+        <button id="btn-add-item" class="control-btn">+ Dynamically Inject New Menu Item</button>
+    </div>
+
+    <!-- Panel 2: Live Diagnostic Output Logs -->
+    <div class="card">
+        <h3>2. Dynamic Execution Log Terminal</h3>
+        <p>See how the single parent listener uses <code>event.target.id</code> to dynamically track and handle interactions:</p>
+        <pre id="terminal-display">Awaiting interaction logs...</pre>
+    </div>
+</div>
+
+<script>
+    const centralMenu = document.getElementById('central-menu');
+    const terminalDisplay = document.getElementById('terminal-display');
+    const addItemBtn = document.getElementById('btn-add-item');
+    let newCustomItemCounter = 1;
+
+    // --- Core Event Delegation Implementation ---
+    // Instead of adding separate listeners to each button, we add one listener to the parent <ul> container
+    centralMenu.addEventListener('click', (event) => {
+        // Find the closest button element in case the user clicked a child element inside the button
+        const targetButton = event.target.closest('.menu-item');
+
+        // Safety Check: If the click wasn't on or inside a valid menu item button, ignore it
+        if (!targetButton) return;
+
+        // Route execution based on the specific element ID
+        switch(targetButton.id) {
+            case 'home':
+                terminalDisplay.textContent = `Route Triggered: [HOME] View initialized successfully.`;
+                break;
+            case 'dashboard':
+                terminalDisplay.textContent = `Route Triggered: [DASHBOARD] pipelines connected.`;
+                break;
+            case 'report':
+                terminalDisplay.textContent = `Route Triggered: [REPORT] spreadsheets compiled.`;
+                break;
+            default:
+                // This block catches dynamically injected custom items seamlessly, without needing new listeners
+                terminalDisplay.textContent = `Route Triggered: [DYNAMIC PROTOTYPE] ID Name: "${targetButton.id}" executed smoothly.`;
+                break;
+        }
+    });
+
+    // --- Dynamic Content Injection Logic ---
+    addItemBtn.addEventListener('click', () => {
+        const newLi = document.createElement('li');
+        const newButton = document.createElement('button');
+
+        const uniqueId = `custom-node-${newCustomItemCounter}`;
+        newButton.id = uniqueId;
+        newButton.className = 'menu-item';
+        newButton.textContent = `✨ Injected Feature Option ${newCustomItemCounter}`;
+
+        newLi.appendChild(newButton);
+        centralMenu.appendChild(newLi);
+
+        newCustomItemCounter++;
+        terminalDisplay.textContent = `System Log: Injected a new DOM element node with ID "${uniqueId}". Try clicking it!`;
+    });
+</script>
+</body>
+</html>

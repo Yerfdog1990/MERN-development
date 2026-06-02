@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>textContent Demo</title>
+  <style>
+    body    { font-family: Arial, sans-serif; padding: 20px; }
+    .box    { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; background: #f8f9fa; }
+    .output { background: #eafaf1; border-left: 4px solid #27ae60; padding: 10px; margin-top: 10px; font-family: monospace; }
+    h3      { color: #2c3e50; margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+<h1>textContent Demo</h1>
+
+<!-- Demo 1: Reading textContent -->
+<h3>1. Reading textContent</h3>
+<div class="box">
+  <div id="note">
+    JavaScript textContent Demo!
+    <span style="display:none">Hidden Text!</span>
+    <!-- this is a comment -->
+  </div>
+  <div class="output" id="out-text"></div>
+  <div class="output" id="out-inner"></div>
+</div>
+
+<!-- Demo 2: Setting textContent -->
+<h3>2. Setting textContent (replaces all children)</h3>
+<div class="box">
+  <div id="replace-demo">
+    <strong>Bold text</strong> and <em>italic text</em> will be replaced.
+  </div>
+  <button onclick="replaceText()">Set textContent</button>
+</div>
+
+<!-- Demo 3: Setting textContent safely (no XSS) -->
+<h3>3. textContent is XSS-safe</h3>
+<div class="box">
+  <div id="safe-demo"></div>
+  <button onclick="insertSafe()">Insert HTML as Text (safe)</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Read textContent vs innerText ---
+  const note     = document.getElementById('note');
+  const outText  = document.getElementById('out-text');
+  const outInner = document.getElementById('out-inner');
+
+  // textContent includes "Hidden Text!" even though it is display:none
+  outText.textContent  = 'textContent: "' + note.textContent.trim() + '"';
+
+  // innerText excludes hidden elements — returns only visible text
+  outInner.textContent = 'innerText:   "' + note.innerText.trim() + '"';
+
+  // --- Demo 2: Setting textContent removes all child nodes ---
+  function replaceText() {
+    let demo = document.getElementById('replace-demo');
+    // This removes the <strong> and <em> elements and replaces with plain text
+    demo.textContent = 'All child nodes were removed and replaced with this text.';
+  }
+
+  // --- Demo 3: textContent is safe against XSS ---
+  function insertSafe() {
+    let safe = document.getElementById('safe-demo');
+    // This renders the tags as literal text — not as HTML
+    safe.textContent = '<img src=x onerror="alert(\'XSS\')">';
+    // Output: shows the tag text literally — no script executes
+  }
+
+</script>
+
+</body>
+</html>

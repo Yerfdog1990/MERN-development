@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Form Validation Engine</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; background-color: #f1f5f9; color: #1e293b; }
+        .form-card { background: #ffffff; max-width: 450px; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); }
+        h1 { margin-top: 0; font-size: 24px; color: #0f172a; text-align: center; }
+
+        .field-group { margin-bottom: 20px; position: relative; }
+        label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 14px; }
+
+        input[type="text"] { width: 100%; padding: 10px 12px; font-size: 15px; border: 2px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; transition: all 0.2s ease-in-out; }
+        input[type="text"]:focus { outline: none; border-color: #3b82f6; }
+
+        /* Validation State Styling Rules */
+        input.error { border-color: #ef4444 !important; background-color: #fef2f2; }
+        input.success { border-color: #22c55e !important; background-color: #f0fdf4; }
+
+        small { display: block; color: #ef4444; font-size: 12px; font-weight: bold; margin-top: 5px; min-height: 18px; }
+
+        .submit-btn { width: 100%; padding: 12px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .submit-btn:hover { background-color: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <h1>Create Account</h1>
+
+    <form action="/register-endpoint" method="POST" id="signup-form">
+
+        <div class="field-group">
+            <label for="name-field">Full Name</label>
+            <input type="text" id="name-field" name="username" placeholder="John Doe">
+            <small id="error-username"></small>
+        </div>
+
+        <div class="field-group">
+            <label for="email-field">Email Address</label>
+            <input type="text" id="email-field" name="email" placeholder="john@example.com">
+            <small id="error-email"></small>
+        </div>
+
+        <button type="submit" class="submit-btn">Register Account</button>
+    </form>
+</div>
+
+<script>
+    const signupForm = document.getElementById('signup-form');
+
+    // Validation Messaging Dictionary Constants
+    const MSG_NAME_REQ = "Please enter your name.";
+    const MSG_EMAIL_REQ = "Please enter your email address.";
+    const MSG_EMAIL_INV = "Please enter a valid email address format.";
+
+    // --- 1. UI Rendering Utility ---
+    function setFieldState(inputElement, errorMessage, isSuccess) {
+        // Traverse up to find the parent container, then locate its error placeholder
+        const errorPlaceholder = inputElement.parentNode.querySelector('small');
+        errorPlaceholder.innerText = errorMessage;
+
+        // Toggle corresponding success/error CSS helper classes
+        inputElement.className = isSuccess ? "success" : "error";
+        return isSuccess;
+    }
+
+    // --- 2. Presence/Value Check Rule ---
+    function checkRequired(inputElement, requiredMessage) {
+        if (inputElement.value.trim() === "") {
+            return setFieldState(inputElement, requiredMessage, false);
+        }
+        return setFieldState(inputElement, "", true);
+    }
+
+    // --- 3. Format/Pattern Check Rule ---
+    function checkEmailFormat(inputElement, requiredMessage, invalidMessage) {
+        // First check if the field is empty using our existing utility
+        if (!checkRequired(inputElement, requiredMessage)) {
+            return false;
+        }
+
+        // Standard email evaluation regular expression pattern
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const currentEmailValue = inputElement.value.trim();
+
+        if (!emailRegex.test(currentEmailValue)) {
+            return setFieldState(inputElement, invalidMessage, false);
+        }
+        return setFieldState(inputElement, "", true);
+    }
+
+    // --- 4. Main Event Listener Loop ---
+    signupForm.addEventListener('submit', (event) => {
+        // Step A: Stop automatic browser submission
+        event.preventDefault();
+
+        // Step B: Run validation checks across form elements
+        const nameTargetField = signupForm.elements['username'];
+        const emailTargetField = signupForm.elements['email'];
+
+        let isNameValid = checkRequired(nameTargetField, MSG_NAME_REQ);
+        let isEmailValid = checkEmailFormat(emailTargetField, MSG_EMAIL_REQ, MSG_EMAIL_INV);
+
+        // Step C: Conditionally submit data if all checks pass
+        if (isNameValid && isEmailValid) {
+            alert("Validation Passed! Submitting form data to server endpoint...");
+
+            // Programmatically fire the native transmission process
+            signupForm.submit();
+        }
+    });
+</script>
+</body>
+</html>

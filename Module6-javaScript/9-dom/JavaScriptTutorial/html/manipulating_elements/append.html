@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>append() Demo</title>
+  <style>
+    body  { font-family: Arial, sans-serif; padding: 20px; }
+    .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul    { background: #eafaf1; padding: 15px 35px; }
+    li    { padding: 4px 0; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th,td { border: 1px solid #bdc3c7; padding: 8px 12px; text-align: left; }
+    th    { background: #2c3e50; color: #fff; }
+    h3    { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>append() Demo</h1>
+
+<!-- Demo 1: Append multiple list items -->
+<h3>1. Append Multiple List Items</h3>
+<div class="box">
+  <ul id="append-list">
+    <li>JavaScript</li>  <!-- Original last child -->
+  </ul>
+  <button onclick="appendItems()">Append TypeScript, HTML, CSS</button>
+</div>
+
+<!-- Demo 2: Append plain text -->
+<h3>2. Append Plain Text</h3>
+<div class="box">
+  <div id="text-container" style="border:1px solid #aaa; padding:10px; min-height:30px;"></div>
+  <button onclick="appendText()">Append Text</button>
+</div>
+
+<!-- Demo 3: append() vs appendChild() comparison -->
+<h3>3. append() vs appendChild() Comparison</h3>
+<div class="box">
+  <table>
+    <tr><th>Feature</th><th>append()</th><th>appendChild()</th></tr>
+    <tr><td>Return value</td><td>undefined</td><td>Appended Node object</td></tr>
+    <tr><td>Multiple nodes</td><td>Yes</td><td>No — single node only</td></tr>
+    <tr><td>Accepts strings</td><td>Yes (as Text nodes)</td><td>No — only Node objects</td></tr>
+  </table>
+  <button onclick="compareDemo()">Run Both — check console</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Append multiple items ---
+  function appendItems() {
+    const app   = document.querySelector('#append-list');
+    const langs = ['TypeScript', 'HTML', 'CSS'];
+
+    const nodes = langs.map(lang => {
+      const li = document.createElement('li');
+      li.textContent = lang;
+      return li;
+    });
+
+    // All three appended after current last child (JavaScript)
+    app.append(...nodes);
+  }
+
+  // --- Demo 2: Append a plain text string ---
+  function appendText() {
+    const container = document.getElementById('text-container');
+    container.append('append() Text Demo — added as a Text node');
+    console.log(container.textContent);
+  }
+
+  // --- Demo 3: Comparison demo ---
+  function compareDemo() {
+    const ul = document.createElement('ul');
+
+    // appendChild returns the appended node
+    const li1  = document.createElement('li');
+    li1.textContent = 'appendChild item';
+    const returned = ul.appendChild(li1);
+    console.log('appendChild returns:', returned); // The <li> element
+
+    // append returns undefined
+    const li2 = document.createElement('li');
+    li2.textContent = 'append item';
+    const result = ul.append(li2);
+    console.log('append returns:', result); // undefined
+
+    // append can insert multiple nodes and strings at once
+    ul.append('text node', document.createElement('li'));
+    console.log('append() inserted multiple nodes + string in one call');
+  }
+
+</script>
+
+</body>
+</html>

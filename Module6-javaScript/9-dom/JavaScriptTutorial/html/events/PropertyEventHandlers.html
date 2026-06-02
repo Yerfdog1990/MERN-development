@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Level 0 Property Handlers</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        button { padding: 8px 16px; margin-right: 10px; cursor: pointer; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 12px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<h1>Model 2: DOM Level 0 Properties</h1>
+
+<div class="box">
+    <button id="btn-prop-target">Target Element Button</button>
+    <button id="btn-prop-remove">Disconnect Listener</button>
+
+    <h3>Property Handler Monitor</h3>
+    <pre id="prop-log">Interact with the target element...</pre>
+</div>
+
+<script>
+    const targetBtn = document.getElementById('btn-prop-target');
+    const removeBtn = document.getElementById('btn-prop-remove');
+    const propLog = document.getElementById('prop-log');
+
+    // 1. Assigning an event handler via a JavaScript property
+    targetBtn.onclick = function(event) {
+        // 'this' refers to the button element itself
+        propLog.textContent = `Fired! Element property access: id="${this.id}"\n`;
+        propLog.textContent += `Event parameter diagnostics: type="${event.type}"`;
+    };
+
+    // 2. Disconnecting a listener by setting the property to null
+    removeBtn.onclick = function() {
+        targetBtn.onclick = null;
+        propLog.textContent = "Status: Target button's onclick property has been set to null.";
+    };
+</script>
+</body>
+</html>

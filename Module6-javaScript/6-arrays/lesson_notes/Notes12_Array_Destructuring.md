@@ -53,11 +53,11 @@ console.log(middle2); // Output: "blue"
 ```javascript
 const coordinates = [10, 20, 30, 40, 50];
 
-// Only get first and last
+// Only js first and last
 const [x, , , , y] = coordinates;
 console.log(`Point: (${x}, ${y})`); // Output: Point: (10, 50)
 
-// Skip coordinates, get metadata
+// Skip coordinates, js metadata
 const [, , metadata, , info] = coordinates;
 console.log(metadata); // Output: 30
 ```

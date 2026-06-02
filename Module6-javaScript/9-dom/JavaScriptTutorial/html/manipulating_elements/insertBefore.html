@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>insertBefore() Demo</title>
+  <style>
+    body  { font-family: Arial, sans-serif; padding: 20px; }
+    .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul    { background: #eaf4fb; padding: 15px 35px; }
+    .new  { background: #d5f5e3; font-style: italic; }
+    h3    { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>insertBefore() Demo</h1>
+
+<!-- Demo 1: Insert before first child -->
+<h3>1. Insert Before the First Child</h3>
+<div class="box">
+  <ul id="menu1">
+    <li>Home</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="insertBeforeFirst()">Insert "Services" Before "Home"</button>
+</div>
+
+<!-- Demo 2: Insert before a specific node -->
+<h3>2. Insert Before a Specific Node (middle)</h3>
+<div class="box">
+  <ul id="menu2">
+    <li>Apple</li>
+    <li>Cherry</li>
+    <li>Date</li>
+  </ul>
+  <button onclick="insertBeforeCherry()">Insert "Banana" Before "Cherry"</button>
+</div>
+
+<!-- Demo 3: Insert before null (acts like appendChild) -->
+<h3>3. insertBefore with null Reference (appends to end)</h3>
+<div class="box">
+  <ul id="menu3">
+    <li>One</li>
+    <li>Two</li>
+  </ul>
+  <button onclick="insertAtEnd()">Insert "Three" at End (null reference)</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Insert before firstElementChild ---
+  function insertBeforeFirst() {
+    const menu1   = document.getElementById('menu1');
+    const newItem = document.createElement('li');
+    newItem.textContent = 'Services';
+    newItem.className   = 'new';
+
+    // Insert newItem before the current first element child
+    menu1.insertBefore(newItem, menu1.firstElementChild);
+  }
+
+  // --- Demo 2: Insert before a specific node by reference ---
+  function insertBeforeCherry() {
+    const menu2   = document.getElementById('menu2');
+    const cherry  = menu2.children[1]; // index 1 = Cherry
+
+    const banana  = document.createElement('li');
+    banana.textContent = 'Banana';
+    banana.className   = 'new';
+
+    // Inserts Banana immediately before Cherry
+    menu2.insertBefore(banana, cherry);
+  }
+
+  // --- Demo 3: null reference acts like appendChild ---
+  function insertAtEnd() {
+    const menu3   = document.getElementById('menu3');
+    const newItem = document.createElement('li');
+    newItem.textContent = 'Three';
+    newItem.className   = 'new';
+
+    // Passing null as reference inserts at the end
+    menu3.insertBefore(newItem, null);
+  }
+
+</script>
+
+</body>
+</html>

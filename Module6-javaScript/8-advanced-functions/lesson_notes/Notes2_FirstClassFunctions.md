@@ -131,7 +131,7 @@ function operateOnArray(arr, operation) {
 
 const numbers = [1, 2, 3, 4, 5];
 
-// Pass different functions to get different results
+// Pass different functions to js different results
 console.log(operateOnArray(numbers, x => x * 2));    // Output: [2, 4, 6, 8, 10]
 console.log(operateOnArray(numbers, x => x * x));   // Output: [1, 4, 9, 16, 25]
 console.log(operateOnArray(numbers, x => x + 10));  // Output: [11, 12, 13, 14, 15]

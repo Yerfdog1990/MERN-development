@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Inline Style Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        pre  { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 13px; }
+        button { padding: 8px 16px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h1>Manipulating Styles Programmatically</h1>
+
+<div class="box">
+    <p id="target-para">JavaScript Setting Style Demo!</p>
+
+    <button onclick="applyCamelCase()">Apply CamelCase Properties</button>
+    <button onclick="applyBracketNotation()">Apply Bracket Notation</button>
+    <button onclick="overrideWithCssText()">Override via cssText</button>
+    <button onclick="useCssHelper()">Apply via Helper Function</button>
+
+    <pre id="style-inspector">Inspect inline markup attribute status...</pre>
+</div>
+
+<script>
+    // Helper function to update multiple styles at once via a key-value object
+    function css(element, styles) {
+        for (const property in styles) {
+            element.style[property] = styles[property];
+        }
+    }
+
+    function inspectMarkup() {
+        const p = document.getElementById('target-para');
+        const inspector = document.getElementById('style-inspector');
+        inspector.textContent = `Current HTML style attribute value:\n"${p.getAttribute('style') || 'None'}"`;
+    }
+
+    function applyCamelCase() {
+        const p = document.getElementById('target-para');
+        p.style.color = 'blue';
+        p.style.fontWeight = 'bold';
+        p.style.backgroundColor = '#eaf4fb';
+        inspectMarkup();
+    }
+
+    function applyBracketNotation() {
+        const p = document.getElementById('target-para');
+        // Useful for non-standard, experimental, or vendor-prefixed rules
+        p.style['-webkit-text-stroke'] = '1px darkblue';
+        inspectMarkup();
+    }
+
+    function overrideWithCssText() {
+        const p = document.getElementById('target-para');
+        p.style.cssText = 'color: purple; background-color: #fce4ec; border: 2px dashed magenta;';
+        inspectMarkup();
+    }
+
+    function useCssHelper() {
+        const p = document.getElementById('target-para');
+        css(p, {
+            color: '#27ae60',
+            background: '#e8f8f5',
+            border: '1px solid #2ecc71',
+            borderRadius: '4px',
+            padding: '10px'
+        });
+        inspectMarkup();
+    }
+</script>
+</body>
+</html>

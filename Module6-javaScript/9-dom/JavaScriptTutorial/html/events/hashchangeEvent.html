@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive HashChange Router Lab</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; color: #2f3640; }
+        header { background: #2f3640; padding: 15px 25px; border-radius: 6px; margin-bottom: 25px; }
+        nav a { color: #f5f6fa; text-decoration: none; font-weight: bold; margin-right: 20px; padding: 5px 10px; border-radius: 4px; transition: background 0.2s; }
+        nav a:hover { background: #444f63; }
+
+        /* Highlight state for active route links */
+        .active-route { background: #ff7f50 !important; color: white; }
+
+        .grid { display: grid; grid-template-columns: 3fr 2fr; gap: 25px; max-width: 1200px; }
+        .card { border: 1px solid #dcdde1; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 200px; }
+        pre { background: #1e293b; color: #f1f2f6; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; overflow-x: auto; line-height: 1.5; }
+        .route-badge { display: inline-block; padding: 4px 10px; background-color: #718093; color: white; border-radius: 12px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav id="app-navigation">
+        <a href="#home" id="link-home">Dashboard Home</a>
+        <a href="#about" id="link-about">Corporate About</a>
+        <a href="#contact" id="link-contact">Contact Channels</a>
+    </nav>
+</header>
+
+<div class="grid">
+    <div class="card">
+        <div id="current-view-badge" class="route-badge">Active Hash: #home</div>
+        <main id="view-viewport">
+            <h1>Application Initializing...</h1>
+            <p>Awaiting engine component deployment.</p>
+        </main>
+    </div>
+
+    <div class="card">
+        <h3>Router History Monitor</h3>
+        <p>Inspect raw <code>HashChangeEvent</code> state histories below:</p>
+        <pre id="history-terminal">No hash transitions detected yet. Click links above...</pre>
+    </div>
+</div>
+
+<script>
+    const viewViewport = document.getElementById('view-viewport');
+    const historyTerminal = document.getElementById('history-terminal');
+    const viewBadge = document.getElementById('current-view-badge');
+    const navLinks = document.querySelectorAll('#app-navigation a');
+
+    // --- Core Router View Mapping Configuration ---
+    const routerMap = {
+        'home': {
+            title: 'Welcome Home Dashboard',
+            body: 'This represents the dynamic view rendered when the route location processes "#home". No server roundtrips were required.'
+        },
+        'about': {
+            title: 'Corporate Profiles & Architecture',
+            body: 'Our platform leverages client-side routing routines. The hashchange event listens for updates to the URL context.'
+        },
+        'contact': {
+            title: 'Establish Contact Channels',
+            body: 'Have suggestions? Reach out through our mock contact view components at your convenience.'
+        }
+    };
+
+    // --- Main Route Orchestration Handler Function ---
+    function appRouterEngine(event) {
+        // Extract the router hash key (default to 'home' if empty)
+        let rawHash = window.location.hash;
+        let routeKey = rawHash.substring(1) || 'home';
+
+        // Fallback safety if the user types an unrecognized hash route
+        if (!routerMap[routeKey]) {
+            viewViewport.innerHTML = `<h1>404 — Route Not Found</h1><p>The path segment <b>#${routeKey}</b> is unrecognized.</p>`;
+            viewBadge.textContent = `Active Hash: Unknown`;
+            return;
+        }
+
+        // Update viewport DOM content with the matching route details
+        const targetRoute = routerMap[routeKey];
+        viewViewport.innerHTML = `<h1>${targetRoute.title}</h1><p>${targetRoute.body}</p>`;
+        viewBadge.textContent = `Active Hash: #${routeKey}`;
+
+        // Sync navigation link highlight states
+        navLinks.forEach(link => {
+            if(link.getAttribute('href') === `#${routeKey}`) {
+                link.className = 'active-route';
+            } else {
+                link.className = '';
+            }
+        });
+
+        // Log event history metrics if triggered by an active change event object
+        if (event) {
+            historyTerminal.textContent = `Event Captured: ${event.type}\n-----------------------------------\nOld URL: ${event.oldURL}\nNew URL: ${event.newURL}`;
+        }
+    }
+
+    // --- Lifecycle Subscriptions & Hooks ---
+    // Listen for route changes while the user is interacting with the application
+    window.addEventListener('hashchange', appRouterEngine);
+
+    // Run the router once when the page first loads to show the correct content based on the initial URL hash
+    window.addEventListener('DOMContentLoaded', () => {
+        // If the application opens with no trailing hash definition, force-initialize it to #home
+        if (!window.location.hash) {
+            window.location.hash = 'home';
+        } else {
+            appRouterEngine(); // Execute immediately using the existing hash route
+        }
+    });
+</script>
+</body>
+</html>

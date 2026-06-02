@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Event Attributes Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    input[type="button"] { padding: 8px 16px; margin: 5px; cursor: pointer; }
+    pre { background: #2c3e50; color: #ecf0f1; padding: 12px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<h1>Model 1: HTML Attribute Handlers</h1>
+
+<div class="box">
+  <h3>1. Direct Inline Value Code String</h3>
+  <input type="button" value="Click Script Text" onclick="alert('Inline literal code executed!')">
+</div>
+
+<div class="box">
+  <h3>2. Accessing Implicit Scope Variables</h3>
+  <input type="button" id="btn-implicit" value="Inspect Scopes"
+         onclick="document.getElementById('scope-log').textContent = `Implicit 'event.type': ${event.type}\nImplicit 'this.id': ${this.id}\nDirect property variable access 'value': ${value}`">
+  <pre id="scope-log">Implicit outputs appear here...</pre>
+</div>
+
+<div class="box">
+  <h3>3. Redirecting to Global Script Functions</h3>
+  <input type="button" value="Trigger Function" onclick="handleLegacyClick()">
+</div>
+
+<script>
+  // Implemented in a separate block (or external script file)
+  function handleLegacyClick() {
+    alert('Global script function intercepted the HTML attribute action.');
+  }
+</script>
+</body>
+</html>

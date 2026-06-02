@@ -73,7 +73,7 @@ The **Geolocation API** allows websites to access the user's geographic location
                     break;
                 case error.TIMEOUT:
                     document.getElementById("location").innerHTML =
-                        "The request to get user location timed out.";
+                        "The request to js user location timed out.";
                     break;
                 case error.UNKNOWN_ERROR:
                     document.getElementById("location").innerHTML =

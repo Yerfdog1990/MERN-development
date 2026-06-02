@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>removeChild() Demo</title>
+  <style>
+    body  { font-family: Arial, sans-serif; padding: 20px; }
+    .box  { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul    { background: #fdecea; padding: 15px 35px; }
+    h3    { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+    #trash { background: #f8f9fa; border: 2px dashed #aaa; padding: 10px; min-height: 40px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<h1>removeChild() Demo</h1>
+
+<!-- Demo 1: Remove last item -->
+<h3>1. Remove Last List Item</h3>
+<div class="box">
+  <ul id="menu">
+    <li>Home</li>
+    <li>Products</li>
+    <li>About Us</li>
+  </ul>
+  <button onclick="removeLast()">Remove Last Item</button>
+</div>
+
+<!-- Demo 2: Remove first item -->
+<h3>2. Remove First List Item</h3>
+<div class="box">
+  <ul id="menu2">
+    <li>Home</li>
+    <li>Services</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="removeFirst()">Remove First Item</button>
+</div>
+
+<!-- Demo 3: Remove all child nodes -->
+<h3>3. Remove All Child Nodes</h3>
+<div class="box">
+  <ul id="menu3">
+    <li>Alpha</li>
+    <li>Beta</li>
+    <li>Gamma</li>
+    <li>Delta</li>
+  </ul>
+  <button onclick="removeAllLoop()">Remove All (loop)</button>
+  <button onclick="removeAllInnerHTML()">Remove All (innerHTML = '')</button>
+  <button onclick="resetMenu3()">Reset</button>
+</div>
+
+<!-- Demo 4: Reuse removed node -->
+<h3>4. Remove and Reuse a Node</h3>
+<div class="box">
+  <ul id="source-list">
+    <li id="promo">⭐ Featured Item</li>
+    <li>Regular Item 1</li>
+    <li>Regular Item 2</li>
+  </ul>
+  <button onclick="moveToTrash()">Remove Featured Item to Holding Area</button>
+  <div id="trash">Holding area for removed nodes...</div>
+</div>
+
+<script>
+
+  // --- Demo 1: Remove last item ---
+  function removeLast() {
+    const menu = document.getElementById('menu');
+    if (menu.lastElementChild) {
+      menu.removeChild(menu.lastElementChild);
+    }
+  }
+
+  // --- Demo 2: Remove first item ---
+  function removeFirst() {
+    const menu2 = document.getElementById('menu2');
+    if (menu2.firstElementChild) {
+      menu2.removeChild(menu2.firstElementChild);
+    }
+  }
+
+  // --- Demo 3: Remove all nodes ---
+  function removeAllLoop() {
+    const menu3 = document.getElementById('menu3');
+    // Keep removing firstChild until none remain
+    while (menu3.firstChild) {
+      menu3.removeChild(menu3.firstChild);
+    }
+  }
+
+  function removeAllInnerHTML() {
+    // Simpler approach — clears all children at once
+    document.getElementById('menu3').innerHTML = '';
+  }
+
+  const originalMenu3 = '<li>Alpha</li><li>Beta</li><li>Gamma</li><li>Delta</li>';
+  function resetMenu3() {
+    document.getElementById('menu3').innerHTML = originalMenu3;
+  }
+
+  // --- Demo 4: Remove and reuse ---
+  function moveToTrash() {
+    const sourceList = document.getElementById('source-list');
+    const promo      = document.getElementById('promo');
+
+    if (promo && sourceList.contains(promo)) {
+      // Remove from source — returns the detached node
+      const removed = sourceList.removeChild(promo);
+
+      // Node is still in memory — reinsert in a different location
+      const trash = document.getElementById('trash');
+      trash.innerHTML = '';
+      trash.appendChild(removed);
+    }
+  }
+
+</script>
+
+</body>
+</html>

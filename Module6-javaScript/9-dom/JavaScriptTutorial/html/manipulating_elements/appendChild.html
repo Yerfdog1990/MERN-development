@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>appendChild() Demo</title>
+    <style>
+        body  { font-family: Arial, sans-serif; padding: 20px; }
+        ul    { background: #f9f9f9; padding: 20px; border-radius: 6px; }
+        li    { padding: 5px 0; }
+        .box  { border: 1px solid #ccc; padding: 10px; margin: 10px 0; background: #fffbe6; }
+        h3    { margin-top: 30px; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+<h1>appendChild() Demo</h1>
+
+<!-- Demo 1: Build a menu -->
+<h3>1. Building a Menu</h3>
+<ul id="menu"></ul>
+
+<!-- Demo 2: Moving a node -->
+<h3>2. Moving a Node Between Lists</h3>
+<p><strong>First List (before move):</strong></p>
+<ul id="first-list">
+    <li>Everest</li>
+    <li>Fuji</li>
+    <li>Kilimanjaro</li>
+</ul>
+<p><strong>Second List (Everest will be moved here):</strong></p>
+<ul id="second-list">
+    <li>Karakoram Range</li>
+    <li>Denali</li>
+    <li>Mont Blanc</li>
+</ul>
+
+<script>
+
+    // --- Demo 1: Build a menu using a helper function ---
+    function createMenuItem(name) {
+        let li = document.createElement('li');
+        li.textContent = name;
+        return li;
+    }
+
+    const menu = document.querySelector('#menu');
+    menu.appendChild(createMenuItem('Home'));
+    menu.appendChild(createMenuItem('Services'));
+    menu.appendChild(createMenuItem('About Us'));
+    // Result: Home, Services, About Us added to the list
+
+    // --- Demo 2: Move a node from one list to another ---
+    const firstList  = document.querySelector('#first-list');
+    const secondList = document.querySelector('#second-list');
+
+    // Select the first child element of the first list
+    const everest = firstList.firstElementChild;  // <li>Everest</li>
+
+    // Append it to the second list — this MOVES it (does not copy)
+    secondList.appendChild(everest);
+    // Everest is now gone from firstList and appears at end of secondList
+
+</script>
+
+</body>
+</html>

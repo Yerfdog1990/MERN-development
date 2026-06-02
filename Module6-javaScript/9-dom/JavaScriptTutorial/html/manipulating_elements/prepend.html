@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>prepend() Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul   { background: #fdf2f8; padding: 15px 35px; }
+    li   { padding: 4px 0; }
+    h3   { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>prepend() Demo</h1>
+
+<!-- Demo 1: Prepend list items -->
+<h3>1. Prepend Multiple List Items Before First Child</h3>
+<div class="box">
+  <ul id="prepend-list">
+    <li>HTML</li>  <!-- This was the original first child -->
+  </ul>
+  <button onclick="prependItems()">Prepend CSS, JavaScript, TypeScript</button>
+</div>
+
+<!-- Demo 2: Prepend a single element -->
+<h3>2. Prepend a Single Element</h3>
+<div class="box">
+  <div id="article">
+    <p>This is the article body paragraph.</p>
+  </div>
+  <button onclick="prependTitle()">Prepend Article Title</button>
+</div>
+
+<!-- Demo 3: Prepend a plain text string -->
+<h3>3. Prepend a Text String</h3>
+<div class="box">
+  <div id="text-box"></div>
+  <button onclick="prependText()">Prepend Text</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Prepend multiple list items ---
+  function prependItems() {
+    const app   = document.querySelector('#prepend-list');
+    const langs = ['CSS', 'JavaScript', 'TypeScript'];
+
+    const nodes = langs.map(lang => {
+      const li = document.createElement('li');
+      li.textContent = lang;
+      return li;
+    });
+
+    // All three are inserted BEFORE the current first child (HTML)
+    app.prepend(...nodes);
+  }
+
+  // --- Demo 2: Prepend a single element ---
+  function prependTitle() {
+    const article = document.getElementById('article');
+    const h2      = document.createElement('h2');
+    h2.textContent = 'Article Title (Prepended)';
+    article.prepend(h2);
+  }
+
+  // --- Demo 3: Prepend a plain text string ---
+  function prependText() {
+    const box = document.getElementById('text-box');
+    box.prepend('prepend() Text Demo — ');
+    console.log(box.textContent); // "prepend() Text Demo — "
+  }
+
+</script>
+
+</body>
+</html>

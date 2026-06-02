@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Option Management Laboratory</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 25px; background-color: #f1f5f9; color: #1e293b; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-width: 1050px; margin: 0 auto; }
+    .card { border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+    .field-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 14px; }
+
+    input[type="text"], select { width: 100%; padding: 10px; font-size: 15px; border: 2px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; outline: none; background: #fff; }
+    input[type="text"]:focus, select:focus { border-color: #3b82f6; }
+    select[multiple] { height: 140px; }
+
+    .btn-row { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 20px; }
+    .action-btn { flex: 1; padding: 11px; font-weight: bold; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; color: white; transition: background 0.2s; }
+
+    .btn-add { background-color: #2563eb; }
+    .btn-add:hover { background-color: #1d4ed8; }
+    .btn-remove { background-color: #ef4444; }
+    .btn-remove:hover { background-color: #dc2626; }
+    .btn-clear { background-color: #475569; }
+    .btn-clear:hover { background-color: #334155; }
+
+    pre { background: #0f172a; color: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13px; font-family: monospace; min-height: 150px; white-space: pre-wrap; margin: 0; }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align: center; margin-bottom: 30px;">Dynamic Option Management Laboratory</h1>
+
+<div class="grid">
+  <div class="card">
+    <form id="management-form">
+      <div class="field-group">
+        <label for="input-framework">1. Add New Entry</label>
+        <input type="text" id="input-framework" placeholder="Enter framework name (e.g. Svelte)" autocomplete="off">
+      </div>
+      <div class="btn-row">
+        <button type="button" id="btn-add-option" class="action-btn btn-add">Add to Dropdown</button>
+      </div>
+
+      <div class="field-group">
+        <label for="framework-listbox">2. Active Framework List (Hold Ctrl/Cmd to multi-select)</label>
+        <select id="framework-listbox" multiple>
+          <option value="angular">Angular</option>
+          <option value="react">React</option>
+          <option value="vue">Vue.js</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" id="btn-remove-selected" class="action-btn btn-remove">Remove Selected</button>
+        <button type="button" id="btn-clear-all" class="action-btn btn-clear">Clear Entire List</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Live Diagnostic Output Terminal</h3>
+    <p>Real-time list telemetry showing length metrics and inner value tracking parameters:</p>
+    <pre id="diagnostic-terminal">Awaiting actions...</pre>
+  </div>
+</div>
+
+<script>
+  const inputFramework = document.getElementById('input-framework');
+  const listbox = document.getElementById('framework-listbox');
+  const terminal = document.getElementById('diagnostic-terminal');
+
+  // --- Utility function to update telemetry report text ---
+  function updateTelemetryLog(actionPerformed) {
+    const currentOptions = Array.from(listbox.options);
+    const valuesArray = currentOptions.map(opt => opt.value);
+
+    terminal.textContent = `[Action Log]: ${actionPerformed}\n` +
+            `--------------------------------------------------\n` +
+            `• Total List Length     : ${listbox.options.length}\n` +
+            `• Compiled Value Array  : ${JSON.stringify(valuesArray)}`;
+  }
+
+  // --- 1. Processing Logic: Adding items ---
+  document.getElementById('btn-add-option').addEventListener('click', () => {
+    const cleanText = inputFramework.value.trim();
+
+    // Guard clause to prevent empty additions
+    if (cleanText === "") {
+      alert("Validation Error: Please enter a valid name string.");
+      inputFramework.focus();
+      return;
+    }
+
+    // Normalize the text into a clean token string for the value key
+    const standardizedValue = cleanText.toLowerCase().replace(/\s+/g, '-');
+
+    // Initialize option element node via clean constructor mapping wrapper
+    const freshOptionNode = new Option(cleanText, standardizedValue);
+
+    // Append item cleanly to the tail end of the list
+    listbox.add(freshOptionNode, undefined);
+
+    // Clean up and reset input interface
+    inputFramework.value = "";
+    inputFramework.focus();
+
+    updateTelemetryLog(`Successfully added item node ("${cleanText}")`);
+  });
+
+  // --- 2. Processing Logic: Removing selected items ---
+  document.getElementById('btn-remove-selected').addEventListener('click', () => {
+    let totalOptionsLength = listbox.options.length;
+    let targetSelectionStateMap = [];
+
+    // Step A: Map out which indexes are currently selected
+    for (let i = 0; i < totalOptionsLength; i++) {
+      targetSelectionStateMap[i] = listbox.options[i].selected;
+    }
+
+    // Step B: Loop backwards to safely remove selected items
+    let itemsRemovedCounter = 0;
+    let indexPointer = totalOptionsLength;
+
+    while (indexPointer--) {
+      if (targetSelectionStateMap[indexPointer]) {
+        listbox.remove(indexPointer);
+        itemsRemovedCounter++;
+      }
+    }
+
+    // Update user feedback
+    if (itemsRemovedCounter === 0) {
+      updateTelemetryLog("⚠ Removal aborted: No option components were highlighted.");
+    } else {
+      updateTelemetryLog(`Successfully purged ${itemsRemovedCounter} selected item node(s).`);
+    }
+  });
+
+  // --- 3. Processing Logic: Clearing the entire list ---
+  document.getElementById('btn-clear-all').addEventListener('click', () => {
+    let loopIndex = listbox.options.length;
+
+    while (loopIndex--) {
+      listbox.remove(loopIndex);
+    }
+
+    updateTelemetryLog("Successfully cleared all items from list collection.");
+  });
+
+  // Run baseline telemetry report on page initialization
+  updateTelemetryLog("Component initialized.");
+</script>
+</body>
+</html>

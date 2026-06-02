@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Node Properties Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            min-height: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .test-element {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        span {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 2px;
+            background-color: #d1ecf1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Node Properties Demo</h1>
+    <p>This page demonstrates all the Node instance properties in JavaScript.</p>
+
+    <!-- baseURI Demo -->
+    <div class="demo-section">
+        <h2>1. Node: baseURI Property</h2>
+        <output id="baseURI-output">Not calculated</output>
+        <br><br>
+        <button onclick="demoBaseURI()">Get baseURI</button>
+        <div class="output" id="output-baseURI"></div>
+    </div>
+
+    <!-- childNodes Demo -->
+    <div class="demo-section">
+        <h2>2. Node: childNodes Property</h2>
+        <div id="child-demo" class="test-element">
+            <span>Item 1</span>
+            <span>Item 2</span>
+            <span>Item 3</span>
+        </div>
+        <button onclick="demoChildNodes()">Get childNodes</button>
+        <button onclick="demoRemoveAllChildren()">Remove All Children</button>
+        <div class="output" id="output-childNodes"></div>
+    </div>
+
+    <!-- firstChild Demo -->
+    <div class="demo-section">
+        <h2>3. Node: firstChild Property</h2>
+        <p id="para-01">
+            <span>First span</span>
+        </p>
+        <p id="para-02"><span>First span (no whitespace)</span></p>
+        <button onclick="demoFirstChild()">Get firstChild (with whitespace)</button>
+        <button onclick="demoFirstChildNoWhitespace()">Get firstChild (no whitespace)</button>
+        <button onclick="demoFirstElementChild()">Get firstElementChild</button>
+        <div class="output" id="output-firstChild"></div>
+    </div>
+
+    <!-- isConnected Demo -->
+    <div class="demo-section">
+        <h2>4. Node: isConnected Property</h2>
+        <button onclick="demoIsConnected()">Test isConnected</button>
+        <button onclick="demoIsConnectedAfterAppend()">Append and Test</button>
+        <div class="output" id="output-isConnected"></div>
+    </div>
+
+    <!-- lastChild Demo -->
+    <div class="demo-section">
+        <h2>5. Node: lastChild Property</h2>
+        <div id="last-child-demo" class="test-element">
+            <span>First</span>
+            <span>Last</span>
+        </div>
+        <button onclick="demoLastChild()">Get lastChild</button>
+        <button onclick="demoLastElementChild()">Get lastElementChild</button>
+        <div class="output" id="output-lastChild"></div>
+    </div>
+
+    <!-- nextSibling Demo -->
+    <div class="demo-section">
+        <h2>6. Node: nextSibling Property</h2>
+        <div id="div-1">Here is div-1</div>
+        <div id="div-2">Here is div-2</div>
+        <br />
+        <button onclick="demoNextSibling()">Get nextSibling</button>
+        <button onclick="demoNextElementSibling()">Get nextElementSibling</button>
+        <div class="output" id="output-nextSibling"></div>
+    </div>
+
+    <!-- nodeName Demo -->
+    <div class="demo-section">
+        <h2>7. Node: nodeName Property</h2>
+        <div id="d1">Hello world</div>
+        <!-- Example of comment -->
+        Text <span>Text</span> Text<br />
+        <svg height="20" width="20">
+            <circle cx="10" cy="10" r="5" stroke="black" stroke-width="1" fill="red" />
+        </svg>
+        <hr />
+        <button onclick="demoNodeName()">Get All Node Names</button>
+        <div class="output" id="output-nodeName"></div>
+    </div>
+
+    <!-- nodeType Demo -->
+    <div class="demo-section">
+        <h2>8. Node: nodeType Property</h2>
+        <button onclick="demoNodeType()">Test Different Node Types</button>
+        <button onclick="demoNodeTypeCheck()">Check Comment Node</button>
+        <div class="output" id="output-nodeType"></div>
+    </div>
+
+    <!-- nodeValue Demo -->
+    <div class="demo-section">
+        <h2>9. Node: nodeValue Property</h2>
+        <div id="nodeValue-demo">Hello world</div>
+        <!-- Example of comment -->
+        <button onclick="demoNodeValue()">Get nodeValue of All Nodes</button>
+        <div class="output" id="output-nodeValue"></div>
+    </div>
+
+    <!-- ownerDocument Demo -->
+    <div class="demo-section">
+        <h2>10. Node: ownerDocument Property</h2>
+        <p id="owner-demo">This is a paragraph</p>
+        <button onclick="demoOwnerDocument()">Get ownerDocument</button>
+        <div class="output" id="output-ownerDocument"></div>
+    </div>
+
+    <!-- parentElement Demo -->
+    <div class="demo-section">
+        <h2>11. Node: parentElement Property</h2>
+        <div id="parent-demo">
+            <span id="child-span">Child span</span>
+        </div>
+        <button onclick="demoParentElement()">Get parentElement</button>
+        <button onclick="demoParentNode()">Get parentNode</button>
+        <button onclick="demoParentElementNull()">Test parentElement on html</button>
+        <div class="output" id="output-parentElement"></div>
+    </div>
+
+    <!-- previousSibling Demo -->
+    <div class="demo-section">
+        <h2>12. Node: previousSibling Property</h2>
+        <span id="b0">Span 0</span><span id="b1">Span 1</span><span id="b2">Span 2</span>
+        <br><br>
+        <button onclick="demoPreviousSibling()">Get previousSibling (no whitespace)</button>
+        <button onclick="demoPreviousElementSibling()">Get previousElementSibling</button>
+        <div class="output" id="output-previousSibling"></div>
+    </div>
+
+    <!-- textContent Demo -->
+    <div class="demo-section">
+        <h2>13. Node: textContent Property</h2>
+        <div id="divA">This is <span>some</span> text!</div>
+        <br>
+        <button onclick="demoTextContentGet()">Get textContent</button>
+        <button onclick="demoTextContentSet()">Set textContent</button>
+        <button onclick="demoTextContentReset()">Reset HTML</button>
+        <div class="output" id="output-textContent"></div>
+    </div>
+
+    <script>
+        // 1. baseURI Demo
+        function demoBaseURI() {
+            const output = document.querySelector("#baseURI-output");
+            const result = document.getElementById("output-baseURI");
+            result.innerHTML = `
+                <strong>baseURI:</strong> ${output.baseURI}
+            `;
+        }
+
+        // 2. childNodes Demo
+        function demoChildNodes() {
+            const demo = document.getElementById("child-demo");
+            const children = demo.childNodes;
+            const result = document.getElementById("output-childNodes");
+            
+            let nodeInfo = Array.from(children).map(node => {
+                return `${node.nodeName} (type: ${node.nodeType})`;
+            });
+            
+            result.innerHTML = `
+                <strong>childNodes length:</strong> ${children.length}<br>
+                <strong>Node types:</strong> ${nodeInfo.join(', ')}<br>
+                <em>(Note: Text nodes from whitespace are included)</em>
+            `;
+        }
+
+        function demoRemoveAllChildren() {
+            const box = document.getElementById("child-demo");
+            while (box.firstChild) {
+                box.removeChild(box.firstChild);
+            }
+            document.getElementById("output-childNodes").innerHTML = "All children removed!";
+        }
+
+        // 3. firstChild Demo
+        function demoFirstChild() {
+            const p01 = document.getElementById("para-01");
+            const result = document.getElementById("output-firstChild");
+            result.innerHTML = `
+                <strong>firstChild.nodeName:</strong> ${p01.firstChild.nodeName}<br>
+                <em>(This is #text due to whitespace)</em>
+            `;
+        }
+
+        function demoFirstChildNoWhitespace() {
+            const p02 = document.getElementById("para-02");
+            const result = document.getElementById("output-firstChild");
+            result.innerHTML = `
+                <strong>firstChild.nodeName (no whitespace):</strong> ${p02.firstChild.nodeName}<br>
+                <em>(This is SPAN because no whitespace)</em>
+            `;
+        }
+
+        function demoFirstElementChild() {
+            const p01 = document.getElementById("para-01");
+            const result = document.getElementById("output-firstChild");
+            result.innerHTML = `
+                <strong>firstElementChild.tagName:</strong> ${p01.firstElementChild.tagName}<br>
+                <em>(This returns only element nodes, skipping text)</em>
+            `;
+        }
+
+        // 4. isConnected Demo
+        function demoIsConnected() {
+            let test = document.createElement("p");
+            const result = document.getElementById("output-isConnected");
+            result.innerHTML = `
+                <strong>Created element isConnected:</strong> ${test.isConnected}<br>
+                <em>(Not attached to DOM yet)</em>
+            `;
+        }
+
+        function demoIsConnectedAfterAppend() {
+            let test = document.createElement("p");
+            test.textContent = "Test paragraph";
+            document.body.appendChild(test);
+            const result = document.getElementById("output-isConnected");
+            result.innerHTML = `
+                <strong>Created element isConnected (before append):</strong> false<br>
+                <strong>Created element isConnected (after append):</strong> ${test.isConnected}<br>
+                <em>(Now attached to DOM)</em>
+            `;
+        }
+
+        // 5. lastChild Demo
+        function demoLastChild() {
+            const demo = document.getElementById("last-child-demo");
+            const result = document.getElementById("output-lastChild");
+            result.innerHTML = `
+                <strong>lastChild.nodeName:</strong> ${demo.lastChild.nodeName}<br>
+                <em>(May be #text due to whitespace)</em>
+            `;
+        }
+
+        function demoLastElementChild() {
+            const demo = document.getElementById("last-child-demo");
+            const result = document.getElementById("output-lastChild");
+            result.innerHTML = `
+                <strong>lastElementChild.tagName:</strong> ${demo.lastElementChild.tagName}<br>
+                <strong>lastElementChild.textContent:</strong> ${demo.lastElementChild.textContent}<br>
+                <em>(Returns only element nodes)</em>
+            `;
+        }
+
+        // 6. nextSibling Demo
+        function demoNextSibling() {
+            let el = document.getElementById("div-1").nextSibling;
+            let i = 1;
+            let resultText = "Siblings of div-1:\n";
+            
+            while (el) {
+                resultText += `${i}. ${el.nodeName}\n`;
+                el = el.nextSibling;
+                i++;
+            }
+            
+            document.getElementById("output-nextSibling").textContent = resultText;
+        }
+
+        function demoNextElementSibling() {
+            let el = document.getElementById("div-1").nextElementSibling;
+            const result = document.getElementById("output-nextSibling");
+            result.innerHTML = `
+                <strong>nextElementSibling:</strong> ${el ? el.tagName : 'null'}<br>
+                <strong>textContent:</strong> ${el ? el.textContent : 'N/A'}<br>
+                <em>(Skips text nodes)</em>
+            `;
+        }
+
+        // 7. nodeName Demo
+        function demoNodeName() {
+            let node = document.querySelector("body").firstChild;
+            let result = "Node names are:\n";
+            let count = 0;
+            
+            while (node && count < 20) {
+                result += `${node.nodeName}\n`;
+                node = node.nextSibling;
+                count++;
+            }
+            
+            document.getElementById("output-nodeName").textContent = result;
+        }
+
+        // 8. nodeType Demo
+        function demoNodeType() {
+            const result = document.getElementById("output-nodeType");
+            result.innerHTML = `
+                <strong>document.nodeType:</strong> ${document.nodeType} (DOCUMENT_NODE: ${Node.DOCUMENT_NODE})<br>
+                <strong>document.doctype.nodeType:</strong> ${document.doctype.nodeType} (DOCUMENT_TYPE_NODE: ${Node.DOCUMENT_TYPE_NODE})<br>
+                <strong>documentFragment.nodeType:</strong> ${document.createDocumentFragment().nodeType} (DOCUMENT_FRAGMENT_NODE: ${Node.DOCUMENT_FRAGMENT_NODE})<br>
+                
+                <strong>Element node type:</strong> ${Node.ELEMENT_NODE}<br>
+                <strong>Text node type:</strong> ${Node.TEXT_NODE}<br>
+                <strong>Comment node type:</strong> ${Node.COMMENT_NODE}
+            `;
+        }
+
+        function demoNodeTypeCheck() {
+            const node = document.documentElement.firstChild;
+            const result = document.getElementById("output-nodeType");
+            
+            if (node.nodeType !== Node.COMMENT_NODE) {
+                result.innerHTML = `
+                    <strong>First node type:</strong> ${node.nodeType}<br>
+                    <strong>Is comment?</strong> No<br>
+                    <em>You should comment your code!</em>
+                `;
+            } else {
+                result.innerHTML = `
+                    <strong>First node type:</strong> ${node.nodeType}<br>
+                    <strong>Is comment?</strong> Yes
+                `;
+            }
+        }
+
+        // 9. nodeValue Demo
+        function demoNodeValue() {
+            let node = document.querySelector("body").firstChild;
+            let result = "Node values are:\n";
+            let count = 0;
+            
+            while (node && count < 20) {
+                result += `Value of ${node.nodeName}: ${node.nodeValue}\n`;
+                node = node.nextSibling;
+                count++;
+            }
+            
+            document.getElementById("output-nodeValue").textContent = result;
+        }
+
+        // 10. ownerDocument Demo
+        function demoOwnerDocument() {
+            const p = document.getElementById("owner-demo");
+            const d = p.ownerDocument;
+            const html = d.documentElement;
+            const result = document.getElementById("output-ownerDocument");
+            
+            result.innerHTML = `
+                <strong>ownerDocument:</strong> ${d.constructor.name}<br>
+                <strong>documentElement:</strong> ${html.tagName}<br>
+                <strong>Same as document?</strong> ${d === document}
+            `;
+        }
+
+        // 11. parentElement Demo
+        function demoParentElement() {
+            const child = document.getElementById("child-span");
+            const result = document.getElementById("output-parentElement");
+            
+            result.innerHTML = `
+                <strong>parentElement:</strong> ${child.parentElement.tagName}<br>
+                <strong>parentElement.id:</strong> ${child.parentElement.id}
+            `;
+        }
+
+        function demoParentNode() {
+            const child = document.getElementById("child-span");
+            const result = document.getElementById("output-parentElement");
+            
+            result.innerHTML = `
+                <strong>parentNode:</strong> ${child.parentNode.tagName}<br>
+                <strong>Same as parentElement?</strong> ${child.parentNode === child.parentElement}
+            `;
+        }
+
+        function demoParentElementNull() {
+            const html = document.querySelector("html");
+            const result = document.getElementById("output-parentElement");
+            
+            result.innerHTML = `
+                <strong>html.parentElement:</strong> ${html.parentElement}<br>
+                <strong>html.parentNode:</strong> ${html.parentNode.nodeName}<br>
+                <em>(parentElement is null because html's parent is document, not an element)</em>
+            `;
+        }
+
+        // 12. previousSibling Demo
+        function demoPreviousSibling() {
+            const b1 = document.getElementById("b1");
+            const result = document.getElementById("output-previousSibling");
+            
+            result.innerHTML = `
+                <strong>b1.previousSibling:</strong> ${b1.previousSibling ? b1.previousSibling.nodeName : 'null'}<br>
+                <strong>b1.previousSibling.id:</strong> ${b1.previousSibling ? b1.previousSibling.id : 'N/A'}<br>
+                <em>(No whitespace between spans)</em>
+            `;
+        }
+
+        function demoPreviousElementSibling() {
+            const b1 = document.getElementById("b1");
+            const result = document.getElementById("output-previousSibling");
+            
+            result.innerHTML = `
+                <strong>b1.previousElementSibling:</strong> ${b1.previousElementSibling ? b1.previousElementSibling.tagName : 'null'}<br>
+                <strong>b1.previousElementSibling.textContent:</strong> ${b1.previousElementSibling ? b1.previousElementSibling.textContent : 'N/A'}<br>
+                <em>(Skips text nodes)</em>
+            `;
+        }
+
+        // 13. textContent Demo
+        function demoTextContentGet() {
+            const divA = document.getElementById("divA");
+            const text = divA.textContent;
+            const result = document.getElementById("output-textContent");
+            
+            result.innerHTML = `
+                <strong>textContent:</strong> ${text}<br>
+                <em>(Gets all text content, ignoring HTML tags)</em>
+            `;
+        }
+
+        function demoTextContentSet() {
+            const divA = document.getElementById("divA");
+            divA.textContent = "This text is different!";
+            const result = document.getElementById("output-textContent");
+            
+            result.innerHTML = `
+                <strong>Set textContent to:</strong> "This text is different!"<br>
+                <strong>New HTML:</strong> ${divA.outerHTML}<br>
+                <em>(All children replaced with single text node)</em>
+            `;
+        }
+
+        function demoTextContentReset() {
+            const divA = document.getElementById("divA");
+            divA.innerHTML = 'This is <span>some</span> text!';
+            document.getElementById("output-textContent").innerHTML = "HTML reset to original.";
+        }
+    </script>
+</body>
+</html>

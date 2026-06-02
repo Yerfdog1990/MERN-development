@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>querySelector() Demo</title>
+</head>
+<body>
+<header>
+  <div id="logo">
+    <img src="img/logo.jpg" alt="Logo" id="logo">
+  </div>
+  <nav class="primary-nav">
+    <ul>
+      <li class="menu-item current"><a href="#home">Home</a></li>
+      <li class="menu-item"><a href="#services">Services</a></li>
+      <li class="menu-item"><a href="#about">About</a></li>
+      <li class="menu-item"><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h1>Welcome to the JS Dev Agency</h1>
+
+  <div class="container">
+    <section class="section-a">
+      <h2>UI/UX</h2>
+      <p>Lorem ipsum dolor sit amet.</p>
+      <button>Read More</button>
+    </section>
+    <section class="section-b">
+      <h2>PWA Development</h2>
+      <p>Lorem ipsum dolor sit.</p>
+      <button>Read More</button>
+    </section>
+    <section class="section-c">
+      <h2>Mobile App Dev</h2>
+      <p>Lorem ipsum dolor sit.</p>
+      <button>Read More</button>
+    </section>
+  </div>
+</main>
+<script>
+  function demoQuerySelectorUniversal() {
+    let element = document.querySelector('*');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Universal Selector (*):</strong><br>
+                First element: ${element.tagName}
+            `;
+  }
+
+  function demoQuerySelectorType() {
+    let firstHeading = document.querySelector('h1');
+    let allHeadings = document.querySelectorAll('h2');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Type Selector (h1, h2):</strong><br>
+                First h1: ${firstHeading ? firstHeading.textContent : 'Not found'}<br>
+                Number of h2: ${allHeadings.length}
+            `;
+  }
+
+  function demoQuerySelectorClass() {
+    let firstMenuItem = document.querySelector('.menu-item');
+    let allMenuItems = document.querySelectorAll('.menu-item');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Class Selector (.menu-item):</strong><br>
+                First .menu-item: ${firstMenuItem ? firstMenuItem.textContent : 'Not found'}<br>
+                Number of .menu-item: ${allMenuItems.length}
+            `;
+  }
+
+  function demoQuerySelectorID() {
+    let logo = document.querySelector('#logo');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>ID Selector (#logo):</strong><br>
+                Element: ${logo ? logo.tagName : 'Not found'}<br>
+                ID: ${logo ? logo.id : 'N/A'}
+            `;
+  }
+
+  function demoQuerySelectorAttribute() {
+    let elements = document.querySelectorAll('[alt]');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Attribute Selector ([alt]):</strong><br>
+                Number of elements with alt attribute: ${elements.length}<br>
+                First element: ${elements[0] ? elements[0].tagName : 'Not found'}
+            `;
+  }
+
+  function demoQuerySelectorGroup() {
+    let elements = document.querySelectorAll('div, p');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Group Selector (div, p):</strong><br>
+                Number of div and p elements: ${elements.length}
+            `;
+  }
+
+  function demoQuerySelectorDescendant() {
+    let links = document.querySelectorAll('p a');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Descendant Combinator (p a):</strong><br>
+                Number of anchor tags inside paragraphs: ${links.length}
+            `;
+  }
+
+  function demoQuerySelectorChild() {
+    let listItems = document.querySelectorAll('ul > li');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Child Combinator (ul > li):</strong><br>
+                Number of li elements directly inside ul: ${listItems.length}
+            `;
+  }
+
+  function demoQuerySelectorPseudo() {
+    let listItem = document.querySelectorAll('li:nth-child(2)');
+    let output = document.getElementById('output-querySelector');
+    output.innerHTML = `
+                <strong>Pseudo-class (li:nth-child(2)):</strong><br>
+                Number of second li elements: ${listItem.length}<br>
+                Text: ${listItem[0] ? listItem[0].textContent : 'Not found'}
+            `;
+  }
+</script>
+</body>
+</html>

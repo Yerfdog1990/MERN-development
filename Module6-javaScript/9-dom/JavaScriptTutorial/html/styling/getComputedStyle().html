@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS getComputedStyle Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+
+    /* Defined in an internal stylesheet */
+    .alert-message {
+      background-color: #fff3d4;
+      border: 1px solid #f6b73c;
+      padding: 15px;
+      color: #795548;
+    }
+
+    /* Styled pseudo-element */
+    .alert-message::first-letter {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #e67e22;
+    }
+
+    pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; }
+    button { padding: 8px 16px; margin: 5px 0; cursor: pointer; }
+  </style>
+</head>
+<body>
+<h1>Reading Active Computed Styles</h1>
+
+<div class="box">
+  <p id="alert-box" class="alert-message" style="color: red;">
+    This is an alert box with dynamic styling layers.
+  </p>
+
+  <button onclick="readStyles()">Get Computed Styles</button>
+  <pre id="output-log">Computed details will print here...</pre>
+</div>
+
+<script>
+  function readStyles() {
+    const alertBox = document.getElementById('alert-box');
+    const log = document.getElementById('output-log');
+
+    // 1. Attempting to use element.style reads ONLY inline items
+    let inlineColor = alertBox.style.color;
+    let inlineBg = alertBox.style.backgroundColor; // Blank because it's in the stylesheet
+
+    // 2. Using getComputedStyle parses final active rules
+    let computedStyle = window.getComputedStyle(alertBox);
+    let computedColor = computedStyle.color;
+    let computedBg = computedStyle.backgroundColor;
+    let computedPadding = computedStyle.padding;
+
+    // 3. Target pseudo-elements by passing the selector string
+    let pseudoStyle = window.getComputedStyle(alertBox, '::first-letter');
+    let pseudoFontSize = pseudoStyle.fontSize;
+    let pseudoColor = pseudoStyle.color;
+
+    let result = `--- Element Style Property (Inline Only) ---\n`;
+    result += `style.color           : "${inlineColor}"\n`;
+    result += `style.backgroundColor : "${inlineBg}"\n\n`;
+
+    result += `--- getComputedStyle() Results ---\n`;
+    result += `color                 : ${computedColor}\n`;
+    result += `backgroundColor       : ${computedBg}\n`;
+    result += `padding               : ${computedPadding}\n\n`;
+
+    result += `--- getComputedStyle(element, '::first-letter') ---\n`;
+    result += `::first-letter size   : ${pseudoFontSize}\n`;
+    result += `::first-letter color  : ${pseudoColor}\n`;
+
+    log.textContent = result;
+  }
+</script>
+</body>
+</html>

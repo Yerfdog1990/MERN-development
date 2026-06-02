@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprehensive load Event Explorer</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; }
+        .dashboard { border: 1px solid #dcdde1; padding: 20px; border-radius: 8px; background: #ffffff; margin-bottom: 20px; }
+        .control-panel { display: flex; gap: 15px; margin: 15px 0; }
+        button { padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 4px; border: 1px solid #353b48; }
+        pre { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; font-size: 14px; overflow-x: auto; }
+        .asset-box { display: inline-block; padding: 10px; border: 1px solid #718093; border-radius: 4px; margin-top: 10px; background: #f8f9fa; }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript load Event Infrastructure</h1>
+
+<div class="dashboard">
+    <h3>Live Event Output Terminal Log</h3>
+    <pre id="terminal-log">Timeline monitoring initialized...</pre>
+</div>
+
+<div class="dashboard">
+    <h3>Asynchronous Resource Controls</h3>
+    <p>Click the buttons below to inject dynamic images and script dependencies into the runtime DOM.</p>
+    <div class="control-panel">
+        <button id="btn-load-image">Inject Dynamic Image</button>
+        <button id="btn-load-script">Inject Dynamic Script</button>
+    </div>
+    <div id="display-stage"></div>
+</div>
+
+<script>
+    const terminal = document.getElementById('terminal-log');
+    const stage = document.getElementById('display-stage');
+    let counterLog = 1;
+
+    function updateLog(message) {
+        const formattedMsg = `${counterLog++}. [Event Logged] -> ${message}\n`;
+        terminal.textContent += formattedMsg;
+        console.log(message);
+    }
+
+    // --- 1. Global Window load Observer ---
+    window.addEventListener('load', (event) => {
+        updateLog("GLOBAL WINDOW COMPLETE: The entire page structure and all raw static assets have fully finalized.");
+    });
+
+    // --- 2. Dynamic Image Loading Routine ---
+    document.getElementById('btn-load-image').addEventListener('click', () => {
+        updateLog("Action: Initializing dynamic image creation sequence.");
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'asset-box';
+
+        const imgInstance = document.createElement('img');
+        imgInstance.alt = "Dynamic Test Graphic Instance";
+        imgInstance.style.width = "150px";
+        imgInstance.style.display = "block";
+
+        // CRITICAL: Attach the load listener BEFORE assigning the source path
+        imgInstance.addEventListener('load', (event) => {
+            updateLog(`IMAGE COMPLETED: Target image graphic resolved successfully. Dimensions: ${imgInstance.naturalWidth}x${imgInstance.naturalHeight}px.`);
+        });
+
+        wrapper.appendChild(imgInstance);
+        stage.appendChild(wrapper);
+
+        // Assigning the path initiates the network load request
+        imgInstance.src = "https://picsum.photos/300/200?random=" + Math.floor(Math.random() * 100);
+    });
+
+    // --- 3. Dynamic Script Loading Routine ---
+    document.getElementById('btn-load-script').addEventListener('click', () => {
+        updateLog("Action: Initializing dynamic script tag creation sequence.");
+
+        const scriptInstance = document.createElement('script');
+
+        // Set up the load listener
+        scriptInstance.addEventListener('load', (event) => {
+            updateLog(`SCRIPT COMPLETED: External target JavaScript file runtime asset parsed and ready to run.`);
+        });
+
+        // Assign the source location target
+        scriptInstance.src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js";
+
+        // CRITICAL: For script elements, the browser won't download the file until it is appended to the document
+        document.body.appendChild(scriptInstance);
+    });
+</script>
+</body>
+</html>

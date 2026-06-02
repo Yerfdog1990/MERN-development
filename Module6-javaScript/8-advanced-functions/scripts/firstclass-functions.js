@@ -30,7 +30,7 @@ function greeting3() {
 
 const output = greeting3();  // output is now the function wrapper2
 output();  // Call the returned function
-// greeting3()();  // Call greeting3, get the function back, and immediately call it
+// greeting3()();  // Call greeting3, js the function back, and immediately call it
 
 // 4. Storing functions in objects or arrays
 

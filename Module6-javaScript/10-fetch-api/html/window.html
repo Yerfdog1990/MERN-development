@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Window</title>
+</head>
+<body>
+
+<button id="openBtn">Open Window</button>
+<button id="resizeBtn">Resize Window</button>
+<button id="moveBtn">Move Window</button>
+<button id="closeBtn">Close Window</button>
+<button id="openerBtn">Use Opener</button>
+
+<script>
+
+    let popup = null;
+
+    function openWindow() {
+
+        popup = window.open(
+            'popup.html',
+            'popupWindow',
+            'width=600,height=400'
+        );
+
+        console.log('Popup opened');
+    }
+
+    function resizeWindow() {
+
+        if (popup && !popup.closed) {
+
+            popup.resizeTo(400, 300);
+
+            console.log('Popup resized');
+        }
+    }
+
+    function moveWindow() {
+
+        if (popup && !popup.closed) {
+
+            popup.moveTo(300, 200);
+
+            console.log('Popup moved');
+        }
+    }
+
+    function closeWindow() {
+
+        if (popup && !popup.closed) {
+
+            popup.close();
+
+            console.log('Popup closed');
+        }
+    }
+
+    function useOpener() {
+
+        if (popup && !popup.closed) {
+
+            popup.document.body.style.backgroundColor = 'lightblue';
+
+            document.title = 'Updated by opener';
+
+            console.log('Opener accessed');
+        }
+    }
+
+    document.getElementById('openBtn')
+        .addEventListener('click', openWindow);
+
+    document.getElementById('resizeBtn')
+        .addEventListener('click', resizeWindow);
+
+    document.getElementById('moveBtn')
+        .addEventListener('click', moveWindow);
+
+    document.getElementById('closeBtn')
+        .addEventListener('click', closeWindow);
+
+    document.getElementById('openerBtn')
+        .addEventListener('click', useOpener);
+
+</script>
+
+</body>
+</html>

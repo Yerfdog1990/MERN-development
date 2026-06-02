@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Event Registration Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        button { padding: 10px 20px; font-size: 14px; cursor: pointer; margin-right: 10px; }
+        pre { background: #2c3e50; color: #ecf0f1; padding: 12px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<h1>Registering Event Listeners</h1>
+
+<div class="box">
+    <button id="btn-named">Named Handler</button>
+    <button id="btn-anon">Anonymous Handler</button>
+    <button id="btn-arrow">Arrow Handler</button>
+
+    <h3>Action Tracker Console</h3>
+    <pre id="event-log">Waiting for user interaction...</pre>
+</div>
+
+<script>
+    const log = document.getElementById('event-log');
+
+    const btnNamed = document.getElementById('btn-named');
+    const btnAnon = document.getElementById('btn-anon');
+    const btnArrow = document.getElementById('btn-arrow');
+
+    // 1. Named Function Approach
+    function logNamedClick() {
+        log.textContent = "Triggered: Named callback function execution.";
+    }
+    btnNamed.addEventListener('click', logNamedClick);
+
+    // 2. Anonymous Function Approach
+    btnAnon.addEventListener('click', function() {
+        log.textContent = "Triggered: Inline anonymous function block execution.";
+    });
+
+    // 3. Arrow Function Approach
+    btnArrow.addEventListener('click', () => {
+        log.textContent = "Triggered: Clean arrow function block execution.";
+    });
+</script>
+</body>
+</html>

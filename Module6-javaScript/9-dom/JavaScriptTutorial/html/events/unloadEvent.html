@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Unload & Data Logging Explorer</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 25px; background-color: #f5f6fa; }
+    .alert-card { border-left: 5px solid #e74c3c; background: #fff; padding: 20px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .code-box { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; font-size: 14px; overflow-x: auto; margin-top: 15px; }
+    .nav-btn { display: inline-block; padding: 10px 20px; margin-top: 15px; background: #3498db; color: #fff; text-decoration: none; border-radius: 4px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>The Document unload Event Pipeline</h1>
+
+<div class="alert-card">
+  <h3>Operational Best Practice Warning</h3>
+  <p>The <b>unload</b> event is unreliable and disables browser caching optimizations (bfcache). To safely log metrics or clean up assets, use alternative strategies like <code>pagehide</code> and <code>navigator.sendBeacon</code>.</p>
+</div>
+
+<p>To safely test navigation metrics transmission, click the external link below:</p>
+<a href="https://www.google.com" class="nav-btn">Navigate Away From Page</a>
+
+<div class="code-box">
+        <pre>// Conceptual verification of the transmission sequence:
+window.addEventListener('pagehide', (event) => {
+    // pagehide handles tracking without breaking bfcache
+    console.log("Page is hiding. State preserved.");
+});</pre>
+</div>
+
+<script>
+  // --- 1. The Traditional unload Listener ---
+  window.addEventListener('unload', (event) => {
+    // Standard code here runs too late for user interface notifications
+    // Crucial telemetry should be scheduled via sendBeacon
+
+    const endpoint = '/api/telemetry';
+    const analyticsPayload = JSON.stringify({
+      sessionTime: performance.now(),
+      exitTimestamp: Date.now(),
+      reason: 'navigation_away'
+    });
+
+    // sendBeacon pushes data asynchronously after the page closes
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(endpoint, analyticsPayload);
+    }
+  });
+
+  // --- 2. The Modern pagehide Alternative ---
+  window.addEventListener('pagehide', (event) => {
+    // Fires reliably on mobile layouts and allows the page to enter bfcache
+    console.log(`Pagehide fired. Was page loaded from cache? ${event.persisted}`);
+  });
+</script>
+</body>
+</html>

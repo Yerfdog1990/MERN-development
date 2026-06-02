@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>replaceChild() Demo</title>
+  <style>
+    body   { font-family: Arial, sans-serif; padding: 20px; }
+    .box   { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+    ul     { background: #fdf8f0; padding: 15px 35px; }
+    .new   { color: #27ae60; font-weight: bold; }
+    .old   { color: #e74c3c; text-decoration: line-through; }
+    h3     { color: #2c3e50; margin-top: 25px; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h1>replaceChild() Demo</h1>
+
+<!-- Demo 1: Replace first list item -->
+<h3>1. Replace First List Item</h3>
+<div class="box">
+  <ul id="menu">
+    <li>Homepage</li>
+    <li>Services</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+  <button onclick="replaceFirst()">Replace "Homepage" with "Home"</button>
+  <button onclick="resetMenu()">Reset</button>
+  <p id="replace-info"></p>
+</div>
+
+<!-- Demo 2: Replace middle element -->
+<h3>2. Replace a Middle Item by Index</h3>
+<div class="box">
+  <ul id="menu2">
+    <li>JavaScript</li>
+    <li>Python</li>
+    <li>Java</li>
+    <li>C++</li>
+  </ul>
+  <button onclick="replaceSecond()">Replace "Python" (index 1) with "TypeScript"</button>
+</div>
+
+<!-- Demo 3: Use returned node -->
+<h3>3. Reuse the Removed Node</h3>
+<div class="box">
+  <ul id="menu3">
+    <li id="item-a">Item A</li>
+    <li id="item-b">Item B</li>
+  </ul>
+  <div id="removed-container" style="margin-top:10px; border:1px dashed #aaa; padding:10px;">
+    The removed node will appear here.
+  </div>
+  <button onclick="swapAndReuse()">Replace Item A with Item B, reuse Item A</button>
+</div>
+
+<script>
+
+  // --- Demo 1: Replace the first child ---
+  const originalMenuHTML = document.getElementById('menu').innerHTML;
+
+  function replaceFirst() {
+    const menu = document.getElementById('menu');
+    const li   = document.createElement('li');
+    li.textContent  = 'Home';
+    li.className    = 'new';
+
+    // replaceChild(newNode, oldNode) — replaces firstElementChild
+    const removed = menu.replaceChild(li, menu.firstElementChild);
+    document.getElementById('replace-info').textContent =
+            `Removed node text was: "${removed.textContent}"`;
+  }
+
+  function resetMenu() {
+    document.getElementById('menu').innerHTML = originalMenuHTML;
+    document.getElementById('replace-info').textContent = '';
+  }
+
+  // --- Demo 2: Replace by index ---
+  function replaceSecond() {
+    const menu2  = document.getElementById('menu2');
+    const newLi  = document.createElement('li');
+    newLi.textContent = 'TypeScript';
+    newLi.className   = 'new';
+
+    // children[1] is the second child (index 1 = Python)
+    menu2.replaceChild(newLi, menu2.children[1]);
+  }
+
+  // --- Demo 3: Reuse the removed node ---
+  function swapAndReuse() {
+    const menu3    = document.getElementById('menu3');
+    const itemA    = document.getElementById('item-a');
+    const itemB    = document.getElementById('item-b');
+
+    const newLi    = document.createElement('li');
+    newLi.textContent = 'New Item B (replacement)';
+    newLi.className   = 'new';
+
+    // Remove itemA, replace with newLi — itemA is returned
+    const removedA = menu3.replaceChild(newLi, itemA);
+
+    // The removed node is still alive in memory — we can place it elsewhere
+    removedA.textContent = 'Item A (reused after removal)';
+    removedA.className   = 'old';
+    document.getElementById('removed-container').appendChild(removedA);
+  }
+
+</script>
+
+</body>
+</html>

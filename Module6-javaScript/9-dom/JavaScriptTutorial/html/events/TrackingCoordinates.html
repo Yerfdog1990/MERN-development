@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Mouse Location Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f6fa; }
+        #track {
+            background-color: goldenrod;
+            height: 200px;
+            width: 400px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2f3640;
+            cursor: crosshair;
+        }
+        pre { background: #2f3640; color: #f5f6fa; padding: 15px; border-radius: 6px; width: 370px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<h3>Mouse Coordinate Mapping</h3>
+<p>Move your mouse inside the tracking box below to evaluate screen vs. client vectors:</p>
+
+<div id="track">Tracking Workspace Zone</div>
+<pre id="log">Move mouse over the box to initialize logs...</pre>
+
+<script>
+    const track = document.querySelector('#track');
+    const log = document.querySelector('#log');
+
+    track.addEventListener('mousemove', (e) => {
+        log.innerText = `Screen X/Y Coordinates: (${e.screenX}, ${e.screenY})\nClient X/Y Coordinates: (${e.clientX}, ${e.clientY})`;
+    });
+</script>
+</body>
+</html>

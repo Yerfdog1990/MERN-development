@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hasAttribute() Demo</title>
+    <style>
+        body    { font-family: Arial, sans-serif; padding: 20px; }
+        .box    { border: 1px solid #bdc3c7; padding: 15px; margin: 15px 0; border-radius: 6px; }
+        h3      { color: #2c3e50; margin-top: 25px; }
+        button  { padding: 8px 18px; margin: 5px; cursor: pointer; border-radius: 4px; }
+        .true   { background: #eafaf1; border-left: 4px solid #27ae60; padding: 8px 12px; margin: 6px 0; font-family: monospace; }
+        .false  { background: #fdecea; border-left: 4px solid #e74c3c; padding: 8px 12px; margin: 6px 0; font-family: monospace; }
+        pre     { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; font-size: 13px; white-space: pre-wrap; }
+        input   { padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<h1>hasAttribute() Demo</h1>
+
+<!-- Demo 1: Check disabled on a button -->
+<h3>1. Check if Button has disabled Attribute</h3>
+<div class="box">
+    <button id="btnSend" disabled>Send</button>
+    <br><br>
+    <button onclick="checkDisabled()">Check disabled</button>
+    <button onclick="toggleDisabled()">Toggle disabled</button>
+    <div id="out-disabled"></div>
+</div>
+
+<!-- Demo 2: Check for existing vs missing attributes -->
+<h3>2. Existing vs Missing Attributes</h3>
+<div class="box">
+    <a href="https://www.javascripttutorial.net"
+       target="_blank"
+       id="check-link">JavaScript Tutorial</a>
+    <br><br>
+    <button onclick="checkLinkAttributes()">Check href, target, title</button>
+    <pre id="out-check">Output will appear here...</pre>
+</div>
+
+<!-- Demo 3: hasAttribute vs getAttribute for empty-value booleans -->
+<h3>3. hasAttribute() vs getAttribute() for Boolean Attributes</h3>
+<div class="box">
+    <!-- disabled="" has an EMPTY string value — getAttribute returns "" which is falsy -->
+    <button id="tricky-btn" disabled="">Tricky disabled button</button>
+    <br><br>
+    <button onclick="booleanComparison()">Compare hasAttribute vs getAttribute check</button>
+    <pre id="out-bool-compare">Output will appear here...</pre>
+</div>
+
+<!-- Demo 4: Conditionally read attribute only if it exists -->
+<h3>4. Safely Read an Attribute Only if Present</h3>
+<div class="box">
+    <input type="text" id="safe-input" maxlength="20" placeholder="maxlength is set here">
+    <input type="text" id="unsafe-input" placeholder="no maxlength here">
+    <br><br>
+    <button onclick="safeRead('safe-input')">Read maxlength (exists)</button>
+    <button onclick="safeRead('unsafe-input')">Read maxlength (missing)</button>
+    <div id="out-safe"></div>
+</div>
+
+<!-- Demo 5: Dynamic attribute presence check -->
+<h3>5. Dynamic Check — Toggle and Detect Attributes</h3>
+<div class="box">
+    <img id="demo-img"
+         src="https://via.placeholder.com/100"
+         alt="Demo image"
+         style="border: 2px solid #3498db;">
+    <br><br>
+    <button onclick="addTitle()">Add title attribute</button>
+    <button onclick="removeTitle()">Remove title attribute</button>
+    <button onclick="checkTitle()">Check if title exists</button>
+    <div id="out-dynamic"></div>
+</div>
+
+<script>
+
+    // --- Demo 1: Check disabled ---
+    function checkDisabled() {
+        const btn      = document.querySelector('#btnSend');
+        const disabled = btn.hasAttribute('disabled');
+        const out      = document.getElementById('out-disabled');
+        out.className  = disabled ? 'true' : 'false';
+        out.textContent = `hasAttribute('disabled') = ${disabled}`;
+    }
+
+    function toggleDisabled() {
+        const btn = document.querySelector('#btnSend');
+        if (btn.hasAttribute('disabled')) {
+            btn.removeAttribute('disabled');
+        } else {
+            btn.setAttribute('disabled', '');
+        }
+        checkDisabled();
+    }
+
+    // --- Demo 2: Existing vs missing ---
+    function checkLinkAttributes() {
+        const link = document.querySelector('#check-link');
+        let log    = '';
+
+        const attrs = ['href', 'target', 'title', 'rel', 'download'];
+        attrs.forEach(attr => {
+            const exists = link.hasAttribute(attr);
+            const value  = exists ? `"${link.getAttribute(attr)}"` : 'not present';
+            log += `hasAttribute('${attr}') = ${exists}  →  value: ${value}\n`;
+        });
+
+        document.getElementById('out-check').textContent = log;
+    }
+
+    // --- Demo 3: hasAttribute vs getAttribute for empty-value boolean ---
+    function booleanComparison() {
+        const btn = document.querySelector('#tricky-btn');
+        let log   = '';
+
+        // getAttribute returns "" — empty string is FALSY in JavaScript
+        const attrValue = btn.getAttribute('disabled'); // ""
+        log += `getAttribute('disabled') = "${attrValue}" (empty string)\n`;
+        log += `if (getAttribute('disabled')) → ${!!attrValue} ← WRONG! Falsy check misses it.\n\n`;
+
+        // hasAttribute correctly detects presence regardless of value
+        const hasIt = btn.hasAttribute('disabled');
+        log += `hasAttribute('disabled') = ${hasIt} ← CORRECT! Checks presence, not value.\n`;
+        log += `if (hasAttribute('disabled')) → ${hasIt} ← Reliable.`;
+
+        document.getElementById('out-bool-compare').textContent = log;
+    }
+
+    // --- Demo 4: Safe read ---
+    function safeRead(id) {
+        const input = document.getElementById(id);
+        const out   = document.getElementById('out-safe');
+
+        if (input.hasAttribute('maxlength')) {
+            // Only read the value when we know it exists
+            const max  = input.getAttribute('maxlength');
+            out.className   = 'true';
+            out.textContent = `#${id}: hasAttribute('maxlength') = true → value = "${max}"`;
+        } else {
+            out.className   = 'false';
+            out.textContent = `#${id}: hasAttribute('maxlength') = false → attribute not present`;
+        }
+    }
+
+    // --- Demo 5: Dynamic toggle and check ---
+    function addTitle() {
+        document.getElementById('demo-img').setAttribute('title', 'A demo image');
+        checkTitle();
+    }
+
+    function removeTitle() {
+        document.getElementById('demo-img').removeAttribute('title');
+        checkTitle();
+    }
+
+    function checkTitle() {
+        const img  = document.getElementById('demo-img');
+        const has  = img.hasAttribute('title');
+        const out  = document.getElementById('out-dynamic');
+        out.className   = has ? 'true' : 'false';
+        out.textContent = `hasAttribute('title') = ${has}` +
+            (has ? ` → value: "${img.getAttribute('title')}"` : ' → title not present');
+    }
+
+</script>
+
+</body>
+</html>

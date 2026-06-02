@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>createElement() Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #content { border: 2px solid #3498db; padding: 15px; margin: 10px 0; border-radius: 6px; }
+        .note { background: #eaf4fb; padding: 10px; }
+        #output { background: #f0f0f0; padding: 10px; margin-top: 10px; border-left: 4px solid #2ecc71; }
+    </style>
+</head>
+<body>
+
+<h1>createElement() Demo</h1>
+<div id="container"></div>
+<ul id="menu">
+    <li>Home</li>
+</ul>
+
+<script>
+    // --- Step 1: Create a div with id, class, and inner content ---
+    let div = document.createElement('div');
+    div.id        = 'content';
+    div.className = 'note';
+    div.innerHTML = '<p>This paragraph was created with createElement()</p>';
+
+    // Attach to the container
+    document.getElementById('container').appendChild(div);
+
+    // --- Step 2: Create element and add text using createTextNode ---
+    let textDiv = document.createElement('div');
+    textDiv.id  = 'output';
+    let textNode = document.createTextNode('This text was added using createTextNode()');
+    textDiv.appendChild(textNode);
+    document.getElementById('container').appendChild(textDiv);
+
+    // --- Step 3: Create an h2 and nest it inside a div ---
+    let wrapper = document.createElement('div');
+    let h2      = document.createElement('h2');
+    h2.textContent = 'Heading created with createElement()';
+    wrapper.appendChild(h2);
+    document.getElementById('container').appendChild(wrapper);
+
+    // --- Step 4: Add list items to an existing ul ---
+    const menu = document.getElementById('menu');
+
+    let li1 = document.createElement('li');
+    li1.textContent = 'Products';
+    menu.appendChild(li1);
+
+    let li2 = document.createElement('li');
+    li2.textContent = 'About Us';
+    menu.appendChild(li2);
+
+    // Create table elements
+    let table = document.createElement('table');
+    let thead = document.createElement('thead');
+    let tbody = document.createElement('tbody');
+
+    // Table border
+    table.border = "1";
+
+    // ---------- HEADER ROW ----------
+    let headerRow = document.createElement('tr');
+
+    for (let i = 1; i <= 3; i++) {
+        let th = document.createElement('th');
+        th.textContent = `Header ${i}`;
+        headerRow.appendChild(th);
+    }
+
+    thead.appendChild(headerRow);
+
+    // ---------- BODY ROWS ----------
+    for (let rowNum = 1; rowNum <= 4; rowNum++) {
+
+        let row = document.createElement('tr');
+
+        for (let colNum = 1; colNum <= 3; colNum++) {
+
+            let cell = document.createElement('td');
+            cell.textContent = `Row ${rowNum}, Col ${colNum}`;
+
+            row.appendChild(cell);
+        }
+
+        tbody.appendChild(row);
+    }
+
+    // Append table sections
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    // Add table to page
+    document.body.appendChild(table);
+
+
+
+    // --- Step 5: Dynamically load a script (async) ---
+    function loadJSAsync(url) {
+        let script  = document.createElement('script');
+        script.src  = url;
+        script.async = true;
+        document.body.appendChild(script);
+    }
+    // loadJSAsync('/lib.js'); // Uncomment to use
+</script>
+
+</body>
+</html>
