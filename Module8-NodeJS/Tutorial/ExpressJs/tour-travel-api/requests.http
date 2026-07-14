@@ -1,0 +1,101 @@
+### WebStorm HTTP client — run these directly from the IDE
+@base = http://localhost:3000/api/v1
+
+### Health check
+GET {{base}}/health
+
+### List all tours
+GET {{base}}/tours
+
+### Filtering + operators + sorting + pagination
+GET {{base}}/tours?destination=Tanzania&price[lte]=2000&sort=-price&page=1&limit=5
+
+### Field limiting
+GET {{base}}/tours?fields=name,price,destination
+
+### Tour stats (grouped by difficulty)
+GET {{base}}/tours/stats
+
+### Get one tour
+GET {{base}}/tours/f47ac10b-58cc-4372-a567-0e02b2c3d479
+
+### Create a tour
+POST {{base}}/tours
+Content-Type: application/json
+
+{
+  "name": "Serengeti Great Migration Safari",
+  "description": "6-day safari timed to the wildebeest river crossings in the northern Serengeti.",
+  "destination": "Tanzania",
+  "durationDays": 6,
+  "price": 2400,
+  "maxGroupSize": 10,
+  "difficulty": "medium",
+  "startDates": ["2026-08-05", "2026-09-01"]
+}
+
+### Update a tour (partial)
+PATCH {{base}}/tours/f47ac10b-58cc-4372-a567-0e02b2c3d479
+Content-Type: application/json
+
+{
+  "price": 1550
+}
+
+### Delete a tour
+DELETE {{base}}/tours/16fd2706-8baf-433b-82eb-8c7fada847da
+
+### Validation failure example (422)
+POST {{base}}/tours
+Content-Type: application/json
+
+{
+  "name": "X",
+  "price": -10
+}
+
+### Create a booking (flat route)
+POST {{base}}/bookings
+Content-Type: application/json
+
+{
+  "tourId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "customerName": "Godfrey Ouma",
+  "customerEmail": "gouma308@gmail.com",
+  "participants": 2,
+  "startDate": "2026-08-10"
+}
+
+### Create a booking (nested route)
+POST {{base}}/tours/f47ac10b-58cc-4372-a567-0e02b2c3d479/bookings
+Content-Type: application/json
+
+{
+  "customerName": "Jane Doe",
+  "customerEmail": "jane@example.com",
+  "participants": 3,
+  "startDate": "2026-09-14"
+}
+
+### List bookings for one tour
+GET {{base}}/tours/f47ac10b-58cc-4372-a567-0e02b2c3d479/bookings
+
+### List all bookings
+GET {{base}}/bookings
+
+### Cancel a booking (replace :id with a real booking id)
+PATCH {{base}}/bookings/REPLACE-WITH-BOOKING-ID/cancel
+
+### Upload a tour image (pick any local image file)
+POST {{base}}/tours/f47ac10b-58cc-4372-a567-0e02b2c3d479/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/images/cat_family/lion.png
+--WebAppBoundary--
+
+### Invalid query params (422)
+GET {{base}}/tours?page=0&limit=999

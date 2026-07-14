@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOm1</title>
+</head>
+<body>
+    <h2> Dom Manupulation</h2>
+     <img src="https://picsum.photos/200/300" id="imm" width="200" height="150"/>
+    <button id="btn"> Click Here</button>
+    <script>
+        let btn=document.getElementById("btn");
+        let img=document.getElementById("imm");
+        btn.addEventListener("click",()=>{
+             console.log(img.getAttribute("src"))
+             img.setAttribute("src","https://dummyjson.com/image/200x100")
+             console.log(img.getAttribute("src"))
+        })
+    </script>
+</body>
+</html>

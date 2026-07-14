@@ -1,0 +1,45 @@
+-> Web application : combination of multiple webpages which are linked with each other.
+   -> Webpage : collection of text , audio , vedio , images etc 
+   -> Anything is in internet is a web page 
+--> Client Server Commnunication Model 
+
+   --> It is a distributed application architecture where our tasks and workloads are divided between providers (servers) and requesters (clients)
+   1. Client : send a req and got the response (frontend)
+   2. Server : database , fileservers , (backend )
+   3. Commnunication Protocols
+   4. Network (Lan , Wans)
+
+   Request  --> Processing ---> Response --> Display 
+
+   --> GIT : It is a version control system.
+       -> It is used for source code management.
+       -> It helps developers work together on projects by keeping track changes they make to the code.
+       -> It makes easy to manage code changes and collaborate with others.
+
+       -> Installation 
+         https://git-scm.com/install/windows 
+           -> cmd : Git bash 
+           -> gui : Git GUI 
+
+    git init (blank repo)
+    git add . 
+    git commit -m "message"
+    git remote add origin urlofrepo 
+    git push -u origin master 
+
+ -> What are AI Tools 
+     -> They are software applications utilizing ml and neural networks to automate tasks , generate contents  and analyze data. (boosting productivity)
+        -> ChatGPT , Claude , Gemini etc (LLMs)
+        -> Automation (Zapier)
+        -> Image and Video Generators : Midjourney , sora 2 
+        -> Voice AI & Audio (Murf AI)
+
+    -> Benefits 
+      -> Automation
+      -> Fast , data-driven predictions and insights 
+      -> Creativity Assistance 
+
+ --> Prompt : to instruct AI models on the desired output.
+     -> include a role , context , instructions and constraints 
+
+     -> Cursor : The AI coding platform 

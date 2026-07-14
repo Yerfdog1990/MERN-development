@@ -1,0 +1,221 @@
+--> Javascript is a programming 
+   --> Variables : are temporary memory location which hold data.
+      -> Old Javascript 
+        var varname=value 
+      -> let keyword (block scoped)
+        let varname=value 
+          {
+             let x=10;
+          }
+      -> Rules to define Variables name 
+        1. start with alphabate 
+        2. after that combination of [a-zA-Z0-9_]
+        eg:
+          let empName="anuj";
+          let emp_city="noida";
+          ***Cannot redeclare block-scoped variable
+    -> Constant : It is a value that never be changed , it is fixed and permanent (block scope)
+       const constname=value;
+       eg:
+       const DB_UNAME="xyz"
+
+    -> Datatype : type declaration of variables. Javascript is an loosely types langauge , it means datatype is alloated at runtime as per the variable value.
+      eg:
+      let empName="anuj";// string
+      number , string , boolean , null , undefined , object , bigint 
+      -> typeof variablename : it return datatype of a variable 
+
+    -> Operators : to perform operations 
+       1. Arthematic (calculation)
+          +,-,/,* ,%,++,--
+       2. Assignment operators 
+          = , += , -=,..
+            eg:
+            let a=10;
+            let b=20;
+            a+=b;30 (a=a+b)
+       3. Relational Operators 
+         > , < , >= , <=
+       4. Comporaizion operators 
+          == : it check only values 
+          != 
+          === : it check both value and datatype
+          !==
+       5. Logical Operators 
+         && : when all conditions are correct 
+         || : when anyone condition is correct 
+         ! : when incorrect then it true 
+
+    *** ternery operators (conditional operator) (subsitute of if else)
+       (condition ? true : false)
+       eg:
+       let result=(a>b ? "A is greater" :" B is greater")
+
+    -> Conditions (Selection) (return boolean)
+       -> if else 
+          if(condition) {
+
+          }
+          else{
+
+          }
+       -> if else if else 
+         if(){}
+         else if(){}
+         ----
+         else{
+
+         }
+       -> nested if : if within another if , when all the conditions are correct then it true 
+          if(){
+            if(){
+
+            }
+            else{
+
+            }
+          }
+          else{
+
+          }
+       -> switch case : multi decision making (performance fast)
+         switch(conditions){
+             case val : statement;
+                break;
+             ----
+             ----
+             default : statement
+         }
+
+    *** input data at runtime in Javascript 
+      -> prompt() : to input data at runtime , but it accept value in a string formet.
+         parseInt()
+         parseFloat()
+      -> alert(): to display message within dialoage box 
+
+      switch(choice){
+        case '+' : add 
+        case '-' : sub 
+        default : invalid
+      }
+
+    ---> Looping (Iteration): It is a process for executing multiline statement in a single line or repetation of statement 
+      -> types of loop 
+        1. for loop 
+        2. while loop 
+        3. do while 
+
+        -> for loop : condition is check at the start , if condition is correct then loop is executed otherwise terminated.(we know about iteration)
+           syntax :
+              for(initilization; condition ; inc/dec){
+                 statement
+              }
+              eg:
+               for(let i=1 ; i<=5 ; i++){
+                   console.log(i) // 1 2 3 4 5
+               }
+               -> factorial 
+                  5*4*3*2*1
+                  num to 1 (multiply)
+
+            -> while loop : depend on the condition.return boolean , condition is check at the start 
+               syntax :
+                 while(condition){
+                    statement
+                 }
+
+            -> do while : condition is check at the end of the loop , so loop is executed at least once , while a condition is correct or not 
+              syntax :
+                 do{
+                    statement;
+                 }while(condition)
+                 eg:
+                 i=1;
+                 do{
+                    console.log("sumit")
+                    i++;
+                 }while(i>=10)
+
+                 sumit 
+
+    -> nested loop : loop within another , first the inner loop is executed then outer 
+        for(){
+            for(){
+
+            }
+            for(){
+
+            }
+        }
+    *** with the help of nested for loop , print tables between 1 to 10 
+      1*1=1
+      1*2=2   2   3 4 5 6 7 8 9 10 
+
+    -> Array : are the group of element which is used to store multiple values in a single variables of any type.(hetrogenous)
+       syntax:
+       let arr=[val,val,val]
+       eg:
+       let arr=[123,"anuj",4.56]
+       ** array values are store in index and 0 
+       arr[1]
+       -> to find the array length : arrayname.length
+       for array we use forEach loop to work
+         arrayname.forEach(function(val){
+            
+         })
+
+      -> session 8 
+         -> Objects : It is a standalone entity used to store data in key value pair. in object we can store variables , array , object , functions etc 
+           eg:
+             let myobjname={
+                 name:"sumit",
+                 age:38,
+               details:function(){
+                   return "emp details"
+               }
+             }
+            -> To access data from object we use dot 
+            eg:
+              myobjname.name 
+              or 
+              myobjname['name']
+              myobjname.details() 
+         eg:
+         let myobj={
+            name:"sumit",
+            age:38,
+            details:function(){
+                return `${this.name} is ${this.age} year old!`
+            }
+        }
+        this keyword: this refer to the owner object , allowing functions to access the current object properties 
+
+   -> call() , apply() , bind() 
+     -> call() : It invokes function immediately with a specified this value and arguments provided one by one.
+       syntax : 
+          func.call(thisArg , arg1,arg2)
+         eg:
+            function xyz(message,data){
+               console.log(`${message}, ${this.name} ${data})
+            }
+            const person={name:"sumit"}
+            xyz.call(person,"Hello","!")
+
+      -> apply() : we can pass multiple arguments in an array 
+        xyz.apply(person,["Hello","!!!!!"])
+      -> bind() : It does not execute the function immeditely.It return new copy of the function with the this value 
+
+      --> Prototypal inheritance (proto) : es6 Javascript introduced inheritance
+      extends keyword for inheritance 
+
+      -> *** Spread Operator and Rest Parameter (...)
+         -> spread operator : It is used to spread or copy array or object data into new array and object 
+           eg:
+
+         -> Rest Parameter : We can pass any number of arguments in a function. Limitation is that rest parameter is the last formal parameter of the function.
+
+   --> Shallow and Deep copy 
+      -> Shallow copy : create a new object and copies the top level properties . (copy the memory address ) 
+        spread operator (...)
+
+      -> Deep Copy :  create independent clone.

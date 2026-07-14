@@ -292,7 +292,7 @@ users.sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate));
 ```javascript
 let products = [
     { name: 'Laptop', price: 999, category: 'Electronics' },
-    { name: 'Book', price: 19, category: 'Education' },
+    { name: 'BookApp', price: 19, category: 'Education' },
     { name: 'Phone', price: 699, category: 'Electronics' }
 ];
 

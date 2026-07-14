@@ -1,0 +1,384 @@
+--> Javascript is a programming 
+   --> Variables : are temporary memory location which hold data.
+      -> Old Javascript 
+        var varname=value 
+      -> let keyword (block scoped)
+        let varname=value 
+          {
+             let x=10;
+          }
+      -> Rules to define Variables name 
+        1. start with alphabate 
+        2. after that combination of [a-zA-Z0-9_]
+        eg:
+          let empName="anuj";
+          let emp_city="noida";
+          ***Cannot redeclare block-scoped variable
+    -> Constant : It is a value that never be changed , it is fixed and permanent (block scope)
+       const constname=value;
+       eg:
+       const DB_UNAME="xyz"
+
+    -> Datatype : type declaration of variables. Javascript is an loosely types langauge , it means datatype is alloated at runtime as per the variable value.
+      eg:
+      let empName="anuj";// string
+      number , string , boolean , null , undefined , object , bigint 
+      -> typeof variablename : it return datatype of a variable 
+
+    -> Operators : to perform operations 
+       1. Arthematic (calculation)
+          +,-,/,* ,%,++,--
+       2. Assignment operators 
+          = , += , -=,..
+            eg:
+            let a=10;
+            let b=20;
+            a+=b;30 (a=a+b)
+       3. Relational Operators 
+         > , < , >= , <=
+       4. Comporaizion operators 
+          == : it check only values 
+          != 
+          === : it check both value and datatype
+          !==
+       5. Logical Operators 
+         && : when all conditions are correct 
+         || : when anyone condition is correct 
+         ! : when incorrect then it true 
+
+    *** ternery operators (conditional operator) (subsitute of if else)
+       (condition ? true : false)
+       eg:
+       let result=(a>b ? "A is greater" :" B is greater")
+
+    -> Conditions (Selection) (return boolean)
+       -> if else 
+          if(condition) {
+
+          }
+          else{
+
+          }
+       -> if else if else 
+         if(){}
+         else if(){}
+         ----
+         else{
+
+         }
+       -> nested if : if within another if , when all the conditions are correct then it true 
+          if(){
+            if(){
+
+            }
+            else{
+
+            }
+          }
+          else{
+
+          }
+       -> switch case : multi decision making (performance fast)
+         switch(conditions){
+             case val : statement;
+                break;
+             ----
+             ----
+             default : statement
+         }
+
+    *** input data at runtime in Javascript 
+      -> prompt() : to input data at runtime , but it accept value in a string formet.
+         parseInt()
+         parseFloat()
+      -> alert(): to display message within dialoage box 
+
+      switch(choice){
+        case '+' : add 
+        case '-' : sub 
+        default : invalid
+      }
+
+    ---> Looping (Iteration): It is a process for executing multiline statement in a single line or repetation of statement 
+      -> types of loop 
+        1. for loop 
+        2. while loop 
+        3. do while 
+
+        -> for loop : condition is check at the start , if condition is correct then loop is executed otherwise terminated.(we know about iteration)
+           syntax :
+              for(initilization; condition ; inc/dec){
+                 statement
+              }
+              eg:
+               for(let i=1 ; i<=5 ; i++){
+                   console.log(i) // 1 2 3 4 5
+               }
+               -> factorial 
+                  5*4*3*2*1
+                  num to 1 (multiply)
+
+            -> while loop : depend on the condition.return boolean , condition is check at the start 
+               syntax :
+                 while(condition){
+                    statement
+                 }
+
+            -> do while : condition is check at the end of the loop , so loop is executed at least once , while a condition is correct or not 
+              syntax :
+                 do{
+                    statement;
+                 }while(condition)
+                 eg:
+                 i=1;
+                 do{
+                    console.log("sumit")
+                    i++;
+                 }while(i>=10)
+
+                 sumit 
+
+    -> nested loop : loop within another , first the inner loop is executed then outer 
+        for(){
+            for(){
+
+            }
+            for(){
+
+            }
+        }
+    *** with the help of nested for loop , print tables between 1 to 10 
+      1*1=1
+      1*2=2   2   3 4 5 6 7 8 9 10 
+
+    -> Array : are the group of element which is used to store multiple values in a single variables of any type.(hetrogenous)
+       syntax:
+       let arr=[val,val,val]
+       eg:
+       let arr=[123,"anuj",4.56]
+       ** array values are store in index and 0 
+       arr[1]
+       -> to find the array length : arrayname.length
+       for array we use forEach loop to work
+         arrayname.forEach(function(val){
+            
+         })
+
+      -> session 8 
+         -> Objects : It is a standalone entity used to store data in key value pair. in object we can store variables , array , object , functions etc 
+           eg:
+             let myobjname={
+                 name:"sumit",
+                 age:38,
+               details:function(){
+                   return "emp details"
+               }
+             }
+            -> To access data from object we use dot 
+            eg:
+              myobjname.name 
+              or 
+              myobjname['name']
+              myobjname.details() 
+         eg:
+         let myobj={
+            name:"sumit",
+            age:38,
+            details:function(){
+                return `${this.name} is ${this.age} year old!`
+            }
+        }
+        this keyword: this refer to the owner object , allowing functions to access the current object properties 
+
+   -> call() , apply() , bind() 
+     -> call() : It invokes function immediately with a specified this value and arguments provided one by one.
+       syntax : 
+          func.call(thisArg , arg1,arg2)
+         eg:
+            function xyz(message,data){
+               console.log(`${message}, ${this.name} ${data})
+            }
+            const person={name:"sumit"}
+            xyz.call(person,"Hello","!")
+
+      -> apply() : we can pass multiple arguments in an array 
+        xyz.apply(person,["Hello","!!!!!"])
+      -> bind() : It does not execute the function immeditely.It return new copy of the function with the this value 
+
+      --> Prototypal inheritance (proto) : es6 Javascript introduced inheritance
+      extends keyword for inheritance 
+
+      -> *** Spread Operator and Rest Parameter (...)
+         -> spread operator : It is used to spread or copy array or object data into new array and object 
+           eg:
+
+         -> Rest Parameter : We can pass any number of arguments in a function. Limitation is that rest parameter is the last formal parameter of the function.
+
+   --> Shallow and Deep copy 
+      -> Shallow copy : create a new object and copies the top level properties . (copy the memory address ) 
+        spread operator (...)
+
+      -> Deep Copy :  create independent clone.
+
+ -> Closures in Javascript : It is a function that remembers its lexical environment , even after the outer function has finished their execution.
+ It anable that data encapsulation.
+ eg:
+     function Outer(){
+             let counter=0;
+             function inner()
+             {
+                return counter+=1;
+             }
+             return inner;
+        }
+        const getCounter=Outer();
+        console.log(getCounter()) //1 
+        console.log(getCounter())//2 
+   --> Callbacks and asynchronous basics  
+     eg:
+      console.log("start")
+      setTimeout(()=>{
+         console.log("Event Call")
+      },2000)
+      console.log("stop")
+
+   -> Callbacks : are used to perform asynchronous operations in Javascript.It is a function which is passed as an argument to the another function. and it return at the end when function executed. 
+     eg:
+        function xyz(callback){
+         console.log("start")
+           setTimeout(()=>{
+             callback()
+           },2000)
+        }
+        function abc(){
+           console.log("Hello callback")
+        }
+        xyz(abc)
+
+        *** real time schnerio of callback 
+           1. fetch user details from database in behalf of userid 
+           2. fetch services in behalf of users 
+           3. fetch cost of services in behalf of service 
+
+      --> HOF (High Order function) in Javascript : It is a function that either takes one or more functions as arguments or return a function as its result.(receiving or providing a function)
+         eg:
+           map() , filter() , reduce() , forEach() etc all are inbuild hof.
+
+      --> map , filter and reduce : important Javascript array methods (new javascript fetaures)
+         -> map() : return new array (transform data) 
+            -> eg:
+              let arr=[2,3,4,5];
+              let newArr=arr.map(val=> val*2);//4 6 8 10 
+         -> filter() : return an array as per the true conditions 
+             eg:
+             let arr=[2,3,4,5,6]
+             let newArr=arr.filter(val=> val%2==0);// 2 4 6
+         -> reduce() : return a single value 
+           eg:
+             let arr=[2,3,4,5,6];
+             let result=arr.reduce((a,b)=>{
+                return (a+b)
+             },0)
+
+   -> Currying is used in JavaScript to break down complex function calls into smaller, more manageable steps. It transforms a function with multiple arguments into a series of functions, each taking a single argument.
+
+-> It converts a function with multiple parameters into a sequence of functions.
+-> Each function takes a single argument and returns another function until all arguments are received.
+-> Helps in functional programming by enabling function reusability and composition.
+  eg:
+     function xyz(a){
+        return function(b){
+            return a+b;
+        }
+      }
+      let result=xyz(10);
+      console.log(result(30))//40
+
+-> IIFE (immediately invoke function expression) : it runs as soon it is defined.It is a design pattern used to create a private scope data.
+ (function(){
+
+ })();
+
+ eg:
+  const counter=function(){
+           let count=0;
+           return {
+               increment:function(){
+                 count++;
+                 console.log(`Counter : ${count}`)
+               },
+                decrement:function(){
+                 count--;
+                 console.log(`Counter : ${count}`)
+               },
+               reset:function(){
+                  count=0;
+                  console.log(`Counter : ${count}`)
+               }
+           }
+       }()
+       counter.increment()
+       counter.increment()
+      counter.decrement()
+       counter.reset()
+
+   -> JavaScript event loop : It is the mechanism that allows JavaScript to perform asynchronous operations. (single threaded)
+     -> Callstack 
+       -> execute all synchronous code in the Call Stack until it is empty 
+       -> whenever a asynchronous task is coming , this single thread is always be free to handle new task (queue) (microtask)
+
+       eg:
+      console.log("start")
+      setTimeout(()=>{
+         console.log("Event Call")
+      },2000)
+      console.log("stop")
+
+      start
+      stop 
+      Event Call 
+
+   --> session 10 
+      DOM Manipulation 
+        -> DOM : stand for document object model . It is a tree-like represantation of an HTML Document. It acts as an API that allows javascript to dynamically access , update , and manipulate the content , structure and style of an document.
+        ** javascript is used for runtime dom manupulation.
+          -> Dom structure : The Node Tree 
+            The DOM oragnizes everything on a page into nodes.
+              -> Root Node :  <html> 
+              -> Element Node : <p> <h1> <div> 
+              -> Text Nodes : content within element 
+               <div> (parent)
+                  <p> </p>
+                  <h2> </h2> (child)
+               </div>
+        -> Selecting Element 
+           -> (*) document.getElementById("id") : select an element 
+           -> document.getElementsByName("name") : array 
+           -> document.getELementsByTagName("tagname") : array 
+           -> document.getELementsByClassName("classname") : array 
+
+       -> manupulating element 
+            innerHTML : get or set the html content of a element 
+            textContext : get or set the text content of an element 
+            document.createElement() 
+            .style.property="value"
+      -> Events : to perform task 
+        click 
+        dblclick 
+        mouseover 
+        mouseout 
+        keyup
+        keydown 
+        keypress 
+        blur 
+        focus 
+        change
+        load 
+        reload 
+        submit 
+
+        -> for form field 
+          we have .value property to get and set the values of the form field 
+
+
+   --> 

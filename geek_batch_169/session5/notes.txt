@@ -1,0 +1,8 @@
+--> Bootstrap 5 
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
+Bootstrap is a powerful, feature-packed frontend toolkit. Build anything—from prototype to production—in minutes.
+With the help of it we can create responsive design or layout.
+-> If we want to use bootstrap in our webpage we need to link the css and js file of it in our page.
+  CDN (Content Delivery Network) (online links)
+  -> Bootstrap is work on 12 grid system 
+    1 row  have 12 columns 

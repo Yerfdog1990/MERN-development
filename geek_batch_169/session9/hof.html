@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOF</title>
+</head>
+<body>
+    <h2> HOF Example</h2>
+    <script>
+        const add=(a,b)=> (a+b)
+        const mul=(a,b)=> (a*b)
+        //hof 
+        function calculater(x,y,operation){
+            return operation(x,y)
+        }
+        console.log(calculater(10,5,add))
+        console.log(calculater(10,5,mul))
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call , Apply , Bind</title>
+</head>
+<body>
+    <h2> Call Apply Bind</h2>
+    <script>
+        //  function xyz(message,data){
+        //        console.log(`${message}, ${this.name} ${data}`)
+        //     }
+        // const person={name:"sumit"}
+        // // xyz.call(person,"Hello","!!!!!")
+        // // xyz.apply(person,["Hello","!!!!!"])
+        // const newFunction=xyz.bind(person,"Welcome","!")
+        // newFunction();
+        const stockPrices=[250,750,220,110,999]
+        console.log(`Highest Price : ${Math.max.apply(null,stockPrices)}`)
+        console.log(`Lowest Price : ${Math.min.apply(null,stockPrices)}`)
+    </script>
+</body>
+</html>

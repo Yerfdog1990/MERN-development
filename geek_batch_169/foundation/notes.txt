@@ -1,0 +1,81 @@
+-> Softwares 
+   1. IDE (Editor)
+     Visual Studio Code (Vs code) 
+     https://code.visualstudio.com/download 
+  
+   2. Node Js 
+    https://nodejs.org/en/download 
+    -> verify node is install or not 
+       -> open terminal 
+          node -v 
+        *** when you install node npm is install with it 
+        npm : node package manager (all modules are install with npm) 
+         npm -v 
+
+    3. Install GIT 
+    https://git-scm.com/install/windows 
+      Download and install 
+        -> git gui  
+        -> git bash (command | terminal)
+
+     -> create an account in github 
+     https://github.com/ 
+
+
+       -> Web Designer 
+          html , css , and javascript 
+       -> Web Developer 
+          java , php , .net , python etc  
+
+     -> javascript introduced 
+        Ajax 
+        Jquery (lighweight library)
+
+        2011 : Angular Js (Angular 1) (javascript)
+
+        UI (User Interface)(Front End)
+        2015/2016 : javascript introduced angular 2 (typescript)
+          angular 21 (google)
+        -> React Js (facebook , meta) 
+        -> Vue Js 
+        -> Next Js
+
+        -> * when a node js is introduced then javascript used as backend 
+           mern , mean stack , fullstack with javascript are popular 
+
+ -> fullstack : 
+    Front End + Backend + Database + Deployment = Fullstack developer 
+     -> Front End (UI)
+        Html 
+        Css 
+        javascript 
+        Bootstarp | tailwind 
+        Angular | React | Vue 
+     -> Backend 
+       Node Js 
+       Java : Spring Boot 
+       .netCore 
+       fast API 
+       laravel 
+    -> Database 
+       -> Relational : Sql , MySql , MariaDb etc
+       -> No SQL : MongoDb 
+
+    -> Deployment (Devops)
+        Git and GitHub 
+        -> push the code to github 
+          -> create a CI/CD pipeline (automation)
+             -> Github actions | Jenkins 
+             -> Docker and Kubernates 
+            -> Application is deploy to the production 
+
+
+-> Multipage Application 
+  When a new page is load it though the server (Low)
+  reload the entire page when navigating between different sections.
+-> SPA (Single Page Application) (fast) (React , Angular , Vue)
+  index.html 
+    content is load dynamically without reloading the whole page 
+     (gmail)
+
+        

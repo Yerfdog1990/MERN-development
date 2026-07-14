@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudo Example</title>
+    <style>
+       p::first-line{
+        color:#ff0000
+       }
+        p::first-letter{
+          font-size: xx-large;
+       }
+       p.xyz::before{
+          content: url("https://picsum.photos/200/300");
+       }
+        p.xyz::after{
+          content: url("https://picsum.photos/200/300");
+       }
+       /* p.xyz::first-letter{
+    }
+        */
+    </style>
+</head>
+<body>
+    <h2> Pseudo Element Example</h2>
+     <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusantium voluptatibus aut animi! Excepturi numquam adipisci facere at suscipit sint eaque in? Ipsum dicta voluptatem minus debitis velit vero hic.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusantium voluptatibus aut animi! Excepturi numquam adipisci facere at suscipit sint eaque in? Ipsum dicta voluptatem minus debitis velit vero hic.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit accusantium voluptatibus aut animi! Excepturi numquam adipisci facere at suscipit sint eaque in? Ipsum dicta voluptatem minus debitis velit vero hic.
+     </p>
+     <hr/>
+     <p class="xyz">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat esse, temporibus nobis nam accusantium veritatis eum doloribus debitis molestiae fugit vel corrupti non quas porro deleniti consectetur natus iure veniam.
+     </p>
+</body>
+</html>

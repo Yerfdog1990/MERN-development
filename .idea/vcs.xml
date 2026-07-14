@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Module7-ReactJS/batch70/day6/react-loading-skeleton" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/geek_batch_169/session1/myproject" vcs="Git" />
   </component>
 </project>

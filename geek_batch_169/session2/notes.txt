@@ -1,0 +1,81 @@
+-> HTML : stand for Hyper Text Markup Language. 
+  -> With the help of it we can the structure (layout) of a web page (UI)
+  -> latest version HTML5 
+  -> extension .html or .htm 
+  -> It is not a case sensitive 
+     <html> 
+     </HTML> 
+    
+  -> structure (syntax)
+    -> written in tags < > 
+    <!Doctype html>
+    <html>
+       <head>
+          // define title , meta tags , styles ,scripts 
+       </head>
+       <body>
+         //whole web page is create
+       </body>
+    </html>
+    -> title 
+    -> meta tags 
+     They are used for SEO (Search engine optamization)
+     -> extension : liveserver (install)
+       live reload features (any changes in a file , it compile and updated in a browser)
+
+-> Comments : to describe the code (hide code)
+<!--   -->
+-> Every tag must be closed 
+ <html> </html>
+ <p> </p>
+ <br />
+ <hr /> 
+ <img />
+
+ -> body section 
+  block level elements are start from new line (h1 ,p , div etc)
+  inline elements : take only space which required (inline)
+    <img /> , <span> </span> , <label> , <a> etc 
+
+    -> image 
+    -> Hyperlink 
+    -> List 
+    -> table : collection of row and column 
+    <table> 
+      <tr> 
+         <td> or <th> 
+           -> colspan 
+           -> rowspan 
+
+  -> ** Forms : collection of fields like textbox , radio , checkbox etc 
+        <form>
+        </form>
+          -> attributes 
+            -> name | id=""
+            -> method ="get|post" (by default get)
+               -> get : unsecure method (display in the url)
+               -> post : secure 
+            -> action="filename.ext"
+
+    -> HTML 5 Semantic tags 
+         -> they have a meaining , the structure is more readable and easy to understand
+         <main> </main>
+         <header> </header>
+         <nav> </nav>
+         <footer></footer>
+         <section></section>
+         <aside></aside>
+         <article></article>
+         <figures> </figures>
+
+         <audio> </audio>
+         <vedio></vedio>
+
+        ->Introduction to accessibility and ARIA : these are the attributes (screen readers)
+          roles , states , properties 
+               -> native elements (button , input , select )
+                  role="button" 
+                  role="dialog" 
+        <div> tag : it is a division tag (block level element)
+        <div>
+        </div>

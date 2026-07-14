@@ -1,0 +1,282 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+#root {
+    width: 100%;
+}
+
+/* App Container and Layout */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-title {
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Component Sections */
+.component-section {
+    background: white;
+    border: 3px solid #667eea;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.component-section:hover {
+    border-color: #764ba2;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.section-title {
+    color: #667eea;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #667eea;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.component-wrapper {
+    padding: 15px 0;
+}
+
+/* Event App Styling */
+.event-app-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+}
+
+.event-app-container h1 {
+    margin-bottom: 2rem;
+    color: #333;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.event-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.hover-box {
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+}
+
+div > h1 {
+    margin-bottom: 2rem;
+    color: #333;
+    text-align: center;
+    font-size: 2rem;
+}
+
+div > div:has(> button:first-child),
+div > form {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px 5px 10px 0;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+button:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+button[type="submit"] {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+button[type="submit"]:hover {
+    box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+}
+
+/* Form Elements */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+select:hover {
+    border-color: #667eea;
+}
+
+/* Labels and Input Wrappers */
+label {
+    display: block;
+    margin: 15px 0 8px 0;
+    font-weight: 600;
+    color: #333;
+}
+
+div > div {
+    margin: 20px 0;
+}
+
+div > div > label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+div > div > label input {
+    /* Allow input to grow with flex */
+}
+
+/* Checkbox Styling */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+input[type="checkbox"]:hover {
+    accent-color: #764ba2;
+}
+
+/* Text Input in Label */
+label input[type="text"],
+label input[type="email"],
+label select {
+    margin-left: 10px;
+    flex: 1;
+    max-width: 200px;
+}
+
+/* Hover Box Styling */
+div[onMouseEnter] {
+    transition: all 0.3s ease;
+}
+
+div[onMouseEnter]:hover {
+    background-color: #f0f4ff !important;
+    border-color: #667eea !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Book Styling (existing classes) */
+.book-list {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.book-cover {
+    width: 150px;
+}
+
+.book-title {
+    font-size: 1.2rem;
+}
+
+.book-author {
+    color: gray;
+}
+
+.counter-red {
+    color: red;
+}
+
+.counter-green {
+    color: green;
+}

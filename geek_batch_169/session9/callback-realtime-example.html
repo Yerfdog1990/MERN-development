@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback</title>
+</head>
+<body>
+    <h2> Callback Real Time example</h2>
+    <script>
+       function getUser(uid,callback){
+          console.log("Fetch user from db")
+          setTimeout(()=>{
+               callback({name:'sumit',uid:uid})
+          },2000)
+       }
+       function getServices(user,callback){
+        console.log("Fetch services of user")
+          setTimeout(()=>{
+               callback(["A","B","C","D"])
+          },3000)
+       }
+        function findServicesCost(services,callback){
+          console.log("Find cost of services")
+          setTimeout(()=>{
+               callback(services.length*500)
+          },4000)
+       }
+    
+        getUser(101,(user)=>{
+            console.log(user)
+            getServices(user,(services)=>{
+                 console.log(services)
+                findServicesCost(services,(cost)=>{
+                     console.log(`The services cost id ${cost}`)
+                })
+            })
+        })
+    </script>
+</body>
+</html>

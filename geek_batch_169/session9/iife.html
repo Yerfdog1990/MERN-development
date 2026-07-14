@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIFE</title>
+</head>
+<body>
+    <h2> IIFE</h2>
+    <script>
+       const counter=function(){
+           let count=0;
+           return {
+               increment:function(){
+                 count++;
+                 console.log(`Counter : ${count}`)
+               },
+                decrement:function(){
+                 count--;
+                 console.log(`Counter : ${count}`)
+               },
+               reset:function(){
+                  count=0;
+                  console.log(`Counter : ${count}`)
+               }
+           }
+       }()
+       counter.increment()
+       counter.increment()
+      counter.decrement()
+       counter.reset()
+    </script>
+</body>
+</html>

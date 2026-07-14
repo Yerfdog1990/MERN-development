@@ -1,0 +1,166 @@
+[
+  {
+    "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "name": "Maasai Mara Safari Adventure",
+    "slug": "maasai-mara-safari-adventure",
+    "description": "5-day guided safari through the Maasai Mara with game drives at dawn and dusk, hot-air balloon option, and cultural visits to Maasai villages.",
+    "destination": "Kenya",
+    "durationDays": 5,
+    "price": 1550,
+    "currency": "USD",
+    "maxGroupSize": 12,
+    "difficulty": "easy",
+    "startDates": [
+      "2026-08-10",
+      "2026-09-14",
+      "2026-10-05"
+    ],
+    "ratingsAverage": 4.8,
+    "ratingsCount": 63,
+    "createdAt": "2026-01-15T08:00:00.000Z",
+    "updatedAt": "2026-07-10T09:20:24.484Z",
+    "imageFilename": "tour-f47ac10b-58cc-4372-a567-0e02b2c3d479-4aee895f-d5ca-4cd7-809e-50fe86abaf79.jpg",
+    "imageUrl": "/uploads/tour-f47ac10b-58cc-4372-a567-0e02b2c3d479-4aee895f-d5ca-4cd7-809e-50fe86abaf79.jpg"
+  },
+  {
+    "id": "9c858901-8a57-4791-81fe-4c455b099bc9",
+    "name": "Kilimanjaro Machame Route Trek",
+    "slug": "kilimanjaro-machame-route-trek",
+    "description": "7-day trek to the roof of Africa via the scenic Machame route, with full porter support and acclimatisation days built in.",
+    "destination": "Tanzania",
+    "durationDays": 7,
+    "price": 2900,
+    "currency": "USD",
+    "maxGroupSize": 8,
+    "difficulty": "difficult",
+    "startDates": [
+      "2026-08-01",
+      "2026-09-20"
+    ],
+    "ratingsAverage": 4.9,
+    "ratingsCount": 41,
+    "createdAt": "2026-01-20T08:00:00.000Z",
+    "updatedAt": "2026-01-20T08:00:00.000Z"
+  },
+  {
+    "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "name": "Cape Town & Winelands Explorer",
+    "slug": "cape-town-and-winelands-explorer",
+    "description": "6-day tour of Table Mountain, Cape Point, penguins at Boulders Beach, and tastings across the Stellenbosch winelands.",
+    "destination": "South Africa",
+    "durationDays": 6,
+    "price": 1750,
+    "currency": "USD",
+    "maxGroupSize": 14,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-09-05",
+      "2026-10-17"
+    ],
+    "ratingsAverage": 4.7,
+    "ratingsCount": 52,
+    "createdAt": "2026-02-10T08:00:00.000Z",
+    "updatedAt": "2026-02-10T08:00:00.000Z"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "name": "Gorilla Trekking Bwindi Experience",
+    "slug": "gorilla-trekking-bwindi-experience",
+    "description": "3-day trek into Bwindi Impenetrable Forest to spend a privileged hour with a habituated mountain gorilla family.",
+    "destination": "Uganda",
+    "durationDays": 3,
+    "price": 2200,
+    "currency": "USD",
+    "maxGroupSize": 6,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-08-15",
+      "2026-09-12",
+      "2026-10-10"
+    ],
+    "ratingsAverage": 5,
+    "ratingsCount": 27,
+    "createdAt": "2026-02-18T08:00:00.000Z",
+    "updatedAt": "2026-02-18T08:00:00.000Z"
+  },
+  {
+    "id": "eb791012-5e08-4eed-8b9e-b8d2fe3bc5b6",
+    "name": "Serengeti Great Migration Safari",
+    "description": "6-day safari timed to the wildebeest river crossings in the northern Serengeti.",
+    "destination": "Tanzania",
+    "durationDays": 6,
+    "price": 2400,
+    "maxGroupSize": 10,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-08-05",
+      "2026-09-01"
+    ],
+    "slug": "serengeti-great-migration-safari",
+    "currency": "USD",
+    "ratingsAverage": 0,
+    "ratingsCount": 0,
+    "createdAt": "2026-07-10T09:10:07.471Z",
+    "updatedAt": "2026-07-10T09:10:07.471Z"
+  },
+  {
+    "id": "f37cd3f8-85e7-4a9a-a5af-0a7602e98dca",
+    "name": "Serengeti Great Migration Safari",
+    "description": "6-day safari timed to the wildebeest river crossings in the northern Serengeti.",
+    "destination": "Tanzania",
+    "durationDays": 6,
+    "price": 2400,
+    "maxGroupSize": 10,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-08-05",
+      "2026-09-01"
+    ],
+    "slug": "serengeti-great-migration-safari",
+    "currency": "USD",
+    "ratingsAverage": 0,
+    "ratingsCount": 0,
+    "createdAt": "2026-07-10T09:13:59.773Z",
+    "updatedAt": "2026-07-10T09:13:59.773Z"
+  },
+  {
+    "id": "1742e8de-a3fb-4347-b90b-9acdbb8c6812",
+    "name": "Serengeti Great Migration Safari",
+    "description": "6-day safari timed to the wildebeest river crossings in the northern Serengeti.",
+    "destination": "Tanzania",
+    "durationDays": 6,
+    "price": 2400,
+    "maxGroupSize": 10,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-08-05",
+      "2026-09-01"
+    ],
+    "slug": "serengeti-great-migration-safari",
+    "currency": "USD",
+    "ratingsAverage": 0,
+    "ratingsCount": 0,
+    "createdAt": "2026-07-10T09:16:23.833Z",
+    "updatedAt": "2026-07-10T09:16:23.833Z"
+  },
+  {
+    "id": "c9c4cf47-5a36-4605-933c-6513670d8031",
+    "name": "Serengeti Great Migration Safari",
+    "description": "6-day safari timed to the wildebeest river crossings in the northern Serengeti.",
+    "destination": "Tanzania",
+    "durationDays": 6,
+    "price": 2400,
+    "maxGroupSize": 10,
+    "difficulty": "medium",
+    "startDates": [
+      "2026-08-05",
+      "2026-09-01"
+    ],
+    "slug": "serengeti-great-migration-safari",
+    "currency": "USD",
+    "ratingsAverage": 0,
+    "ratingsCount": 0,
+    "createdAt": "2026-07-10T09:19:33.130Z",
+    "updatedAt": "2026-07-10T09:19:33.130Z"
+  }
+]

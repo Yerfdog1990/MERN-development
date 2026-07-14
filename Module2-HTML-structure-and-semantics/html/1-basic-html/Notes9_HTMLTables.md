@@ -82,12 +82,12 @@ HTML tables help **organise data into rows and columns**, making information eas
   <body>
     <table>
       <tr>
-        <th>Book Name</th>
+        <th>BookApp Name</th>
         <th>Author Name</th>
         <th>Genre</th>
       </tr>
       <tr>
-        <td>The Book Thief</td>
+        <td>The BookApp Thief</td>
         <td>Markus Zusak</td>
         <td>Historical Fiction</td>
       </tr>

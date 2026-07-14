@@ -1,0 +1,41 @@
+@base = http://localhost:3000
+
+### Read all books
+GET {{base}}/books?page=0
+
+### Read a book by id
+GET {{base}}/books/6a55a482c233ce6cc67ab526
+
+### Create a new book
+POST {{base}}/books
+content-type: application/json
+
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "pages": 464,
+  "genre": "Software Engineering",
+  "rating": 4.9
+}
+
+### Delete a book by id
+DELETE {{base}}/books/6a5491112a98751dc69a1bb4
+
+### Update a book by id
+PATCH {{base}}/books/6a54defd3f232326b0987acd
+content-type: application/json
+
+{
+  "_id": "",
+  "title": "Java Performance: The Definitive Guide",
+  "author": "Scotman Oaks",
+  "pages": 450,
+  "genre": "Programming",
+  "rating": 4.9
+}
+
+
+
+
+
+

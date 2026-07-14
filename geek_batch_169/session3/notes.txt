@@ -1,0 +1,137 @@
+--> CSS : Cascading style sheet. It is usedto style out HTML document - colors, fonts , spacing , border etc.
+    syntax :
+      selector{
+        property:value 
+      }
+      eg:
+      h1{
+        color:'red'
+      }
+    -> How we add styles (types of styles)
+       -> Inline Styles : these style are define in any tag with the help of style attribute .
+       eg:
+       <p style="color:'green' ; border:'2px solid red'">
+         ---
+         ---
+       </p>
+       -> Internal (embedded style) : These styles are define in head section with the help of style tag 
+       eg:
+         <html>
+             <head>
+                <style>
+                    h1{}
+                    p{}
+                    a{}
+                </style>
+              </head>
+              <body>
+
+              </body>
+         </html>
+
+         -> External Style (css): we can create a css file with an extension of .css and then we call that css file in any of the webpage of my website.
+           style.css 
+             h1{}
+             p{}
+             a{} 
+           my.html 
+           <html>
+              <head>
+                 <link rel="stylesheet" href="./style.css" />
+              </head>
+              <body>
+                ---
+              </body>
+          </html>
+
+    -> Css Selectors 
+      -> Universal Selctor (*)
+      *{
+         styles 
+      }
+      -> Element Selector 
+       h1 , p , a etc 
+         h1{
+            styles 
+         }
+      -> class selector : it is define with .sign with class name and call in any tag with class attribute 
+        eg:
+          .errror{
+            color:'red'
+          }
+          <p class="red"> Email or password is not correct </p>
+      -> Id selector : (unique style) , it is define with hash sign with id name and call in any tag with id atrribute  
+         eg:
+           #main{
+              //styles 
+           }
+           <div id="main">
+              -----
+           </div>
+
+      ->
+        h1 , h2 , h3 {
+            text-align:'center'
+        }
+
+    -> setting color property 
+       body{
+          color:cyan 
+       }
+         -> color values 
+            -> color keyword or name red , green , yellow etc 
+            -> hex value - like #ff0000 #ffffff (6 digit) ##rrggbb
+            -> a RGB value : rgb(0,0,255)
+
+       -> Preferance 
+           inline ---> internal ---> External 
+
+    -> Pseudo classes : It allow to style the dynamic states of an element such as hover , active , focus state or element existing into our document.
+      start with (:)
+        syntax :
+          selector : pseudo-class{
+              styles
+          }
+        -> hover 
+        a:hover{
+            color:green 
+        }
+        a:link{
+
+        }
+        a:visited{
+
+        }
+        a:active{
+
+        }
+
+        -> :first-child : matches an element that is the first element of the other element .
+
+    -> Pseudo-element ( :: ) 
+       selector :: pseudo-element{
+          style 
+       }
+       eg:
+         ::first-line 
+         ::first-letter 
+         ::befor or after 
+
+    -> Css Fonts 
+        font-family 
+        font-style 
+        font-size 
+           font-size:20px 
+             pixles 
+             em (depend on parent element )
+               parent element 20px 
+                 1em=20px 
+                -> if no size in a parent , then default of the browser 16px 
+                1em=16px 
+              % 
+              rem 
+              1rem=16px 
+              -> unit 
+                 em 
+                 rem 
+       

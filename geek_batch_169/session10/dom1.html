@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOm1</title>
+</head>
+<body>
+    <h2> Dom Manupulation</h2>
+    <p id="target">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex est minus perferendis accusantium voluptates facilis cumque iste, eos porro quos amet consectetur obcaecati necessitatibus, ab animi, odit beatae repellendus quia!
+    </p>
+    <button id="btn"> Click Here</button>
+    <script>
+         //get para and btn 
+         let para=document.getElementById("target");
+         let btn=document.getElementById("btn");
+         //add click event on button 
+         btn.addEventListener("click",()=>{
+            //get data of para 
+            let data=para.innerHTML;
+            alert(data)
+            //set data of para 
+            para.innerHTML="Hello sajdhasjd haskdksa k asjdkjaskd kasjdkasj kj kasjkdj ask";
+            //apply style 
+            para.style.color="green"
+         })
+    </script>
+</body>
+</html>

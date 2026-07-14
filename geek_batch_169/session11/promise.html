@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise </title>
+</head>
+<body>
+    <h2> Promise Example</h2>
+    <script>
+         let promise=new Promise((resolve,reject)=>{
+            let age=11;
+             setTimeout(()=>{
+                if(age>=18){
+                   resolve("Elligible")
+                }
+                else{
+                  reject("Not Elligible")
+                }
+             },2000)
+          })
+
+          promise 
+            .then(res=> console.log(res))
+            .catch(rej=> console.log(rej))
+
+    </script>
+</body>
+</html>

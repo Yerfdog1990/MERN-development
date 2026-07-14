@@ -1,0 +1,89 @@
+*{
+    box-sizing: border-box;
+    margin: 0px auto;
+}
+body{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    background-color: lightgray;
+}
+main{
+    width: 95%;
+    background-color: white;
+}
+header{
+    width: 100%;
+    height: 100px;
+    background-color: crimson;
+    color: white;
+}
+header h1{
+     padding: 30px 70px;
+}
+nav{
+    width: 100%;
+    background-color:darkgrey;
+}
+nav ul{
+    list-style: none;
+    padding: 0px;
+}
+nav ul li{
+    display: inline;
+}
+nav ul li a{
+    display: inline-block;
+    text-decoration: none;
+    color:black;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+nav ul li a:hover{
+    background-color: black;
+    color: white;
+}
+section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* flex-direction: row-reverse; */
+    /* flex-direction: column; */
+}
+aside{
+  width: 20%;
+}
+article{
+ width: 90%;
+}
+footer{
+    width: 100%;
+    height: 30px;
+    background-color: crimson;
+    color:white;
+    text-align: center;
+    padding-top:5px;
+}
+/* 
+media query */
+@media screen and (max-width:750px) {
+  header{
+    background-color: aqua;
+  }
+}
+@media screen and (max-width:500px) {
+    header{
+        background-color: crimson;
+        height: 50px;
+    }
+    header h1{
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+    nav ul li{
+        display: block;
+    }
+    section{
+       display: block; 
+    }
+}

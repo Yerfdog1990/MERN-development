@@ -1,0 +1,139 @@
+@base1 = http://localhost:8001
+@base2 = http://localhost:8002
+@base3 = http://localhost:8003
+@base4 = http://localhost:8004
+@base5 = http://localhost:8005
+@base6 = http://localhost:8006
+@base7 = http://localhost:8007
+@base8 = http://localhost:8008
+@base9 = http://localhost:3001
+@base10 = http://localhost:3000
+@base11 = http://localhost:3002
+@base12 = http://localhost:3004
+
+
+### Basic server
+GET {{base1}}/basic-server
+
+### Application-level middleware
+GET {{base2}}/application-level-middleware
+
+### Multiple middleware
+GET {{base3}}/multiple-middleware
+
+### Builtin middlewares
+POST {{base4}}/login
+
+### Custom middleware
+POST {{base5}}/login
+content-type: application/json
+
+{
+    "username": "bekas",
+    "password": "bekas123"
+}
+
+### Custom Logger Middleware
+POST {{base6}}/login
+content-type: application/json
+
+{
+  "username": "bekas",
+  "password": "bekas123"
+}
+
+### Custom Logger Middleware
+POST {{base7}}/login
+content-type: application/json
+
+{
+  "username": "",
+  "password": "bekas123"
+}
+
+### Router-level Middleware
+POST {{base8}}/login
+content-type: application/json
+
+{
+  "username": "Yerf"
+}
+
+### Third party middlewares - CORS 1
+GET {{base9}}/
+
+### Third party middlewares - CORS 2
+GET {{base9}}/api/data
+
+### Third party middlewares - CORS 3
+POST {{base9}}/api/login
+content-type: application/json
+
+{
+  "username": "Yerf",
+  "password": "Yerf123"
+}
+
+### Third party middlewares - Helmet 1
+GET {{base10}}/
+
+### Third party middlewares - Helmet 2
+GET {{base10}}/api/data
+
+### Third party middlewares - Morgan 1
+GET {{base11}}/
+
+### Third party middlewares - Morgan 2
+GET {{base11}}/api/data
+
+### Third party middlewares - Morgan 3
+POST {{base11}}/api/login
+content-type: application/json
+
+{
+  "username": "Yerf",
+  "password": "Yerf123"
+}
+
+### Third party middlewares - Morgan 4
+GET {{base11}}/api/error
+
+
+/**
+ * Nodemailer Middleware Demo - Email Sending via SMTP
+ *
+ * Nodemailer sends emails using SMTP (Simple Mail Transfer Protocol).
+ * It's great for learning and small apps. For production at scale, consider AWS SES.
+ *
+ * IMPORTANT: Never use your real Gmail password!
+ * Generate a Google App Password instead:
+ * 1. Gmail → Manage your Google Account → Security
+ * 2. Search "App passwords" → verify your identity
+ * 3. Generate a 16-character app password
+ */
+
+
+### Send Email
+POST {{base12}}/send-email
+
+### Send dynamic email
+POST {{base12}}/send-dynamic-email
+content-type: application/json
+
+{
+  "to": "okothouma990@gmail.com",
+  "subject": "Test Dynamic Email",
+  "text": "This is a test email sent with dynamic content",
+  "html": "<h1>Test Email</h1><p>This is a test email sent with dynamic content</p>"
+}
+
+
+
+
+
+
+
+
+
+
+

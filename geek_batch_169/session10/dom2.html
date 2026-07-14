@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOm1</title>
+</head>
+<body>
+    <h2> Dom Manupulation</h2>
+     <ul id="menu"></ul>
+    <button id="btn"> Click Here</button>
+    <script>
+         //get menu and btn 
+         let menu=document.getElementById("menu");
+         let btn=document.getElementById("btn");
+         //add click event on button 
+         btn.addEventListener("click",()=>{
+           let menus=["mens","womens","kids","abc","bca"]
+           menus.forEach(val=>{
+              let list=document.createElement("li");
+              list.textContent=val;
+              menu.appendChild(list)
+           })
+         })
+    </script>
+</body>
+</html>

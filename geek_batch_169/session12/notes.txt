@@ -1,0 +1,126 @@
+--> React Js :  It is an javascript library which is used to develop UI(User Interface) (Front End)
+  -> It is maintained by meta (facebook)
+  -> With the help of React we can develop SPA (Single Page Application)
+
+  --> Features 
+    --> Virtual DOM (speed fast)
+    --> Component Based Architecture (reusability)
+    --> Support JSX (within javascript we can write HTML) 
+
+ -> Environmental Setup (Installation)
+   1. Require node js environemnt 
+     -> download and install node js 
+     https://nodejs.org/en/download 
+     -> check node is install or not 
+       -> open cmd or terminal 
+         node --version 
+
+  2. How we create a react Application 
+     -> open folder in cmd/terminal 
+        npm create vite@latest app_name 
+     -> How we run react app 
+       -> go to app_name folder 
+         npm run dev 
+
+-> How react application is executed or boot 
+  index.html (SPA) 
+    <div id="root"></div>
+    --> main.jsx (main entry point javascript file)
+      -> it get the id root from index.html and render App component (default component) within that div id root.
+
+    --> Components : are the main building block of react application. They are used for reusability. With the help of it we divide our UI into small piecies of code.
+       -> types : function and class 
+          -> How we create function component 
+                 function FunctionName(){
+                    //javascript code 
+                    return (
+                        //html 
+                    )
+                 }
+                 or 
+                 const FunctionName=function(){
+                     //javascript code 
+                    return (
+                        //html 
+                    )
+                 }
+
+                 or 
+                 const FunctionName=()=>{
+                     //javascript code 
+                    return (
+                        //html 
+                    )
+                 }
+            eg:
+              Home.jsx 
+              const Home=()=>{
+                 return(
+                    <div>
+                         <h2> Home Page </h2>
+                    </div>
+                 )
+              }
+              export default Home;
+
+              -> use component in another component 
+              App.jsx 
+              import Home from './Home';
+
+              <Home />
+
+        -> How we render the dynamic data 
+           -> expression { }
+           eg:
+             Home.jsx 
+             const title="Home Page";
+
+             <h3> {title} </h3>
+
+        -> How we render array or object 
+           map() method of javascript 
+           eg:
+           Home.jsx 
+           const courses=["A","B","C","D"]
+
+            <div>
+                <h4> Courses </h4>
+                <ul>
+                   {courses.map((course,index)=>
+                      <li key={index}> {course} </li>
+                   )}
+                </ul>
+            </div>
+
+    -> props (properties): are used to pass data from parent component to child component.Props are read only. Props we can pass as an attribute within a component 
+    eg:
+       App.jsx 
+         const obj={name:'sumit',age:38}
+         <About myobj={obj}/>
+
+    -> How we access props in child component 
+    About.jsx 
+    const About=({myobj})=>{
+        <p> {myobj.name} is {myobj.age} year old! </p>
+    }
+
+    --> state : are used to manage data within a component. we can change state data as per the requirement. When their is any change in state , it automatically update into UI , without referesh.
+       -> to define state we have useState() hook
+         syntax :
+           const [stateName,updateMethod]=useState(initialValue)
+              -> stateName : name of the state 
+              -> updateMethod : handler method used to update state value 
+
+              eg:
+          const [count,setCount]=useState(0)
+
+    -> Conditional Rendering  
+      true/false
+        {
+            courses.length>0 ? 
+              <div> display couses </div> 
+              : 
+              <div> No course Found </div>
+        }
+      true
+        {courses.length>0  && <div> display courses </div>}

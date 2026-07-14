@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+</head>
+<body>
+    <h2> Shallow example</h2>
+     <script>
+      let person={
+         id:101,
+         name:"abc",
+         city:"delhi"
+      }
+       console.log(person)
+       //Shallow copy 
+       let newPerson={...person}
+       console.log(newPerson)
+       newPerson.name="bca"
+        console.log(newPerson)
+        console.log(person)
+     </script>
+    </script>
+</body>
+</html>

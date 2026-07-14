@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currying</title>
+</head>
+<body>
+    <h2> currying</h2>
+    <script>
+        //normal function
+    //    function add(a,b){
+    //     return (a+b);
+    //    }
+    //    console.log(add(10,20));
+    //currying function 
+      function xyz(a){
+        return function(b){
+            return a+b;
+        }
+      }
+      let result=xyz(10);
+      console.log(result(30))//40
+    </script>
+</body>
+</html>

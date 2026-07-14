@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>map,filter and reduce</title>
+</head>
+<body>
+    <h2> map,filter and reduce</h2>
+    <script>
+       let arr=[2,3,4,5,6];
+    //    let newArr=arr.map(val=> val*2)
+    //  let newArr=arr.filter(val=> val%2==0)
+    //    console.log(newArr)
+    let result=arr.reduce((a,b)=>{
+        return (a+b)
+    },0)
+    console.log(result)
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2> Fetch Users</h2>
+    <div id="target">
+
+    </div>
+    <script>
+        (async () => {
+            let api_url = "https://jsonplaceholder.typicode.com/users";
+            try {
+                let resData = await fetch(api_url);
+                let data = await resData.json();
+                let index = 0;
+                let str = `<table border=1> <tr> <th> S.No </th> <th> Name </th> <th> Email </th> <th> Phone </th> </tr>`
+                data.forEach(user => {
+                    index += 1;
+                    str += `<tr> <td>${index} </td> <td> ${user.name} </td> <td> ${user.email} </td> <td> ${user.phone} </td> </tr>`
+                })
+                str += `</table>`;
+                document.getElementById("target").innerHTML = str;
+            
+        }
+           catch (err) {
+            console.log(err)
+        }
+       
+        }) ();
+    </script>
+</body>
+
+</html>

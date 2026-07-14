@@ -1,0 +1,160 @@
+[{
+  "_id": {
+    "$oid": "6a545993fb7d11ce20035372"
+  },
+  "title": "Java Clean Code",
+  "author": "Robert C. Martin",
+  "pages": 464,
+  "genre": "Programming",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a545993fb7d11ce20035373"
+  },
+  "title": "Effective Java",
+  "author": "Joshua Bloch",
+  "pages": 416,
+  "genre": "Programming",
+  "rating": 4.9
+},
+{
+  "_id": {
+    "$oid": "6a545993fb7d11ce20035374"
+  },
+  "title": "Head First Java",
+  "author": "Kathy Sierra",
+  "pages": 688,
+  "genre": "Programming",
+  "rating": 4.7
+},
+{
+  "_id": {
+    "$oid": "6a545993fb7d11ce20035375"
+  },
+  "title": "The Pragmatic Programmer",
+  "author": "Andrew Hunt",
+  "pages": 352,
+  "genre": "Software Engineering",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a545993fb7d11ce20035376"
+  },
+  "title": "Design Patterns",
+  "author": "Erich Gamma",
+  "pages": 395,
+  "genre": "Software Engineering",
+  "rating": 4.6
+},
+{
+  "_id": {
+    "$oid": "6a548ee92a98751dc69a1ba7"
+  },
+  "title": "Beggining Java Programming",
+  "author": "Barry Bard",
+  "Pages": 720,
+  "genre": "Java Programming",
+  "rating": 4.5
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1ba8"
+  },
+  "title": "Effective Java",
+  "author": "Joshua Bloch",
+  "pages": 416,
+  "genre": "Java Programming",
+  "rating": 4.9
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1ba9"
+  },
+  "title": "Head First Java",
+  "author": "Kathy Sierra",
+  "pages": 688,
+  "genre": "Java Programming",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1baa"
+  },
+  "title": "Java: The Complete Reference",
+  "author": "Herbert Schildt",
+  "pages": 1248,
+  "genre": "Java Programming",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bab"
+  },
+  "title": "Core Java Volume I – Fundamentals",
+  "author": "Cay S. Horstmann",
+  "pages": 928,
+  "genre": "Java Programming",
+  "rating": 4.9
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bac"
+  },
+  "title": "Core Java Volume II – Advanced Features",
+  "author": "Cay S. Horstmann",
+  "pages": 816,
+  "genre": "Java Programming",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bad"
+  },
+  "title": "Java Concurrency in Practice",
+  "author": "Brian Goetz",
+  "pages": 432,
+  "genre": "Java Programming",
+  "rating": 4.9
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bae"
+  },
+  "title": "Modern Java in Action",
+  "author": "Raoul-Gabriel Urma",
+  "pages": 592,
+  "genre": "Java Programming",
+  "rating": 4.7
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1baf"
+  },
+  "title": "Spring in Action",
+  "author": "Craig Walls",
+  "pages": 520,
+  "genre": "Java Programming",
+  "rating": 4.8
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bb0"
+  },
+  "title": "Beginning Java Programming",
+  "author": "Barry Burd",
+  "pages": 720,
+  "genre": "Java Programming",
+  "rating": 4.5
+},
+{
+  "_id": {
+    "$oid": "6a5491112a98751dc69a1bb1"
+  },
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "pages": 464,
+  "genre": "Software Engineering",
+  "rating": 4.9
+}]

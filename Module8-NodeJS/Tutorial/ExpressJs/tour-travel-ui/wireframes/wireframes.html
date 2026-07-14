@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TourWorld — Wireframes v1</title>
+<style>
+    :root { --line:#94a3b8; --ink:#0f172a; --muted:#64748b; --bg:#f1f5f9; --note:#fef9c3; --noteline:#ca8a04; }
+    * { box-sizing:border-box; margin:0; }
+    body { font:14px/1.45 ui-sans-serif,system-ui,sans-serif; color:var(--ink); background:var(--bg); }
+
+    /* ---- wireframe chrome (the tool itself) ---- */
+    #chrome { position:sticky; top:0; z-index:50; background:var(--ink); color:#fff; padding:8px 16px; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    #chrome b { margin-right:8px; font-size:13px; }
+    #chrome a { color:#cbd5e1; text-decoration:none; font-size:12px; padding:4px 9px; border:1px solid #475569; border-radius:99px; white-space:nowrap; }
+    #chrome a.active, #chrome a:hover { background:#fff; color:var(--ink); }
+    .screen { display:none; max-width:1100px; margin:24px auto 80px; background:#fff; border:2px solid var(--ink); box-shadow:6px 6px 0 #cbd5e1; }
+    .screen:target { display:block; }
+    #sitemap { display:block; } /* default view */
+    .screen:target ~ #sitemap { display:none; }
+
+    /* ---- wireframe primitives ---- */
+    .bar { border-bottom:2px solid var(--ink); padding:10px 16px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+    .brand { font-weight:800; letter-spacing:.5px; }
+    .navlinks { display:flex; gap:14px; flex:1; justify-content:center; flex-wrap:wrap; }
+    .navlinks a, .link { color:var(--ink); text-decoration:none; border-bottom:1px dashed var(--line); cursor:pointer; }
+    .btn { display:inline-block; border:2px solid var(--ink); padding:6px 14px; font-weight:700; text-decoration:none; color:var(--ink); background:#fff; cursor:pointer; }
+    .btn.primary { background:var(--ink); color:#fff; }
+    .sec { padding:20px 24px; border-bottom:1px solid #e2e8f0; }
+    .sec h2 { font-size:15px; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; color:var(--muted); }
+    .row { display:flex; gap:14px; flex-wrap:wrap; }
+    .col { flex:1; min-width:180px; }
+    .ph { background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 8px,#e2e8f0 8px,#e2e8f0 9px); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; text-align:center; padding:6px; }
+    .ph.img::before { content:"🖼"; margin-right:6px; }
+    .field { border:1px solid var(--line); padding:8px 10px; color:var(--muted); background:#fff; margin-bottom:8px; }
+    .card { border:1px solid var(--line); background:#fff; }
+    .card .pad { padding:10px; }
+    .pill { border:1px solid var(--ink); border-radius:99px; padding:2px 10px; font-size:12px; display:inline-block; margin:2px 2px 2px 0; }
+    .note { background:var(--note); border-left:4px solid var(--noteline); padding:8px 10px; font-size:12px; margin-top:10px; color:#713f12; }
+    .note b { color:#422006; }
+    table.wf { width:100%; border-collapse:collapse; font-size:13px; }
+    table.wf th, table.wf td { border:1px solid var(--line); padding:7px 9px; text-align:left; }
+    table.wf th { background:#f8fafc; text-transform:uppercase; font-size:11px; letter-spacing:.5px; }
+    .layout { display:flex; gap:0; align-items:stretch; }
+    .sidebar { width:220px; border-right:2px solid var(--ink); padding:16px; }
+    .sidebar a { display:block; padding:8px 10px; margin-bottom:4px; text-decoration:none; color:var(--ink); border:1px solid transparent; }
+    .sidebar a.on { border:2px solid var(--ink); font-weight:700; }
+    .main { flex:1; min-width:0; }
+    .stat { border:2px solid var(--ink); padding:14px; text-align:center; flex:1; min-width:130px; }
+    .stat b { display:block; font-size:22px; }
+    .stat span { color:var(--muted); font-size:12px; }
+    .crumb { font-size:12px; color:var(--muted); padding:10px 24px 0; }
+    footer.wf { padding:20px 24px; display:flex; gap:24px; flex-wrap:wrap; background:#f8fafc; }
+    footer.wf div { flex:1; min-width:140px; font-size:12px; color:var(--muted); }
+    footer.wf b { display:block; color:var(--ink); margin-bottom:6px; }
+    .map-group { border:2px solid var(--ink); background:#fff; padding:14px; margin-bottom:18px; }
+    .map-group h3 { margin-bottom:10px; }
+    .map-group a { display:inline-block; margin:4px 6px 4px 0; }
+    .badge { font-size:10px; padding:1px 7px; border-radius:99px; color:#fff; vertical-align:middle; }
+    .b-pub { background:#0d9488; } .b-user { background:#2563eb; } .b-admin { background:#b91c1c; }
+</style>
+</head>
+<body>
+
+<nav id="chrome">
+    <b>TourWorld wireframes</b>
+    <a href="#sitemap">Sitemap</a>
+    <a href="#home">Home</a>
+    <a href="#tours">Tours</a>
+    <a href="#tour-detail">Tour detail</a>
+    <a href="#checkout">Checkout</a>
+    <a href="#confirmation">Confirmation</a>
+    <a href="#login">Login</a>
+    <a href="#register">Register</a>
+    <a href="#account">My bookings</a>
+    <a href="#profile">Profile</a>
+    <a href="#admin">Admin dash</a>
+    <a href="#admin-tours">Admin tours</a>
+    <a href="#admin-bookings">Admin bookings</a>
+    <a href="#admin-users">Admin users</a>
+    <a href="#not-found">404</a>
+</nav>
+
+<!-- ============ 1. HOME (improved landing) ============ -->
+<section class="screen" id="home">
+    <div class="bar">
+        <span class="brand">🌍 TOURWORLD</span>
+        <span class="navlinks">
+            <a href="#home">Home</a><a href="#tours">Tours</a><a href="#home">Destinations</a><a href="#home">About</a><a href="#home">Contact</a>
+        </span>
+        <a class="btn" href="#login">Login</a><a class="btn primary" href="#register">Sign Up</a>
+    </div>
+
+    <div class="sec">
+        <div class="ph img" style="height:300px">HERO — full-bleed destination photo, dark scrim<br>H1: “Travel Beyond Measures” + one-line value prop + [Explore tours] CTA</div>
+        <div class="row" style="margin-top:-26px; padding:0 30px; position:relative">
+            <div class="field col">📍 Destination ▾</div>
+            <div class="field col">📅 Departure date ▾</div>
+            <div class="field col">👥 Travellers ▾</div>
+            <a class="btn primary" href="#tours" style="align-self:stretch; display:flex; align-items:center">Search</a>
+        </div>
+        <div class="note"><b>Best practice:</b> search-first hero — the #1 task on tourism sites is finding a trip. Search maps to <b>GET /tours?destination=&sort=</b>.</div>
+    </div>
+
+    <div class="sec">
+        <h2>Trust strip</h2>
+        <div class="row">
+            <div class="stat"><b>50+</b><span>Destinations</span></div>
+            <div class="stat"><b>200+</b><span>Hotels</span></div>
+            <div class="stat"><b>200k</b><span>Happy tourists</span></div>
+            <div class="stat"><b>4.8★</b><span>Avg. rating</span></div>
+        </div>
+        <div class="note">Numbers upgrade live from <b>GET /tours/stats</b>. Social proof directly under the hero raises conversion.</div>
+    </div>
+
+    <div class="sec">
+        <h2>Featured tours (top-rated)</h2>
+        <div class="row">
+            <a class="card col" href="#tour-detail" style="text-decoration:none">
+                <div class="ph img" style="height:140px">tour photo</div>
+                <div class="pad"><b>Tour name</b><br><span class="pill">5 days</span><span class="pill">★ 4.8</span><br>From <b>$1,550</b> <span style="float:right" class="link">View →</span></div>
+            </a>
+            <a class="card col" href="#tour-detail" style="text-decoration:none"><div class="ph img" style="height:140px">tour photo</div><div class="pad"><b>Tour name</b><br><span class="pill">7 days</span><span class="pill">★ 4.9</span><br>From <b>$2,900</b> <span style="float:right" class="link">View →</span></div></a>
+            <a class="card col" href="#tour-detail" style="text-decoration:none"><div class="ph img" style="height:140px">tour photo</div><div class="pad"><b>Tour name</b><br><span class="pill">3 days</span><span class="pill">★ 5.0</span><br>From <b>$2,200</b> <span style="float:right" class="link">View →</span></div></a>
+        </div>
+        <p style="margin-top:10px"><a class="btn" href="#tours">View all tours →</a></p>
+        <div class="note"><b>GET /tours?sort=-ratingsAverage&amp;limit=3</b> — card = photo, name, duration, rating, price-from, single CTA.</div>
+    </div>
+
+    <div class="sec">
+        <h2>Browse by destination</h2>
+        <div class="row">
+            <a class="ph col" style="height:90px" href="#tours">Kenya (n tours)</a>
+            <a class="ph col" style="height:90px" href="#tours">Tanzania (n tours)</a>
+            <a class="ph col" style="height:90px" href="#tours">Uganda (n tours)</a>
+            <a class="ph col" style="height:90px" href="#tours">South Africa (n tours)</a>
+        </div>
+        <div class="note">Each tile links to <b>/tours?destination=X</b> (pre-filtered listing).</div>
+    </div>
+
+    <div class="sec">
+        <h2>Why book with us</h2>
+        <div class="row">
+            <div class="col card pad">✔ icon — Free cancellation up to 30 days</div>
+            <div class="col card pad">✔ icon — Small groups, expert local guides</div>
+            <div class="col card pad">✔ icon — Secure payment &amp; instant confirmation</div>
+        </div>
+    </div>
+
+    <div class="sec">
+        <h2>Reviews + newsletter</h2>
+        <div class="row">
+            <div class="col card pad">“Review excerpt…” — <b>Name</b>, ★★★★★ <br><span style="color:var(--muted);font-size:12px">Google Reviews badge</span></div>
+            <div class="col card pad">“Review excerpt…” — <b>Name</b>, ★★★★★</div>
+            <div class="col">
+                <b>Get travel deals</b>
+                <div class="field">email address</div>
+                <span class="btn primary">Subscribe</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="wf">
+        <div><b>TourWorld</b>Short blurb + social icons</div>
+        <div><b>Explore</b><a class="link" href="#tours">Tours</a> · Destinations · Deals</div>
+        <div><b>Company</b>About · Contact · Careers</div>
+        <div><b>Support</b>FAQ · Cancellation policy · Terms · Privacy</div>
+        <div><b>Contact</b>tourworld@info.com</div>
+    </footer>
+</section>
+
+<!-- ============ 2. TOURS LISTING ============ -->
+<section class="screen" id="tours">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#home">Home</a><a href="#tours"><b>Tours</b></a></span><a class="btn" href="#login">Login</a></div>
+    <div class="crumb">Home / Tours</div>
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 style="font-size:13px; margin-bottom:10px">FILTERS</h2>
+            <div class="field">Destination ▾</div>
+            <div class="field">Price: min — max</div>
+            <div class="field">Duration ▾</div>
+            <div class="field">Difficulty: ☐ easy ☐ medium ☐ hard</div>
+            <div class="field">Departure month ▾</div>
+            <span class="btn" style="width:100%; text-align:center">Apply</span>
+            <div class="note">Maps 1:1 to API query features: <b>?destination=&amp;price[lte]=&amp;durationDays[gte]=&amp;difficulty=</b></div>
+        </aside>
+        <div class="main">
+            <div class="sec" style="display:flex; justify-content:space-between; align-items:center">
+                <span><b>8 tours</b> found</span>
+                <span class="field" style="margin:0">Sort: Top rated ▾ (price ↑↓, duration, newest)</span>
+            </div>
+            <div class="sec row">
+                <a class="card col" href="#tour-detail" style="text-decoration:none; min-width:230px">
+                    <div class="ph img" style="height:130px">photo</div>
+                    <div class="pad"><b>Maasai Mara Safari</b> ★4.8 (63)<br><span class="pill">Kenya</span><span class="pill">5 days</span><span class="pill">easy</span><br>Next: 2026-08-10 · <b>$1,550</b></div>
+                </a>
+                <a class="card col" href="#tour-detail" style="text-decoration:none; min-width:230px"><div class="ph img" style="height:130px">photo</div><div class="pad"><b>Kilimanjaro Trek</b> ★4.9 (41)<br><span class="pill">Tanzania</span><span class="pill">7 days</span><span class="pill">hard</span><br>Next: 2026-08-01 · <b>$2,900</b></div></a>
+                <a class="card col" href="#tour-detail" style="text-decoration:none; min-width:230px"><div class="ph img" style="height:130px">photo</div><div class="pad"><b>Gorilla Trekking</b> ★5.0 (27)<br><span class="pill">Uganda</span><span class="pill">3 days</span><span class="pill">medium</span><br>Next: 2026-08-15 · <b>$2,200</b></div></a>
+            </div>
+            <div class="sec" style="text-align:center">‹ 1 <b>2</b> 3 › <span class="note" style="display:inline-block; margin-left:12px">pagination from response metadata <b>?page=&amp;limit=</b></span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 3. TOUR DETAIL ============ -->
+<section class="screen" id="tour-detail">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#home">Home</a><a href="#tours">Tours</a></span><a class="btn" href="#login">Login</a></div>
+    <div class="crumb">Home / Tours / Maasai Mara Safari Adventure</div>
+    <div class="sec row">
+        <div style="flex:2; min-width:300px">
+            <div class="ph img" style="height:260px">main photo (from /uploads)</div>
+            <div class="row" style="margin-top:8px"><div class="ph col" style="height:60px">+</div><div class="ph col" style="height:60px">+</div><div class="ph col" style="height:60px">+</div><div class="ph col" style="height:60px">+</div></div>
+            <h1 style="margin:14px 0 4px">Maasai Mara Safari Adventure</h1>
+            <p>★ 4.8 (63 reviews) · 📍 Kenya · <span class="pill">5 days</span> <span class="pill">easy</span> <span class="pill">max 12 people</span></p>
+            <div class="sec" style="padding:14px 0"><h2>Overview</h2><div class="ph" style="height:70px">description paragraph — GET /tours/:id</div></div>
+            <div class="sec" style="padding:14px 0">
+                <h2>Itinerary (accordion)</h2>
+                <div class="field">▸ Day 1 — Arrival &amp; sunset game drive</div>
+                <div class="field">▸ Day 2 — Dawn drive + Maasai village</div>
+                <div class="field">▸ Day 3–5 …</div>
+            </div>
+            <div class="sec" style="padding:14px 0">
+                <h2>Reviews</h2>
+                <div class="card pad" style="margin-bottom:8px">★★★★★ “quote…” — Name, date</div>
+                <div class="card pad">★★★★☆ “quote…” — Name, date</div>
+                <div class="note">Future: reviews resource (<b>GET/POST /tours/:id/reviews</b>, auth required to post).</div>
+            </div>
+        </div>
+        <div style="flex:1; min-width:250px">
+            <div class="card pad" style="position:sticky; top:60px; border-width:2px; border-color:var(--ink)">
+                <b style="font-size:20px">$1,550</b> / person
+                <div class="field" style="margin-top:10px">Departure: 2026-08-10 ▾ <span style="float:right; color:#0d9488">7 seats left</span></div>
+                <div class="field">Travellers: 2 ▾</div>
+                <p style="margin:8px 0"><b>Total: $3,100</b></p>
+                <a class="btn primary" style="width:100%; text-align:center" href="#checkout">Book now</a>
+                <p style="font-size:11px; color:var(--muted); margin-top:8px">Free cancellation · Instant confirmation email</p>
+                <div class="note">Seats-left per departure computed from bookings (capacity logic already in booking.service). Book → <b>#checkout</b>.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 4. CHECKOUT ============ -->
+<section class="screen" id="checkout">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#tours">← Back to tour</a></span></div>
+    <div class="sec"><h2>Step 1 of 2 — Your details ●○</h2></div>
+    <div class="sec row">
+        <div class="col" style="flex:2">
+            <div class="field">Full name</div>
+            <div class="field">Email (confirmation goes here)</div>
+            <div class="field">Phone (optional)</div>
+            <div class="field">Special requests (textarea)</div>
+            <div class="note">Guest checkout allowed (current API needs only name+email). If logged in, fields pre-fill from profile. Submit → <b>POST /bookings</b>; 422/409 errors render inline next to fields.</div>
+            <a class="btn primary" href="#confirmation">Confirm booking →</a>
+        </div>
+        <div class="col card pad">
+            <b>Order summary</b>
+            <div class="ph img" style="height:80px; margin:8px 0">tour thumb</div>
+            Maasai Mara Safari · 5 days<br>Departure: 2026-08-10<br>2 travellers × $1,550
+            <hr><b>Total: $3,100</b>
+            <div class="note">Price always recomputed server-side.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 5. CONFIRMATION ============ -->
+<section class="screen" id="confirmation">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span></div>
+    <div class="sec" style="text-align:center; padding:60px 24px">
+        <div style="font-size:50px">✅</div>
+        <h1>Booking confirmed!</h1>
+        <p>Ref: <b>b49f61ba…</b> — confirmation email sent to jane@example.com</p>
+        <div class="card pad" style="max-width:400px; margin:16px auto; text-align:left">Maasai Mara Safari · 2026-08-10 · 2 travellers · <b>$3,100</b></div>
+        <a class="btn" href="#account">View my bookings</a> <a class="btn primary" href="#tours">Browse more tours</a>
+        <div class="note" style="text-align:left; max-width:500px; margin:16px auto">Mirrors the 201 response + Nodemailer email already implemented. If guest: prompt “Create an account to manage this booking” → <b>#register</b>.</div>
+    </div>
+</section>
+
+<!-- ============ 6. LOGIN ============ -->
+<section class="screen" id="login">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#home">← Home</a></span></div>
+    <div class="sec" style="max-width:400px; margin:40px auto">
+        <h1 style="margin-bottom:14px">Welcome back</h1>
+        <div class="field">Email</div>
+        <div class="field">Password 👁</div>
+        <a class="btn primary" style="width:100%; text-align:center" href="#account">Login</a>
+        <p style="margin-top:10px; font-size:12px"><span class="link">Forgot password?</span> · No account? <a class="link" href="#register">Sign up</a></p>
+        <div class="note">Future API: <b>POST /auth/login</b> → JWT (httpOnly cookie). Role in token decides redirect: user → <b>#account</b>, admin → <b>#admin</b>.</div>
+    </div>
+</section>
+
+<!-- ============ 7. REGISTER ============ -->
+<section class="screen" id="register">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#home">← Home</a></span></div>
+    <div class="sec" style="max-width:400px; margin:40px auto">
+        <h1 style="margin-bottom:14px">Create account</h1>
+        <div class="field">Full name</div>
+        <div class="field">Email</div>
+        <div class="field">Password (min 8, 1 uppercase, 1 number)</div>
+        <div class="field">Confirm password</div>
+        <a class="btn primary" style="width:100%; text-align:center" href="#account">Sign up</a>
+        <div class="note">Future API: <b>POST /auth/register</b> (default role: user). Same validation pipeline as tours/bookings.</div>
+    </div>
+</section>
+
+<!-- ============ 8. USER — MY BOOKINGS ============ -->
+<section class="screen" id="account">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#tours">Tours</a></span><span>Jane ▾ <span class="badge b-user">user</span></span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a class="on" href="#account">My bookings</a>
+            <a href="#profile">Profile settings</a>
+            <a href="#account">My reviews</a>
+            <a href="#home">Logout</a>
+        </aside>
+        <div class="main">
+            <div class="sec"><h1>My bookings</h1><p style="color:var(--muted)">Tabs: <b>Upcoming</b> · Past · Cancelled</p></div>
+            <div class="sec">
+                <div class="card pad" style="margin-bottom:10px">
+                    <div class="row">
+                        <div class="ph img" style="width:110px; height:70px">thumb</div>
+                        <div class="col"><b>Maasai Mara Safari</b><br>2026-08-10 · 2 travellers · $3,100<br><span class="pill" style="border-color:#0d9488; color:#0d9488">confirmed</span></div>
+                        <div><a class="btn" href="#tour-detail">View tour</a> <span class="btn">Cancel</span></div>
+                    </div>
+                </div>
+                <div class="card pad" style="opacity:.6">
+                    <div class="row">
+                        <div class="ph img" style="width:110px; height:70px">thumb</div>
+                        <div class="col"><b>Zanzibar Escape</b><br>2025-11-30 · past · $890<br><span class="pill">completed</span></div>
+                        <div><span class="btn">Leave a review ★</span></div>
+                    </div>
+                </div>
+                <div class="note"><b>GET /bookings?mine</b> (JWT-scoped) · Cancel → existing <b>PATCH /bookings/:id/cancel</b> with confirm dialog · review CTA only on past trips.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 9. USER — PROFILE ============ -->
+<section class="screen" id="profile">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span><span class="navlinks"><a href="#tours">Tours</a></span><span>Jane ▾ <span class="badge b-user">user</span></span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="#account">My bookings</a>
+            <a class="on" href="#profile">Profile settings</a>
+            <a href="#account">My reviews</a>
+            <a href="#home">Logout</a>
+        </aside>
+        <div class="main">
+            <div class="sec"><h1>Profile settings</h1></div>
+            <div class="sec row">
+                <div class="col">
+                    <h2>Details</h2>
+                    <div class="ph" style="width:80px; height:80px; border-radius:50%">avatar</div>
+                    <div class="field" style="margin-top:8px">Full name</div>
+                    <div class="field">Email</div>
+                    <span class="btn primary">Save changes</span>
+                </div>
+                <div class="col">
+                    <h2>Password</h2>
+                    <div class="field">Current password</div>
+                    <div class="field">New password</div>
+                    <span class="btn">Update password</span>
+                    <div class="note">Future: <b>PATCH /users/me</b> and <b>PATCH /users/me/password</b>. Danger zone below: delete account (soft-delete).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 10. ADMIN — DASHBOARD ============ -->
+<section class="screen" id="admin">
+    <div class="bar" style="background:var(--ink); color:#fff"><span class="brand">🌍 ADMIN</span><span class="navlinks"></span><span>Godfrey ▾ <span class="badge b-admin">admin</span></span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a class="on" href="#admin">Dashboard</a>
+            <a href="#admin-tours">Tours</a>
+            <a href="#admin-bookings">Bookings</a>
+            <a href="#admin-users">Users</a>
+            <a href="#home">↗ View site</a>
+        </aside>
+        <div class="main">
+            <div class="sec"><h1>Dashboard</h1></div>
+            <div class="sec row">
+                <div class="stat"><b>8</b><span>Active tours</span></div>
+                <div class="stat"><b>34</b><span>Bookings this month</span></div>
+                <div class="stat"><b>$41,200</b><span>Revenue this month</span></div>
+                <div class="stat"><b>4.8★</b><span>Avg rating</span></div>
+            </div>
+            <div class="sec row">
+                <div class="col card pad"><b>Bookings over time</b><div class="ph" style="height:140px">line chart</div></div>
+                <div class="col card pad"><b>Tours by difficulty</b><div class="ph" style="height:140px">bar chart — GET /tours/stats</div></div>
+            </div>
+            <div class="sec">
+                <h2>Recent bookings</h2>
+                <table class="wf"><tr><th>Ref</th><th>Tour</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>
+                <tr><td>b49f…</td><td>Maasai Mara</td><td>Jane Doe</td><td>2026-08-10</td><td>$3,100</td><td>confirmed</td></tr>
+                <tr><td>d71d…</td><td>Serengeti</td><td>J. Smith</td><td>2026-08-05</td><td>$2,400</td><td>confirmed</td></tr></table>
+                <div class="note">Revenue/derived stats: future <b>GET /bookings/stats</b> (aggregate over bookings.json). Whole area behind <b>role=admin</b> route guard.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 11. ADMIN — TOURS CRUD ============ -->
+<section class="screen" id="admin-tours">
+    <div class="bar" style="background:var(--ink); color:#fff"><span class="brand">🌍 ADMIN</span><span class="navlinks"></span><span class="badge b-admin">admin</span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="#admin">Dashboard</a><a class="on" href="#admin-tours">Tours</a><a href="#admin-bookings">Bookings</a><a href="#admin-users">Users</a><a href="#home">↗ View site</a>
+        </aside>
+        <div class="main">
+            <div class="sec" style="display:flex; justify-content:space-between"><h1>Tours</h1><span class="btn primary">+ New tour</span></div>
+            <div class="sec">
+                <div class="field" style="max-width:280px">🔍 search tours…</div>
+                <table class="wf">
+                    <tr><th>Image</th><th>Name</th><th>Destination</th><th>Price</th><th>Rating</th><th>Departures</th><th></th></tr>
+                    <tr><td><div class="ph img" style="width:56px;height:36px"></div></td><td>Maasai Mara Safari</td><td>Kenya</td><td>$1,550</td><td>4.8</td><td>3</td><td><span class="link">Edit</span> · <span class="link" style="color:#b91c1c">Delete</span></td></tr>
+                    <tr><td><div class="ph img" style="width:56px;height:36px"></div></td><td>Kilimanjaro Trek</td><td>Tanzania</td><td>$2,900</td><td>4.9</td><td>2</td><td><span class="link">Edit</span> · <span class="link" style="color:#b91c1c">Delete</span></td></tr>
+                </table>
+            </div>
+            <div class="sec">
+                <h2>Edit tour (drawer / modal)</h2>
+                <div class="row">
+                    <div class="col">
+                        <div class="field">Name</div>
+                        <div class="field">Destination</div>
+                        <div class="row"><div class="field col">Price</div><div class="field col">Duration (days)</div><div class="field col">Max group</div></div>
+                        <div class="field">Difficulty ▾</div>
+                        <div class="field">Start dates (chips: 2026-08-10 ✕, + add)</div>
+                        <div class="field" style="height:60px">Description</div>
+                        <span class="btn primary">Save</span> <span class="btn">Cancel</span>
+                    </div>
+                    <div class="col">
+                        <div class="ph img" style="height:120px">image dropzone<br>(max 5MB, jpg/png/webp)</div>
+                        <div class="note">Full reuse of existing endpoints: <b>POST/PATCH/DELETE /tours/:id</b> + <b>POST /tours/:id/image</b> (Multer). Inline 422 errors from the validators. Delete asks for confirmation, warns if bookings exist.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 12. ADMIN — BOOKINGS ============ -->
+<section class="screen" id="admin-bookings">
+    <div class="bar" style="background:var(--ink); color:#fff"><span class="brand">🌍 ADMIN</span><span class="navlinks"></span><span class="badge b-admin">admin</span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="#admin">Dashboard</a><a href="#admin-tours">Tours</a><a class="on" href="#admin-bookings">Bookings</a><a href="#admin-users">Users</a><a href="#home">↗ View site</a>
+        </aside>
+        <div class="main">
+            <div class="sec"><h1>Bookings</h1></div>
+            <div class="sec">
+                <div class="row" style="margin-bottom:10px">
+                    <div class="field col">Filter: tour ▾</div><div class="field col">Status ▾</div><div class="field col">Date range</div><div class="field col">🔍 customer email</div>
+                </div>
+                <table class="wf">
+                    <tr><th>Ref</th><th>Tour</th><th>Departure</th><th>Customer</th><th>Pax</th><th>Total</th><th>Status</th><th></th></tr>
+                    <tr><td>b49f…</td><td>Maasai Mara</td><td>2026-08-10</td><td>jane@example.com</td><td>2</td><td>$3,100</td><td>confirmed</td><td><span class="link">Cancel</span></td></tr>
+                    <tr><td>67e3…</td><td>Maasai Mara</td><td>2026-08-10</td><td>gouma…@gmail.com</td><td>2</td><td>$3,100</td><td>confirmed</td><td><span class="link">Cancel</span></td></tr>
+                </table>
+                <div class="note"><b>GET /bookings</b> + existing filters; capacity column per departure would reuse the seats-left calc. Export CSV button (client-side).</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 13. ADMIN — USERS ============ -->
+<section class="screen" id="admin-users">
+    <div class="bar" style="background:var(--ink); color:#fff"><span class="brand">🌍 ADMIN</span><span class="navlinks"></span><span class="badge b-admin">admin</span></div>
+    <div class="layout">
+        <aside class="sidebar">
+            <a href="#admin">Dashboard</a><a href="#admin-tours">Tours</a><a href="#admin-bookings">Bookings</a><a class="on" href="#admin-users">Users</a><a href="#home">↗ View site</a>
+        </aside>
+        <div class="main">
+            <div class="sec"><h1>Users</h1></div>
+            <div class="sec">
+                <table class="wf">
+                    <tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Bookings</th><th></th></tr>
+                    <tr><td>Godfrey O.</td><td>gouma308@gmail.com</td><td><span class="badge b-admin">admin</span></td><td>2026-01-02</td><td>4</td><td><span class="link">Edit role</span></td></tr>
+                    <tr><td>Jane Doe</td><td>jane@example.com</td><td><span class="badge b-user">user</span></td><td>2026-03-14</td><td>2</td><td><span class="link">Edit role</span> · <span class="link" style="color:#b91c1c">Deactivate</span></td></tr>
+                </table>
+                <div class="note">Future: <b>users</b> resource (JsonStore("users.json")) + <b>GET/PATCH /users</b> admin-only. Role changes require confirm; admins cannot demote themselves.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 14. 404 ============ -->
+<section class="screen" id="not-found">
+    <div class="bar"><span class="brand">🌍 TOURWORLD</span></div>
+    <div class="sec" style="text-align:center; padding:70px 24px">
+        <h1 style="font-size:46px">404</h1>
+        <p>Looks like this destination doesn’t exist.</p>
+        <div class="ph img" style="height:120px; max-width:300px; margin:14px auto">lost-traveller illustration</div>
+        <a class="btn primary" href="#home">Back home</a> <a class="btn" href="#tours">Browse tours</a>
+    </div>
+</section>
+
+<!-- ============ SITEMAP (default view) ============ -->
+<section id="sitemap" class="screen" style="padding:24px">
+    <h1 style="margin-bottom:4px">TourWorld — wireframes v1</h1>
+    <p style="color:var(--muted); margin-bottom:20px">Click any page (also in the top bar). Yellow notes on each screen document behaviour + API mapping.</p>
+
+    <div class="map-group">
+        <h3>Public <span class="badge b-pub">no login</span></h3>
+        <a class="btn" href="#home">Home / Landing</a>
+        <a class="btn" href="#tours">Tours listing</a>
+        <a class="btn" href="#tour-detail">Tour detail</a>
+        <a class="btn" href="#checkout">Checkout</a>
+        <a class="btn" href="#confirmation">Booking confirmation</a>
+        <a class="btn" href="#login">Login</a>
+        <a class="btn" href="#register">Register</a>
+        <a class="btn" href="#not-found">404</a>
+    </div>
+    <div class="map-group">
+        <h3>User account <span class="badge b-user">role: user</span></h3>
+        <a class="btn" href="#account">My bookings</a>
+        <a class="btn" href="#profile">Profile settings</a>
+    </div>
+    <div class="map-group">
+        <h3>Admin area <span class="badge b-admin">role: admin</span></h3>
+        <a class="btn" href="#admin">Dashboard</a>
+        <a class="btn" href="#admin-tours">Manage tours</a>
+        <a class="btn" href="#admin-bookings">Manage bookings</a>
+        <a class="btn" href="#admin-users">Manage users</a>
+    </div>
+
+    <div class="note" style="max-width:760px">
+        <b>Primary user flow:</b> Home → search → Tours listing → Tour detail → Checkout → Confirmation → (register) → My bookings.<br>
+        <b>Backend gaps this design implies (build later):</b> auth (register/login/JWT + roles), users resource, bookings-mine scoping, reviews resource, booking/revenue stats. Everything else maps to endpoints that already exist.
+    </div>
+</section>
+
+</body>
+</html>

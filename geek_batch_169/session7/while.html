@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+</head>
+<body>
+    <h2> while example</h2>
+    <script>
+      //input a number ,reverse it and also find the sum of the digit of a number 
+    //   eg: 1234 , 4321 , 10
+      let num=parseInt(prompt("Enter number : "))//123
+      let rev=0;
+      let sum=0;
+      while(num>=1)
+      {
+         x=num%10;//3 2 1
+         rev=(rev*10)+x;//3 32 321
+         sum=sum+x;//3 5 6
+         num=parseInt(num/10);//12 1
+      }
+      alert(`reverse : ${rev} and sum : ${sum}`)
+    </script>
+</body>
+</html>

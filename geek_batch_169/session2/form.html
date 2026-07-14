@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Implementation</title>
+</head>
+<body>
+    <h2> Forms Example</h2>
+    <form method="post">
+        <!-- textfield-->
+         Full Name : <input type="text" placeholder="Enter name" required/> <br/>
+         <!-- email field-->
+        Email : <input type="email" placeholder="Enter email" required/> <br/>
+        <!-- password-->
+        Password : <input type="password" placeholder="Enter password " required/><br/>
+        <!-- radio buttons (only 1 select)-->
+         Gender : <input type="radio" name="gen" value="male" /> Male 
+         <input type="radio" name="gen" value="female" /> Female<br/>
+         <!-- check box (multiple select)-->
+        Hobbies : <input type="checkbox" name="c1[]" value="tt" /> TT 
+        <input type="checkbox" name="c1[]" value="football" /> Football 
+        <input type="checkbox" name="c1[]" value="cricket" /> Cricket  <br/>
+        <!-- select or dropdown-->
+        City : <select>
+            <option value="noida"> Noida</option>
+             <option value="delhi"> Delhi</option>
+              <option value="gurugram"> Gurugram</option>
+        </select> <br/>
+        Age : <input type="number" /> <br/>
+        Dob : <input type="date" /> <br/>
+        Color : <input type="color" /> <br/>
+        Time : <input type="time" /> <br/>
+        Date Time : <input type="datetime-local" /> <br/>
+        Remarks : <textarea></textarea> <br/>
+        URL: <input type="url" /> <br/>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Reset" /> 
+        <input type="button" value="Add"/>
+    </form>
+</body>
+</html>

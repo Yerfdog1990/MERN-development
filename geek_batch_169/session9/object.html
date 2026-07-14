@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <h2> JavaScript Objects </h2>
+    <script>
+        // let myobj={
+        //     name:"sumit",
+        //     age:38,
+        //     details:function(){
+        //         return "Emp Details"
+        //     }
+        // }
+        // console.log(myobj.name)
+        // console.log(myobj['age'])
+        // console.log(myobj.details())
+        //  let myobj={
+        //     name:"sumit",
+        //     age:38,
+        //     details:function(){
+        //         return `${this.name} is ${this.age} year old!`
+        //     }
+        // }
+        // console.log(myobj.details())
+        const obj={
+            name:"abc",
+            age:34,
+            city:"noida"
+        }
+        // console.log(Object.keys(obj)) // all keys 
+        // console.log(Object.values(obj)) // all values 
+        // console.log(Object.entries(obj)) // both keys and values
+        // for(let [key,value] of Object.entries(obj)){
+        //     console.log(key+"----"+value)
+        // }
+        for(let key in obj){
+            console.log(obj[key])
+        }
+    </script>
+</body>
+</html>

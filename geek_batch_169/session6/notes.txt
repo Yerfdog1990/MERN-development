@@ -1,0 +1,86 @@
+--> ** Javascript : It is a programming language used to create dynamic contents in our web page. It is a client side language (execute through browser) , when node js introduced then it is server side, it means we can run Javascript code outside the browser.
+  *** Javascript is used for both client and server side.
+     -> client side : execute by the browser (frontend)
+     -> server side : node js runtime environment (backend)
+
+    -> Javascript is work on ECMAScript standard (ES )
+        -> Old Javascript (Vanella Javascript) : Es 5 
+        -> Around 2015/2016 (Es 6 ,.....) : new features are introduced 
+
+  -> When we execute a javascript code , it execute in a browser 
+     -> Every browser have a javascript engine 
+       -> V8(*) : chrome 
+       -> Spider Monkey : Firefox 
+       -> Chakra : IE  
+
+ --> Javascript is case sensitive language 
+ --> extension is .js 
+ --> How we run javascript 
+    -> Internal 
+      home.html 
+      <html>
+        <body>
+           ---
+           <script>
+             js code 
+           </script>
+      </html>
+    ->external 
+      my.js 
+        jscode 
+     <html>
+        <body>
+           ---
+           <script src="my.js"> 
+           </script>
+      </html>
+    -> How we print data in a browser (output)
+       document.write("Hello") 
+    -> console : here we find all javascript errors , and it is used for developer to debug code 
+        console.log("message")
+
+    -> Comments : describe the code (hide)
+       -> single line : // 
+       -> multi line : /*  */
+
+    -> How Javascript code is executed 
+       -> Code is loaded 
+       -> Execution context is created 
+       -> Code runs line by line 
+       -> Functions go to callstack
+       -> Event loop manage execution 
+
+       1. Js engine executes the code 
+          -> Read Javascript code 
+          -> Convert it into machine code 
+          -> Execute it 
+       2. Execution context 
+         -> When javascript run , it creates an Execution Context 
+            -> 3 types 
+            1.Global Execution Context (GEC): This is the default context created when a script first starts running. It creates a global object (e.g., window in browsers or global in Node.js) and sets the this keyword to point to it. There is only ever one global context in a program.
+2.Function Execution Context (FEC): A new context is created every time a function is invoked. Each function call has its own independent context, which contains its local variables and arguments.
+3.Eval Execution Context: Created specifically for code executed inside an eval() function, though this is rarely used in modern development. 
+
+ --> 3. Javascript is run in 2 phases 
+     -> Phase 1 : Memory Creation Phase (Hoisting)
+        Variables and functions are store in a memory
+     -> Phase 2 : Code Execution Phase 
+        Actual values are assigned 
+
+ --> *** Javascript is Single-Threaded 
+    Javascript runs one task at a time 
+
+      callstack <-- Event Loop <-- Callback Queue <-- Web API 
+
+ --> downlaod and install node js (Node js environment )
+    https://nodejs.org/en/download 
+    -- when we install node , it also install npm with the package 
+      npm : node package manager (all 3rd party modules downlaod from npm)
+      -> How we check node and npm is install in our system 
+         node -v 
+         npm -v 
+    
+    --> 
+
+
+               

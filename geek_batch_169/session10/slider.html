@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+</head>
+<body>
+    <h2> Image Slider</h2>
+    <p>
+        <img src="./images/1.jfif" width="500" height="300" id="myimage"/>
+    </p>
+    <script>
+        let myimage=document.getElementById("myimage");
+        let index=0
+         function slider(){
+            let arr=["./images/2.jfif","./images/3.jfif","./images/4.jfif","./images/5.jfif","./images/1.jfif"]
+            myimage.setAttribute("src",arr[index])
+            index++
+            if(index==5){
+                index=0
+            }
+         }
+         setInterval(slider,3000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closures</title>
+</head>
+<body>
+    <h2> Closures</h2>
+    <script>
+        function Outer(){
+             let counter=0;
+             function inner()
+             {
+                return counter+=1;
+             }
+             return inner;
+        }
+        const getCounter=Outer();
+        console.log(getCounter())
+        console.log(getCounter())
+        console.log(getCounter())
+        console.log(getCounter())
+        console.log(getCounter())
+    </script>
+</body>
+</html>

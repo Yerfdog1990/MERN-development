@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudo Example</title>
+    <style>
+       a:hover{
+          color:white;
+          background-color: black;
+          text-decoration: none;
+       }
+       a:active{
+         color:green
+       }
+       ol li:first-child{
+          color:green
+       }
+        ol li:last-child{
+          color:red
+       }
+       ol li:nth-child(3n){
+         color:brown
+       }
+
+       a.error:hover{
+         color:green
+       }
+    </style>
+</head>
+<body>
+    <h2> Pseudo Class Example</h2>
+    <a href="#"> Click Here</a>
+    <hr/>
+    <hr/>
+      <ol>
+          <li> A</li>
+          <li> B</li>
+          <li> C</li>
+          <li> D</li>
+      </ol>
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "c7157fc2-9dfb-4947-9da1-0d4ad4686425",
+    "name": "Godfrey Ouma",
+    "email": "gouma308@gmail.com",
+    "passwordHash": "$2b$12$fbTaffkAUiYEuzJu.qI8LeczWG2AOcWKP1J2Ase.2t0kj88oxXN02",
+    "role": "admin",
+    "active": true,
+    "createdAt": "2026-07-11T03:47:37.997Z",
+    "updatedAt": "2026-07-11T03:47:37.997Z"
+  },
+  {
+    "id": "302b0970-1d80-4745-a9ba-d80335cea31a",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "passwordHash": "$2b$12$90aAcN39ea83Bq0NrSPL/eqe6nAvcHBl7WNleWPbQIaqqi0yUBvWe",
+    "role": "user",
+    "active": true,
+    "createdAt": "2026-07-11T03:51:28.154Z",
+    "updatedAt": "2026-07-11T03:51:28.154Z"
+  }
+]
