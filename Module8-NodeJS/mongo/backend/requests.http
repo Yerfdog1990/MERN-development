@@ -28,7 +28,7 @@ content-type: application/json
 {
   "_id": "",
   "title": "Java Performance: The Definitive Guide",
-  "author": "Scotman Oaks",
+  "author": "Scotman Oakland",
   "pages": 450,
   "genre": "Programming",
   "rating": 4.9

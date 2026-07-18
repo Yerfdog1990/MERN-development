@@ -23,7 +23,7 @@ connectToDB((err) => {
 app.get('/books', (req, res) => {
     // Current page
     const page = parseInt(req.query.page) || 0;
-    const booksPerPage = 3;
+    const booksPerPage = 10;
 
     let books = [];
     db.collection('books')
