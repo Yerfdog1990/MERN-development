@@ -1,0 +1,29 @@
+### Base URL
+@base = http://localhost:5001/api/notes
+
+### Get all notes
+GET {{base}}/
+
+### Create a new note
+POST {{base}}/
+content-Type: application/json
+
+{
+  "title": "Sample Note 10",
+  "content": "This is a sample note 10 content."
+}
+
+### Get a single note by ID
+GET {{base}}/6a5a33a880dc237408fa2e5a
+
+### Update a note by ID
+PUT {{base}}/6a5a35af3fe80fa1eb9ef425
+content-type: application/json
+
+{
+  "title": "Sample Note 3 (new)",
+  "content": "This is a sample note 3 content."
+}
+
+### Delete a note by ID
+DELETE {{base}}/6a5a35af3fe80fa1eb9ef425

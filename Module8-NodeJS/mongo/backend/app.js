@@ -1,9 +1,11 @@
 import express from "express";
+import cors from "cors";
 import {connectToDB, getDb} from "./db.js";
 import {ObjectId} from "mongodb";
 
 // Initialize express app and middleware
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // db connection
@@ -23,7 +25,7 @@ connectToDB((err) => {
 app.get('/books', (req, res) => {
     // Current page
     const page = parseInt(req.query.page) || 0;
-    const booksPerPage = 10;
+    const booksPerPage = 6;
 
     let books = [];
     db.collection('books')
@@ -101,7 +103,6 @@ app.patch('/books/:id', (req, res) => {
         db.collection("books")
             .updateOne({_id: new ObjectId(req.params.id)}, {$set: updates})
             .then(result => {
-                res.status(200).json(result);
                 if (result.matchedCount === 0) {
                     res.status(404).json({error: 'Book not found'});
                 } else {
