@@ -4,6 +4,7 @@ import connectDB from "./src/config/db.js";
 import dotenv from "dotenv";
 import rateLimiter from "./src/middlewares/rateLimiter.js";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
@@ -13,15 +14,27 @@ const app = express();
 app.set('trust proxy', true);
 
 const PORT = process.env.PORT || 5001;
+const _dirname = path.resolve();
 
 // middleware
-app.use(cors({
-    origin: "http://localhost:5173"
-}));
+if (process.env.NODE_ENV === "development"){
+    app.use(cors({
+        origin: "http://localhost:5173"
+    }));
+}
+
 app.use(express.json());
 app.use(rateLimiter);
 
 app.use("/api/notes", userRoutes);
+
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(_dirname, "../frontend/dist")));
+
+    app.use((req, res) => {
+        res.sendFile(path.join(_dirname, "../frontend/dist/index.html"));
+    });
+}
 
 connectDB().then(() =>{
     app.listen(PORT, ()=>{
